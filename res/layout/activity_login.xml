@@ -8,9 +8,64 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".LoginActivity" >
 
-    <TextView
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/text_edit_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_login"
+            android:inputType="textPersonName" />
+
+        <EditText
+            android:id="@+id/text_edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/hint_passwd"
+            android:inputType="textPassword" >
+
+            <requestFocus />
+        </EditText>
+
+        <CheckBox
+            android:id="@+id/check_box_autologin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/radio_remember_me" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center" >
+
+            <Button
+                android:id="@+id/button_create_account"
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.38"
+                android:text="@string/button_create_account" />
+
+            <Button
+                android:id="@+id/button_cancel_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/button_cancel_connection" />
+
+            <Button
+                android:id="@+id/button_accept_connection"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/button_accept_connection" />
+        </LinearLayout>
+
+    </LinearLayout>
 
 </RelativeLayout>
