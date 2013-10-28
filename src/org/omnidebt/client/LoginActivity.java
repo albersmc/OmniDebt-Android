@@ -55,6 +55,11 @@ public class LoginActivity extends Activity {
 	    		Log.d("login", "Successfuly authenticated, launching MainODActivity");
 	    		Intent mainActivity = new Intent(v.getContext(), MainODActivity.class);
 	            startActivity(mainActivity);
+	            overridePendingTransition(R.anim.right_in, R.anim.left_out);
+	    	}
+	    	else {
+	    		etLogin.setText("");
+				etPassword.setText("");
 	    	}
 	    }
 	};
@@ -75,6 +80,7 @@ public class LoginActivity extends Activity {
 	    	Log.d("login", "Successfuly authenticated, launching MainODActivity");
     		Intent registerActivity = new Intent(v.getContext(), RegisterActivity.class);
             startActivity(registerActivity);
+            overridePendingTransition(R.anim.top_in, R.anim.none);
 	    }
 	};
 }

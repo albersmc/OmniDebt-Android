@@ -18,5 +18,11 @@ public class RegisterActivity extends Activity {
 		getMenuInflater().inflate(R.menu.register, menu);
 		return true;
 	}
-
+	
+	@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // The activity is no longer visible (it is now "stopped")
+        overridePendingTransition(R.anim.none, R.anim.top_out);
+    }
 }
