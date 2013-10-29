@@ -2,11 +2,11 @@ package org.omnidebt.client.view;
 
 
 public interface SignUpListener {
-	public enum ConnectResult {
+	public enum SignUpResult {
 		Succeed,
 		WrongIDs,
 		UsedLogin,
 		Failed
 	}
-	public void onConnectResult(ConnectResult code);
+	public void onConnectResult(SignUpResult code);
 }

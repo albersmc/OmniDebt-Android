@@ -7,6 +7,7 @@ import org.omnidebt.client.R;
 import org.omnidebt.client.R.anim;
 import org.omnidebt.client.R.id;
 import org.omnidebt.client.R.layout;
+import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.LoginListener.ConnectResult;
 
 import android.app.Activity;
@@ -31,8 +32,12 @@ public class SignUpActivity extends Activity{
 				// TODO Auto-generated method stub
 				if(validate())
 				{
+					String strLogin=((EditText) findViewById(R.id.editLogin)).getText().toString();
+					String strEmail=((EditText) findViewById(R.id.editEmail)).getText().toString();
+					String strPasswd=((EditText) findViewById(R.id.editPassword)).getText().toString();
+					String strConfirmPasswd=((EditText) findViewById(R.id.editConfirmPassword)).getText().toString();
 					
-					
+					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
 					
 				}
 				
@@ -73,19 +78,19 @@ public class SignUpActivity extends Activity{
 	
 	private SignUpListener suListener=new SignUpListener(){
 		@Override
-		public void onConnectResult(ConnectResult code) {
-			if(code.equals(ConnectResult.Succeed))
+		public void onConnectResult(SignUpResult code) {
+			if(code.equals(SignUpResult.Succeed))
 			{
 				finish();
 			}
 			else
 			{
 				TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
-				if(code.equals(ConnectResult.UsedLogin))
+				if(code.equals(SignUpResult.UsedLogin))
 				{
 					errorLabel.setText(R.string.signup_error_used_login);
 				}
-				if(code.equals(ConnectResult.Failed))
+				if(code.equals(SignUpResult.Failed))
 				{
 					errorLabel.setText(R.string.login_failed);
 				}
