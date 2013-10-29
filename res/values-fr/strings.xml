@@ -28,5 +28,10 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Menu principal</string>
+    <string-array name="drawer_content">
+        <item>Contacts</item>
+        <item>Historique</item>
+        <item>A propos</item>
+    </string-array>
 
 </resources>
