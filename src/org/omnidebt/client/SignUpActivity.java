@@ -3,10 +3,8 @@ package org.omnidebt.client;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,13 +33,14 @@ public class SignUpActivity extends Activity{
 		});
 		
 		Button CancelButton=(Button) findViewById(R.id.CancelButton);
-		signUpButton.setOnClickListener(new View.OnClickListener() {
+		CancelButton.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-					finish();			
+				finish();
+				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
 		});
 	}
