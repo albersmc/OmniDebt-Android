@@ -7,12 +7,15 @@ import org.omnidebt.client.R;
 import org.omnidebt.client.R.anim;
 import org.omnidebt.client.R.id;
 import org.omnidebt.client.R.layout;
+import org.omnidebt.client.controller.UserController;
+import org.omnidebt.client.view.LoginListener.ConnectResult;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SignUpActivity extends Activity{
 	
@@ -29,8 +32,14 @@ public class SignUpActivity extends Activity{
 				// TODO Auto-generated method stub
 				if(validate())
 				{
+					String strLogin=((EditText) findViewById(R.id.editLogin)).getText().toString();
+					String strEmail=((EditText) findViewById(R.id.editEmail)).getText().toString();
+					String strPasswd=((EditText) findViewById(R.id.editPassword)).getText().toString();
+					String strConfirmPasswd=((EditText) findViewById(R.id.editConfirmPassword)).getText().toString();
 					
-					finish();
+					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
+					
+					
 					
 				}
 				
@@ -57,9 +66,17 @@ public class SignUpActivity extends Activity{
 		EditText mail=(EditText) findViewById(R.id.editEmail);
 		String mail_str=mail.getText().toString();
 		Matcher matcher=pattern.matcher(mail_str);
-		
-		
-		return matcher.matches();
+		if(!matcher.matches())
+		{
+			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_invalid_email);
+		}
+		boolean pweqcpw=((EditText) findViewById(R.id.editPassword)).getText().toString().equals(((EditText) findViewById(R.id.editConfirmPassword)).getText().toString());
+		if(!pweqcpw)
+		{
+			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_pwd_different_cpwd);
+		}
+		boolean valid=(matcher.matches() && pweqcpw);
+		return valid;
 	}
 	
 	@Override
@@ -67,5 +84,31 @@ public class SignUpActivity extends Activity{
         super.onBackPressed();
         // The activity is no longer visible (it is now "stopped")
         overridePendingTransition(R.anim.none, R.anim.top_out);
-    }	
+    }
+	
+	private SignUpListener suListener=new SignUpListener(){
+		@Override
+		public void onConnectResult(SignUpResult code) {
+			if(code.equals(SignUpResult.Succeed))
+			{
+				finish();
+				overridePendingTransition(R.anim.none, R.anim.top_out);
+			}
+			else
+			{
+				TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
+				if(code.equals(SignUpResult.UsedLogin))
+				{
+					errorLabel.setText(R.string.signup_error_used_login);
+				}
+				if(code.equals(SignUpResult.Failed))
+				{
+					errorLabel.setText(R.string.login_failed);
+				}
+			}
+			
+		}
+		
+		
+	};
 }
