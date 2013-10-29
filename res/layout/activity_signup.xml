@@ -48,10 +48,18 @@
 
     <Button
         android:id="@+id/SignUpButton"
-        android:layout_width="255dp"
+        android:layout_width="122dp"
         android:layout_height="77dp"
         android:layout_x="22dp"
         android:layout_y="306dp"
         android:text="Sign Up" />
+
+    <Button
+        android:id="@+id/CancelButton"
+        android:layout_width="111dp"
+        android:layout_height="78dp"
+        android:layout_x="169dp"
+        android:layout_y="308dp"
+        android:text="Cancel" />
 
 </AbsoluteLayout>
