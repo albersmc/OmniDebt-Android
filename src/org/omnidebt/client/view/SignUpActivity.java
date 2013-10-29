@@ -71,7 +71,7 @@ public class SignUpActivity extends Activity{
 			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_invalid_email);
 		}
 		boolean pweqcpw=((EditText) findViewById(R.id.editPassword)).getText().toString().equals(((EditText) findViewById(R.id.editConfirmPassword)).getText().toString());
-		if(pweqcpw)
+		if(!pweqcpw)
 		{
 			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_pwd_different_cpwd);
 		}
@@ -92,6 +92,7 @@ public class SignUpActivity extends Activity{
 			if(code.equals(SignUpResult.Succeed))
 			{
 				finish();
+				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
 			else
 			{

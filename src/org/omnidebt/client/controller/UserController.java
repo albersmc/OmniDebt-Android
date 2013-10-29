@@ -29,7 +29,7 @@ public class UserController {
 			Log.w("login", "Authentication failed : conenction with database problem");
 			callback.onConnectResult(SignUpResult.Failed);
 		}
-		else if(strLogin.equals("test") && strPasswd.equals("pass")) {
+		else if(strLogin.equals("test")) {
 			Log.i("login", "Authentication Succeed");
 			callback.onConnectResult(SignUpResult.Succeed);
 		}
