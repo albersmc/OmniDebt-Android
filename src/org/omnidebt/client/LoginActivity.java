@@ -93,12 +93,13 @@ public class LoginActivity extends Activity {
 	private OnClickListener onClickCreateAccount = new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-	    	Log.i("login", "Starting RegisterActivity");
+	    	Log.i("login", "Starting SignUpActivity");
 	    	tvLoginStatus.setText("");
 	    	etLogin.setText("");
 			etPassword.setText("");
 			
-    		Intent registerActivity = new Intent(v.getContext(), RegisterActivity.class);
+			
+    		Intent registerActivity = new Intent(v.getContext(), SignUpActivity.class);
             startActivity(registerActivity);
             overridePendingTransition(R.anim.top_in, R.anim.none);
 	    }

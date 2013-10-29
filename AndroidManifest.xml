@@ -27,8 +27,8 @@
             android:label="@string/title_activity_main_od" >
         </activity>
         <activity
-            android:name="org.omnidebt.client.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:name="org.omnidebt.client.SignUpActivity"
+            android:label="@string/title_activity_signup" >
         </activity>
     </application>
 

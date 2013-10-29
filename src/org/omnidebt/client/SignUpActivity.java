@@ -14,22 +14,7 @@ public class SignUpActivity extends Activity{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
 		
-		final Button signUpButton=(Button) findViewById(R.id.SignUpButton);
-		signUpButton.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				if(validate())
-				{
-					Intent i=new Intent(getApplicationContext(),LoginActivity.class);
-					startActivity(i);
-					
-				}
-				
-			}
-		});
-		
+		Button signUpButton=(Button) findViewById(R.id.SignUpButton);
 	}
 	
 	public boolean validate()
@@ -37,5 +22,10 @@ public class SignUpActivity extends Activity{
 		return true;
 	}
 	
-	
+	@Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        // The activity is no longer visible (it is now "stopped")
+        overridePendingTransition(R.anim.none, R.anim.top_out);
+    }	
 }
