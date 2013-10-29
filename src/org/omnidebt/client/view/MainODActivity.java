@@ -1,4 +1,8 @@
-package org.omnidebt.client;
+package org.omnidebt.client.view;
+
+import org.omnidebt.client.R;
+import org.omnidebt.client.R.layout;
+import org.omnidebt.client.R.menu;
 
 import android.os.Bundle;
 import android.app.Activity;

@@ -20,7 +20,8 @@
     <string name="button_create_account">Créer un compte</string>
     <string name="button_cancel_connection">Annuler</string>
     <string name="button_accept_connection">Se Connecter</string>
-    <string name="login_failed">Identifiant ou mot de passe incorrect</string>
+    <string name="login_wrong_ids">Identifiant ou mot de passe incorrect</string>
+    <string name="login_failed">Problème de connection au serveur</string>
 
 	<!-- SignUpActivity -->
     <string name="title_activity_signup">Créer un compte</string>

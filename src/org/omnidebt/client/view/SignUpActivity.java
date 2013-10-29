@@ -1,7 +1,12 @@
-package org.omnidebt.client;
+package org.omnidebt.client.view;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import org.omnidebt.client.R;
+import org.omnidebt.client.R.anim;
+import org.omnidebt.client.R.id;
+import org.omnidebt.client.R.layout;
 
 import android.app.Activity;
 import android.os.Bundle;

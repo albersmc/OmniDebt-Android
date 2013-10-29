@@ -20,7 +20,8 @@
     <string name="button_create_account">Create Account</string>
     <string name="button_cancel_connection">Cancel</string>
     <string name="button_accept_connection">Login</string>
-    <string name="login_failed">Login or password incorrect</string>
+    <string name="login_wrong_ids">Login or password incorrect</string>
+    <string name="login_failed">Problem to connect to server</string>
 
 	<!-- SignUpActivity -->
     <string name="title_activity_signup">SignUp</string>
