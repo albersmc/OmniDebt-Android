@@ -6,11 +6,12 @@
     <string name="hello_world">Bonjour le monde !</string>
     <string name="title_activity_main_od">Menu principal</string>
     <string name="hint_passwd">Mot de passe</string>
-    <string name="hint_login">Se connecter</string>
+    <string name="hint_login">Identifiant</string>
     <string name="radio_remember_me">Se connecter automatiquement au démarrage</string>
     <string name="button_create_account">Créer un compte</string>
     <string name="button_cancel_connection">Annuler</string>
     <string name="button_accept_connection">Se Connecter</string>
     <string name="title_activity_register">Créer un compte</string>
+    <string name="login_failed">Identifiant ou mot de passe incorrect</string>
 
 </resources>

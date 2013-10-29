@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 	
@@ -18,6 +19,8 @@ public class LoginActivity extends Activity {
 	Button		bLogin			= null;
 	Button		bCancel			= null;
 	Button		bCreateAccount	= null;
+	
+	TextView	tvLoginStatus	= null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class LoginActivity extends Activity {
 		bLogin			= (Button)	findViewById(R.id.button_accept_connection);
 		bCancel			= (Button)	findViewById(R.id.button_cancel_connection);
 		bCreateAccount	= (Button)	findViewById(R.id.button_create_account);
+		
+		tvLoginStatus	= (TextView)findViewById(R.id.login_status);
 		
 		bLogin.			setOnClickListener(onClickLogin);
 		bCancel.		setOnClickListener(onClickCancel);
@@ -49,17 +54,26 @@ public class LoginActivity extends Activity {
 	    public void onClick(View v) {
 	    	String	strLogin	= etLogin.getText().toString();
 	    	String	strPassword	= etPassword.getText().toString();
-	    	Log.d("login", "Login cliecked : login : " + strLogin + " pass : " + strPassword);
 	    	
+	    	// Authentication
 	    	if(strLogin.equals("test") && strPassword.equals("pass")) {
-	    		Log.d("login", "Successfuly authenticated, launching MainODActivity");
+	    		
+	    		// Clear form and go to MainODActivity
+	    		Log.i("login", "Successfuly authenticated, launching MainODActivity");
+	    		tvLoginStatus.setText("");
+	    		etLogin.setText("");
+				etPassword.setText("");
+	    		
 	    		Intent mainActivity = new Intent(v.getContext(), MainODActivity.class);
 	            startActivity(mainActivity);
 	            overridePendingTransition(R.anim.right_in, R.anim.left_out);
 	    	}
 	    	else {
+	    		// Clear form and explain error to the user
+	    		Log.w("login", "Authentication failed");
 	    		etLogin.setText("");
 				etPassword.setText("");
+				tvLoginStatus.setText(R.string.login_failed);
 	    	}
 	    }
 	};
@@ -68,6 +82,8 @@ public class LoginActivity extends Activity {
 	private OnClickListener onClickCancel = new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
+	    	// Clear form
+	    	tvLoginStatus.setText("");
 	    	etLogin.setText("");
 			etPassword.setText("");
 	    }
@@ -77,7 +93,11 @@ public class LoginActivity extends Activity {
 	private OnClickListener onClickCreateAccount = new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-	    	Log.d("login", "Successfuly authenticated, launching MainODActivity");
+	    	Log.i("login", "Starting RegisterActivity");
+	    	tvLoginStatus.setText("");
+	    	etLogin.setText("");
+			etPassword.setText("");
+			
     		Intent registerActivity = new Intent(v.getContext(), RegisterActivity.class);
             startActivity(registerActivity);
             overridePendingTransition(R.anim.top_in, R.anim.none);

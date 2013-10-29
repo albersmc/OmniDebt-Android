@@ -12,5 +12,5 @@
     <string name="button_cancel_connection">Cancel</string>
     <string name="button_accept_connection">Login</string>
     <string name="title_activity_register">Register</string>
-
+    <string name="login_failed">Login or password incorrect</string>
 </resources>
