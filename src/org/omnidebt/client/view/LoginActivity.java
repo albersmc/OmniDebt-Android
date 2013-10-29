@@ -1,4 +1,7 @@
-package org.omnidebt.client;
+package org.omnidebt.client.view;
+
+import org.omnidebt.client.R;
+import org.omnidebt.client.controller.UserController;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -9,16 +12,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class LoginActivity extends Activity {
-	
+
 	EditText	etLogin			= null;
 	EditText	etPassword		= null;
-	
+
 	Button		bLogin			= null;
 	Button		bCancel			= null;
 	Button		bCreateAccount	= null;
-	
+
+	TextView	tvLoginStatus	= null;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -30,6 +36,8 @@ public class LoginActivity extends Activity {
 		bLogin			= (Button)	findViewById(R.id.button_accept_connection);
 		bCancel			= (Button)	findViewById(R.id.button_cancel_connection);
 		bCreateAccount	= (Button)	findViewById(R.id.button_create_account);
+		
+		tvLoginStatus	= (TextView)findViewById(R.id.login_status);
 		
 		bLogin.			setOnClickListener(onClickLogin);
 		bCancel.		setOnClickListener(onClickCancel);
@@ -49,25 +57,18 @@ public class LoginActivity extends Activity {
 	    public void onClick(View v) {
 	    	String	strLogin	= etLogin.getText().toString();
 	    	String	strPassword	= etPassword.getText().toString();
-	    	Log.d("login", "Login cliecked : login : " + strLogin + " pass : " + strPassword);
 	    	
-	    	if(strLogin.equals("test") && strPassword.equals("pass")) {
-	    		Log.d("login", "Successfuly authenticated, launching MainODActivity");
-	    		Intent mainActivity = new Intent(v.getContext(), MainODActivity.class);
-	            startActivity(mainActivity);
-	            overridePendingTransition(R.anim.right_in, R.anim.left_out);
-	    	}
-	    	else {
-	    		etLogin.setText("");
-				etPassword.setText("");
-	    	}
+	    	Log.i("login", "Try connection");
+	    	UserController.tryConnect(strLogin, strPassword, loginListener);
 	    }
 	};
-	
+
 	// On Cancel clicked	  
 	private OnClickListener onClickCancel = new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
+	    	// Clear form
+	    	tvLoginStatus.setText("");
 	    	etLogin.setText("");
 			etPassword.setText("");
 	    }
@@ -77,10 +78,42 @@ public class LoginActivity extends Activity {
 	private OnClickListener onClickCreateAccount = new View.OnClickListener() {
 	    @Override
 	    public void onClick(View v) {
-	    	Log.d("login", "Successfuly authenticated, launching MainODActivity");
-    		Intent registerActivity = new Intent(v.getContext(), RegisterActivity.class);
+	    	Log.i("login", "Starting SignUpActivity");
+	    	tvLoginStatus.setText("");
+	    	etLogin.setText("");
+			etPassword.setText("");
+
+    		Intent registerActivity = new Intent(v.getContext(), SignUpActivity.class);
             startActivity(registerActivity);
             overridePendingTransition(R.anim.top_in, R.anim.none);
 	    }
+	};
+
+	private LoginListener loginListener = new LoginListener() {
+		@Override
+		public void onConnectResult(ConnectResult code) {
+			// Authentication
+	    	if(code.equals(ConnectResult.Succeed)) {
+	    		// Clear form and go to MainODActivity
+	    		Log.i("login", "Successfuly authenticated, launching MainODActivity");
+	    		tvLoginStatus.setText("");
+	    		etLogin.setText("");
+				etPassword.setText("");
+	    		
+	    		Intent mainActivity = new Intent(getApplicationContext(), MainODActivity.class);
+	            startActivity(mainActivity);
+	            overridePendingTransition(R.anim.right_in, R.anim.left_out);
+	    	}
+	    	else if(code.equals(ConnectResult.WrongIDs)) {
+	    		// Clear form and explain error to the user
+	    		Log.w("login", "Authentication failed : wrong ids");
+	    		etLogin.setText("");
+				etPassword.setText("");
+				tvLoginStatus.setText(R.string.login_wrong_ids);
+	    	}
+	    	else if(code.equals(ConnectResult.Failed)) {
+	    		tvLoginStatus.setText(R.string.login_failed);
+	    	}
+		}
 	};
 }

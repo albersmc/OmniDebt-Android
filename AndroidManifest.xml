@@ -14,8 +14,8 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="org.omnidebt.client.LoginActivity"
-            android:label="@string/app_name" >
+            android:name="org.omnidebt.client.view.LoginActivity"
+            android:label="@string/title_activity_login" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.omnidebt.client.MainODActivity"
+            android:name="org.omnidebt.client.view.MainODActivity"
             android:label="@string/title_activity_main_od" >
         </activity>
         <activity
-            android:name="org.omnidebt.client.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:name="org.omnidebt.client.view.SignUpActivity"
+            android:label="@string/title_activity_signup" >
         </activity>
     </application>
 
