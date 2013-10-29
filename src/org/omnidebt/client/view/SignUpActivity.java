@@ -7,12 +7,14 @@ import org.omnidebt.client.R;
 import org.omnidebt.client.R.anim;
 import org.omnidebt.client.R.id;
 import org.omnidebt.client.R.layout;
+import org.omnidebt.client.view.LoginListener.ConnectResult;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class SignUpActivity extends Activity{
 	
@@ -44,7 +46,7 @@ public class SignUpActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				finish();
+				
 				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
 		});
@@ -67,5 +69,30 @@ public class SignUpActivity extends Activity{
         super.onBackPressed();
         // The activity is no longer visible (it is now "stopped")
         overridePendingTransition(R.anim.none, R.anim.top_out);
-    }	
+    }
+	
+	private SignUpListener suListener=new SignUpListener(){
+		@Override
+		public void onConnectResult(ConnectResult code) {
+			if(code.equals(ConnectResult.Succeed))
+			{
+				finish();
+			}
+			else
+			{
+				TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
+				if(code.equals(ConnectResult.UsedLogin))
+				{
+					errorLabel.setText(R.string.signup_error_used_login);
+				}
+				if(code.equals(ConnectResult.Failed))
+				{
+					errorLabel.setText(R.string.login_failed);
+				}
+			}
+			
+		}
+		
+		
+	};
 }

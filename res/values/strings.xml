@@ -28,5 +28,6 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Main Menu</string>
+    <string name="signup_error_used_login">The login you have chosen is already in use.</string>
 
 </resources>
