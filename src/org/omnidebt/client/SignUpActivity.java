@@ -1,11 +1,15 @@
 package org.omnidebt.client;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 public class SignUpActivity extends Activity{
 	
@@ -15,11 +19,43 @@ public class SignUpActivity extends Activity{
 		setContentView(R.layout.activity_signup);
 		
 		Button signUpButton=(Button) findViewById(R.id.SignUpButton);
+		signUpButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				if(validate())
+				{
+					
+					finish();
+					
+				}
+				
+			}
+		});
+		
+		Button CancelButton=(Button) findViewById(R.id.CancelButton);
+		signUpButton.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+
+					finish();			
+			}
+		});
 	}
 	
 	public boolean validate()
 	{
-		return true;
+		String string_pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+		Pattern pattern=Pattern.compile(string_pattern);
+		EditText mail=(EditText) findViewById(R.id.editEmail);
+		String mail_str=mail.getText().toString();
+		Matcher matcher=pattern.matcher(mail_str);
+		
+		
+		return matcher.matches();
 	}
 	
 	@Override

@@ -7,10 +7,15 @@
 
     <string name="hello_world">Bonjour le monde !</string>
 
-	<!-- LoginActivity -->
-    <string name="title_activity_login">Connexion</string>
+	<!-- Common Hints -->
     <string name="hint_login">Identifiant</string>
     <string name="hint_passwd">Mot de passe</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_confirm_password">Confirmer Mot de Passe</string>
+    <string name="hint_signup">Enregistrer</string>
+
+	<!-- LoginActivity -->
+    <string name="title_activity_login">Connexion</string>
     <string name="radio_remember_me">Se connecter automatiquement au démarrage</string>
     <string name="button_create_account">Créer un compte</string>
     <string name="button_cancel_connection">Annuler</string>

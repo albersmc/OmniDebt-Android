@@ -7,10 +7,15 @@
 
     <string name="hello_world">Hello world!</string>
 
-	<!-- LoginActivity -->
-    <string name="title_activity_login">Login</string>
+	<!-- Common Hints -->
     <string name="hint_login">Login</string>
     <string name="hint_passwd">Password</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_signup">Sign Up</string>
+
+	<!-- LoginActivity -->
+    <string name="title_activity_login">Login</string>
     <string name="radio_remember_me">Connect automaticaly at startup</string>
     <string name="button_create_account">Create Account</string>
     <string name="button_cancel_connection">Cancel</string>
@@ -22,4 +27,5 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Main Menu</string>
+
 </resources>
