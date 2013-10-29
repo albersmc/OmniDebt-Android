@@ -31,6 +31,10 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Main Menu</string>
+    
+    <!-- Drawer -->
+    <string name="drawer_open">Open Drawer</string>
+    <string name="drawer_close">Close Drawer</string>
     <string-array name="drawer_content">
         <item>Contacts</item>
         <item>History</item>
