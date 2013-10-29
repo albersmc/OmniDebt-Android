@@ -32,7 +32,7 @@ public class SignUpActivity extends Activity{
 				if(validate())
 				{
 					
-					finish();
+					
 					
 				}
 				
@@ -46,7 +46,7 @@ public class SignUpActivity extends Activity{
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 
-				
+				finish();
 				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
 		});
