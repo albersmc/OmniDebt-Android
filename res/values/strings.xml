@@ -2,15 +2,24 @@
 <resources>
 
     <string name="app_name">OmniDebt</string>
+
     <string name="action_settings">Settings</string>
+
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_main_od">Main Menu</string>
-    <string name="hint_passwd">Password</string>
+
+	<!-- LoginActivity -->
+    <string name="title_activity_login">Login</string>
     <string name="hint_login">Login</string>
+    <string name="hint_passwd">Password</string>
     <string name="radio_remember_me">Connect automaticaly at startup</string>
     <string name="button_create_account">Create Account</string>
     <string name="button_cancel_connection">Cancel</string>
     <string name="button_accept_connection">Login</string>
-    <string name="title_activity_signup">SignUp</string>
     <string name="login_failed">Login or password incorrect</string>
+
+	<!-- SignUpActivity -->
+    <string name="title_activity_signup">SignUp</string>
+
+	<!-- MainODActivity -->
+    <string name="title_activity_main_od">Main Menu</string>
 </resources>
