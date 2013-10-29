@@ -59,7 +59,7 @@ public class LoginActivity extends Activity {
 	    	String	strPassword	= etPassword.getText().toString();
 	    	
 	    	Log.i("login", "Try connection");
-	    	UserController.tryConnect(strLogin, strPassword, loginListener);
+	    	UserController.tryLogin(strLogin, strPassword, loginListener);
 	    }
 	};
 

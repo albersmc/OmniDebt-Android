@@ -7,7 +7,7 @@ import android.util.Log;
 
 public class UserController {
 
-	static public void tryConnect(String strLogin, String strPasswd, LoginListener callback) {
+	static public void tryLogin(String strLogin, String strPasswd, LoginListener callback) {
 		if(strLogin.equals("nonet")) {
 			Log.w("login", "Authentication failed : conenction with database problem");
 			callback.onConnectResult(ConnectResult.Failed);
