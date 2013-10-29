@@ -13,5 +13,8 @@
     <string name="button_accept_connection">Se Connecter</string>
     <string name="title_activity_signup">Créer un compte</string>
     <string name="login_failed">Identifiant ou mot de passe incorrect</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_confirm_password">Confirmer Mot de Passe</string>
+    <string name="hint_signup">Enregistrer</string>
 
 </resources>
