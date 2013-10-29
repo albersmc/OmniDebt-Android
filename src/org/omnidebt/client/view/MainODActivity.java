@@ -9,6 +9,7 @@ import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,28 +29,13 @@ public class MainODActivity extends Activity {
         lvDrawerContainer	= (ListView)		findViewById(R.id.drawer_container);
 		sDrawerContent		= (String[])		getResources().getStringArray(R.array.drawer_content);
 
-		abActionBar			= new ActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
-				R.string.drawer_open, R.string.drawer_close) {
-			
-			@Override
-	        public void onDrawerClosed(View view) {
-	            getActionBar().setTitle(R.string.title_activity_main_od);
-	            invalidateOptionsMenu();
-	        }
-
-			@Override
-	        public void onDrawerOpened(View drawerView) {
-	            getActionBar().setTitle(R.string.app_name);
-	            invalidateOptionsMenu();
-	        }
-	        
-		};
+		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
+				R.string.drawer_open, R.string.drawer_close);
 
         // Set the adapter for the list view
         lvDrawerContainer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, sDrawerContent));
         // Set the list's click listener
-        // TODO find why DrawerItemClickListener is not defined
-        //lvDrawerContainer.setOnItemClickListener(new DrawerItemClickListener());        
+        lvDrawerContainer.setOnItemClickListener(new ODDrawerItemClickListener());        
 
 		dlMainLayout.setDrawerListener(abActionBar);
 		
@@ -82,5 +68,36 @@ public class MainODActivity extends Activity {
 
         return super.onOptionsItemSelected(item);
     }
+    
+    private class ODDrawerItemClickListener implements ListView.OnItemClickListener {
+    	
+        @Override
+        public void onItemClick(AdapterView parent, View view, int position, long id) {
+        	// TODO go to selected fragment
+        }
+    }
+    
+    private class ODActionBarDrawerToggle extends ActionBarDrawerToggle {
+		
+		public ODActionBarDrawerToggle(Activity activity,
+				DrawerLayout drawerLayout, int drawerImageRes,
+				int openDrawerContentDescRes, int closeDrawerContentDescRes) {
+			super(activity, drawerLayout, drawerImageRes, openDrawerContentDescRes,
+					closeDrawerContentDescRes);
+		}
 
+		@Override
+        public void onDrawerClosed(View view) {
+			// TODO set fragment name
+            getActionBar().setTitle(R.string.title_activity_main_od);
+            invalidateOptionsMenu();
+        }
+
+		@Override
+        public void onDrawerOpened(View drawerView) {
+            getActionBar().setTitle(R.string.app_name);
+            invalidateOptionsMenu();
+        }
+        
+	};
 }
