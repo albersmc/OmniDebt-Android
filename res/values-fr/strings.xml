@@ -28,5 +28,7 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Menu principal</string>
+    <string name="signup_invalid_email">The email adress you entered is invalid</string>
+    <string name="signup_pwd_different_cpwd">The values entered in Password and Confirm Password must be the same</string>
 
 </resources>

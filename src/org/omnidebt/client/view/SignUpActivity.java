@@ -39,6 +39,8 @@ public class SignUpActivity extends Activity{
 					
 					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
 					
+					
+					
 				}
 				
 			}
@@ -64,9 +66,17 @@ public class SignUpActivity extends Activity{
 		EditText mail=(EditText) findViewById(R.id.editEmail);
 		String mail_str=mail.getText().toString();
 		Matcher matcher=pattern.matcher(mail_str);
-		
-		
-		return matcher.matches();
+		if(!matcher.matches())
+		{
+			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_invalid_email);
+		}
+		boolean pweqcpw=((EditText) findViewById(R.id.editPassword)).getText().toString().equals(((EditText) findViewById(R.id.editConfirmPassword)).getText().toString());
+		if(pweqcpw)
+		{
+			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_pwd_different_cpwd);
+		}
+		boolean valid=(matcher.matches() && pweqcpw);
+		return valid;
 	}
 	
 	@Override
