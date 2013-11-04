@@ -32,7 +32,7 @@ public class AboutFragment extends Fragment {
             Bundle savedInstanceState) {
         
         faActivity	= (FragmentActivity)	super.getActivity();
-        llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_about, container, false);
+        llLayout	= (LinearLayout)		inflater.inflate(R.layout.about_fragment, container, false);
 
 		ivJordan = (ImageView) llLayout.findViewById(R.id.imageJordan);
 		ivJordan.setOnClickListener(onClickJordan);
