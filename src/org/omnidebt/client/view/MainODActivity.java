@@ -3,6 +3,8 @@ package org.omnidebt.client.view;
 import org.omnidebt.client.R;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -14,11 +16,18 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 public class MainODActivity extends Activity {
+	
+	private enum					EFragments {
+		Contact,
+		History,
+		About
+	};
 
     private DrawerLayout			dlMainLayout		= null;
     private String[]				sDrawerContent		= null;
     private ListView				lvDrawerContainer	= null;
     private ActionBarDrawerToggle	abActionBar			= null;
+    private Integer					iPosition			= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +37,7 @@ public class MainODActivity extends Activity {
         dlMainLayout		= (DrawerLayout)	findViewById(R.id.drawer_layout);
         lvDrawerContainer	= (ListView)		findViewById(R.id.drawer_container);
 		sDrawerContent		= (String[])		getResources().getStringArray(R.array.drawer_content);
+		iPosition			= EFragments.Contact.ordinal();
 
 		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
 				R.string.drawer_open, R.string.drawer_close);
@@ -42,6 +52,8 @@ public class MainODActivity extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
+        changeFragment(iPosition);
+        getActionBar().setTitle(sDrawerContent[iPosition]);
 	}
 	
 	@Override
@@ -73,7 +85,7 @@ public class MainODActivity extends Activity {
     	
         @Override
         public void onItemClick(AdapterView parent, View view, int position, long id) {
-        	// TODO go to selected fragment
+        	changeFragment(position);
         }
     }
     
@@ -87,17 +99,53 @@ public class MainODActivity extends Activity {
 		}
 
 		@Override
-        public void onDrawerClosed(View view) {
-			// TODO set fragment name
-            getActionBar().setTitle(R.string.title_activity_main_od);
-            invalidateOptionsMenu();
-        }
-
-		@Override
         public void onDrawerOpened(View drawerView) {
             getActionBar().setTitle(R.string.app_name);
             invalidateOptionsMenu();
         }
+
+		@Override
+        public void onDrawerClosed(View view) {
+			getActionBar().setTitle(sDrawerContent[iPosition]);
+            invalidateOptionsMenu();
+        }
         
 	};
+	
+	private void changeFragment(int position) {
+		iPosition = position;
+		
+    	// Create a new fragment and specify args
+    	Fragment fragment = null;
+    	Bundle args = new Bundle();
+    	
+    	if( iPosition.equals(EFragments.Contact.ordinal()) )
+    	{
+    		fragment = new ContactFragment();
+    	    //args.putInt(ContactFragment.ARG_..., position);
+    	}
+    	if( iPosition.equals(EFragments.History.ordinal()) )
+    	{
+    		fragment = new HistoryFragment();
+    		//args.putInt(HistoryFragment.ARG_..., position);
+    	}
+    	if( iPosition.equals(EFragments.About.ordinal()) )
+    	{
+    		fragment = new AboutFragment();
+    		//args.putInt(AboutFragment.ARG_..., position);
+    	}
+
+	    fragment.setArguments(args);
+
+	    // Insert the fragment by replacing any existing fragment
+	    FragmentManager fragmentManager = getFragmentManager();
+	    fragmentManager.beginTransaction()
+	                   .replace(R.id.fragment_container, fragment)
+	                   .commit();
+
+	    // Highlight the selected item, update the title, and close the drawer
+	    lvDrawerContainer.setItemChecked(iPosition, true);
+	    dlMainLayout.closeDrawer(lvDrawerContainer);
+	}
+
 }
