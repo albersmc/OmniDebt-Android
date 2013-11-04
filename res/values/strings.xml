@@ -41,5 +41,7 @@
         <item>About</item>
     </string-array>
 
+	<!-- AboutActivity -->
+    <string name="title_activity_about">About</string>
 
 </resources>

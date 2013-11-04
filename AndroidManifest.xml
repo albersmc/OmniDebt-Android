@@ -30,6 +30,15 @@
             android:name="org.omnidebt.client.view.SignUpActivity"
             android:label="@string/title_activity_signup" >
         </activity>
+        <activity
+            android:name="org.omnidebt.client.About"
+            android:label="@string/title_activity_about" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
