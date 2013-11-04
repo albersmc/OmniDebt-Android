@@ -8,14 +8,16 @@ import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class MainODActivity extends Activity {
+public class MainODActivity extends FragmentActivity {
 	
 	private enum					EFragments {
 		Contact,
@@ -124,12 +126,12 @@ public class MainODActivity extends Activity {
     		fragment = new ContactFragment();
     	    //args.putInt(ContactFragment.ARG_..., position);
     	}
-    	if( iPosition.equals(EFragments.History.ordinal()) )
+    	else if( iPosition.equals(EFragments.History.ordinal()) )
     	{
     		fragment = new HistoryFragment();
     		//args.putInt(HistoryFragment.ARG_..., position);
     	}
-    	if( iPosition.equals(EFragments.About.ordinal()) )
+    	else if( iPosition.equals(EFragments.About.ordinal()) )
     	{
     		fragment = new AboutFragment();
     		//args.putInt(AboutFragment.ARG_..., position);

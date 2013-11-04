@@ -31,7 +31,7 @@
             android:label="@string/title_activity_signup" >
         </activity>
         <activity
-            android:name="org.omnidebt.client.About"
+            android:name="org.omnidebt.client.view.About"
             android:label="@string/title_activity_about" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
