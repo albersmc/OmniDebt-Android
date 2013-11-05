@@ -1,4 +1,4 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.main;
 
 public class Debt {
 	public String date="";
@@ -10,5 +10,4 @@ public class Debt {
 		this.owner=o;
 		this.value=v;
 	}
-
 }

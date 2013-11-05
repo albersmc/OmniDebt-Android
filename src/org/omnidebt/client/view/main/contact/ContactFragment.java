@@ -1,14 +1,12 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.main.contact;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
-import org.omnidebt.client.view.LoginListener.ConnectResult;
+import org.omnidebt.client.view.main.ContactArrayAdapter;
 
 import android.app.Fragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

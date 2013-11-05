@@ -1,9 +1,9 @@
-package org.omnidebt.client.view;
-
-import java.util.ArrayList;
+package org.omnidebt.client.view.main.dashboard;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.UserController;
+import org.omnidebt.client.view.main.Debt;
+import org.omnidebt.client.view.main.DebtAdapter;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,8 +11,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 

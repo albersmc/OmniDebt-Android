@@ -1,7 +1,9 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.login;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.UserController;
+import org.omnidebt.client.view.main.MainODActivity;
+import org.omnidebt.client.view.signup.SignUpActivity;
 
 import android.app.Activity;
 import android.content.Intent;
