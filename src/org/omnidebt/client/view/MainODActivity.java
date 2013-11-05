@@ -123,7 +123,7 @@ public class MainODActivity extends FragmentActivity {
     	
     	if( iPosition.equals(EFragments.Contact.ordinal()) )
     	{
-    		fragment = new ContactFragment();
+    		fragment = new DashboardFragment();
     	    //args.putInt(ContactFragment.ARG_..., position);
     	}
     	else if( iPosition.equals(EFragments.History.ordinal()) )
