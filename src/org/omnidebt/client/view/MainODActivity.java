@@ -133,7 +133,7 @@ public class MainODActivity extends FragmentActivity {
     	}
     	else if( iPosition.equals(EFragments.About.ordinal()) )
     	{
-    		fragment = new AboutFragment();
+    		fragment = new DashboardFragment();
     		//args.putInt(AboutFragment.ARG_..., position);
     	}
 
