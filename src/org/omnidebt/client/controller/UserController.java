@@ -2,6 +2,7 @@ package org.omnidebt.client.controller;
 
 import java.util.ArrayList;
 
+import org.omnidebt.client.view.Debt;
 import org.omnidebt.client.view.LoginListener;
 import org.omnidebt.client.view.SignUpListener;
 import org.omnidebt.client.view.LoginListener.ConnectResult;
@@ -42,9 +43,9 @@ public class UserController {
 	}
 	
 	
-	static public ArrayList getDebtList()
+	static public Debt[] getDebtList()
 	{
-		ArrayList list=new ArrayList();
+		Debt[] list=new Debt[]{};
 		
 		return list;
 	}

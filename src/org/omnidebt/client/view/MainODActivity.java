@@ -118,9 +118,11 @@ public class MainODActivity extends FragmentActivity {
 	private void changeFragment(int position) {
 		iPosition = position;
 		
+
 		// Create a new fragment and specify args
 		Fragment fragment = null;
 		Bundle args = new Bundle();
+
 
 		if( iPosition.equals(EFragments.Dashboard.ordinal()) )
 		{
