@@ -53,67 +53,67 @@ public class LoginActivity extends Activity {
 
 	// On Login clicked
 	private OnClickListener onClickLogin = new View.OnClickListener() {
-	    @Override
-	    public void onClick(View v) {
-	    	String	strLogin	= etLogin.getText().toString();
-	    	String	strPassword	= etPassword.getText().toString();
-	    	
-	    	Log.i("login", "Try connection");
-	    	UserController.tryLogin(strLogin, strPassword, loginListener);
-	    }
+		@Override
+		public void onClick(View v) {
+			String	strLogin	= etLogin.getText().toString();
+			String	strPassword	= etPassword.getText().toString();
+			
+			Log.i("login", "Try connection");
+			UserController.tryLogin(strLogin, strPassword, loginListener);
+		}
 	};
 
-	// On Cancel clicked	  
+	// On Cancel clicked		
 	private OnClickListener onClickCancel = new View.OnClickListener() {
-	    @Override
-	    public void onClick(View v) {
-	    	// Clear form
-	    	tvLoginStatus.setText("");
-	    	etLogin.setText("");
+		@Override
+		public void onClick(View v) {
+			// Clear form
+			tvLoginStatus.setText("");
+			etLogin.setText("");
 			etPassword.setText("");
-	    }
+		}
 	};
 
-	// On Create Account clicked	  
+	// On Create Account clicked		
 	private OnClickListener onClickCreateAccount = new View.OnClickListener() {
-	    @Override
-	    public void onClick(View v) {
-	    	Log.i("login", "Starting SignUpActivity");
-	    	tvLoginStatus.setText("");
-	    	etLogin.setText("");
+		@Override
+		public void onClick(View v) {
+			Log.i("login", "Starting SignUpActivity");
+			tvLoginStatus.setText("");
+			etLogin.setText("");
 			etPassword.setText("");
 
-    		Intent registerActivity = new Intent(v.getContext(), SignUpActivity.class);
-            startActivity(registerActivity);
-            overridePendingTransition(R.anim.top_in, R.anim.none);
-	    }
+			Intent registerActivity = new Intent(v.getContext(), SignUpActivity.class);
+			startActivity(registerActivity);
+			overridePendingTransition(R.anim.top_in, R.anim.none);
+		}
 	};
 
 	private LoginListener loginListener = new LoginListener() {
 		@Override
 		public void onConnectResult(ConnectResult code) {
 			// Authentication
-	    	if(code.equals(ConnectResult.Succeed)) {
-	    		// Clear form and go to MainODActivity
-	    		Log.i("login", "Successfuly authenticated, launching MainODActivity");
-	    		tvLoginStatus.setText("");
-	    		etLogin.setText("");
+			if(code.equals(ConnectResult.Succeed)) {
+				// Clear form and go to MainODActivity
+				Log.i("login", "Successfuly authenticated, launching MainODActivity");
+				tvLoginStatus.setText("");
+				etLogin.setText("");
 				etPassword.setText("");
-	    		
-	    		Intent mainActivity = new Intent(getApplicationContext(), MainODActivity.class);
-	            startActivity(mainActivity);
-	            overridePendingTransition(R.anim.right_in, R.anim.left_out);
-	    	}
-	    	else if(code.equals(ConnectResult.WrongIDs)) {
-	    		// Clear form and explain error to the user
-	    		Log.w("login", "Authentication failed : wrong ids");
-	    		etLogin.setText("");
+				
+				Intent mainActivity = new Intent(getApplicationContext(), MainODActivity.class);
+				startActivity(mainActivity);
+				overridePendingTransition(R.anim.right_in, R.anim.left_out);
+			}
+			else if(code.equals(ConnectResult.WrongIDs)) {
+				// Clear form and explain error to the user
+				Log.w("login", "Authentication failed : wrong ids");
+				etLogin.setText("");
 				etPassword.setText("");
 				tvLoginStatus.setText(R.string.login_wrong_ids);
-	    	}
-	    	else if(code.equals(ConnectResult.Failed)) {
-	    		tvLoginStatus.setText(R.string.login_failed);
-	    	}
+			}
+			else if(code.equals(ConnectResult.Failed)) {
+				tvLoginStatus.setText(R.string.login_failed);
+			}
 		}
 	};
 }
