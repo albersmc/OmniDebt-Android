@@ -28,7 +28,8 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Menu principal</string>
-    <string name="signup_invalid_email">L\'address email est invalide</string>
+
+    <string name="signup_invalid_email">L\'addresse email est invalide</string>
     <string name="signup_pwd_different_cpwd">Les mots de passes sont différents</string>
     <string-array name="drawer_content">
         <item>Contacts</item>

@@ -40,6 +40,12 @@
         <item>History</item>
         <item>About</item>
     </string-array>
+        <string name="title_activity_dashboard">Dashboard</string>
+        <string name="dashboard_dashboard">Dashboard</string>
+        <string name="dashboard_debt_owned">Debt Owned</string>
+        <string name="dashboard_debt_owed">Debt Owed</string>
+        <string name="dashboard_balance">Balance</string>
+        <string name="dashboard_payment">Payment</string>
 
 	<!-- AboutActivity -->
     <string name="title_activity_about">About</string>

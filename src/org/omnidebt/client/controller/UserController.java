@@ -1,5 +1,7 @@
 package org.omnidebt.client.controller;
 
+import java.util.ArrayList;
+
 import org.omnidebt.client.view.LoginListener;
 import org.omnidebt.client.view.SignUpListener;
 import org.omnidebt.client.view.LoginListener.ConnectResult;
@@ -37,6 +39,14 @@ public class UserController {
     		Log.w("login", "Authentication failed : wrong ids");
 			callback.onConnectResult(SignUpResult.UsedLogin);
 		}
+	}
+	
+	
+	static public ArrayList getDebtList()
+	{
+		ArrayList list=new ArrayList();
+		
+		return list;
 	}
 	
 
