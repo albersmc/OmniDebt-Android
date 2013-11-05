@@ -37,6 +37,7 @@ public class DashboardFragment extends Fragment {
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
+	    viewList.setAdapter(adapter);
 	    
 	    //viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	    //	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
