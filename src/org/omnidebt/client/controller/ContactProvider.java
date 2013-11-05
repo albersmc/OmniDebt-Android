@@ -3,8 +3,8 @@ package org.omnidebt.client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.omnidebt.client.view.Contact;
-import org.omnidebt.client.view.ContactListener;
+import org.omnidebt.client.view.main.Contact;
+import org.omnidebt.client.view.main.contact.ContactListener;
 
 public class ContactProvider {
 	

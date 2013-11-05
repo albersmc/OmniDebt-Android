@@ -1,4 +1,4 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.signup;
 
 
 public interface SignUpListener {

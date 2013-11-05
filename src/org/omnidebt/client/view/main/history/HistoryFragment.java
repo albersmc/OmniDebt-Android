@@ -1,4 +1,4 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.main.history;
 
 import org.omnidebt.client.R;
 

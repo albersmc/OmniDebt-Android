@@ -1,4 +1,4 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.signup;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

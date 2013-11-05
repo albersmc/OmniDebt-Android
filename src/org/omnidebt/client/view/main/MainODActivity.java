@@ -1,6 +1,10 @@
-package org.omnidebt.client.view;
+package org.omnidebt.client.view.main;
 
 import org.omnidebt.client.R;
+import org.omnidebt.client.view.main.about.AboutFragment;
+import org.omnidebt.client.view.main.contact.ContactFragment;
+import org.omnidebt.client.view.main.dashboard.DashboardFragment;
+import org.omnidebt.client.view.main.history.HistoryFragment;
 
 import android.app.Activity;
 import android.app.Fragment;

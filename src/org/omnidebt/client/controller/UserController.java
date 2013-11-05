@@ -1,12 +1,10 @@
 package org.omnidebt.client.controller;
 
-import java.util.ArrayList;
-
-import org.omnidebt.client.view.Debt;
-import org.omnidebt.client.view.LoginListener;
-import org.omnidebt.client.view.SignUpListener;
-import org.omnidebt.client.view.LoginListener.ConnectResult;
-import org.omnidebt.client.view.SignUpListener.SignUpResult;
+import org.omnidebt.client.view.login.LoginListener;
+import org.omnidebt.client.view.login.LoginListener.ConnectResult;
+import org.omnidebt.client.view.main.Debt;
+import org.omnidebt.client.view.signup.SignUpListener;
+import org.omnidebt.client.view.signup.SignUpListener.SignUpResult;
 
 import android.util.Log;
 
