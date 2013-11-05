@@ -4,11 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.omnidebt.client.R;
-import org.omnidebt.client.R.anim;
-import org.omnidebt.client.R.id;
-import org.omnidebt.client.R.layout;
 import org.omnidebt.client.controller.UserController;
-import org.omnidebt.client.view.LoginListener.ConnectResult;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -80,11 +76,11 @@ public class SignUpActivity extends Activity{
 	}
 	
 	@Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        // The activity is no longer visible (it is now "stopped")
-        overridePendingTransition(R.anim.none, R.anim.top_out);
-    }
+	public void onBackPressed() {
+		super.onBackPressed();
+		// The activity is no longer visible (it is now "stopped")
+		overridePendingTransition(R.anim.none, R.anim.top_out);
+	}
 	
 	private SignUpListener suListener=new SignUpListener(){
 		@Override

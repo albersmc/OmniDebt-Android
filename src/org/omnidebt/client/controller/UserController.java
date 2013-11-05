@@ -21,7 +21,7 @@ public class UserController {
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 		else {
-    		Log.w("login", "Authentication failed : wrong ids");
+			Log.w("login", "Authentication failed : wrong ids");
 			callback.onConnectResult(ConnectResult.WrongIDs);
 		}
 	}
@@ -36,7 +36,7 @@ public class UserController {
 			callback.onConnectResult(SignUpResult.Succeed);
 		}
 		else {
-    		Log.w("login", "Authentication failed : wrong ids");
+			Log.w("login", "Authentication failed : wrong ids");
 			callback.onConnectResult(SignUpResult.UsedLogin);
 		}
 	}

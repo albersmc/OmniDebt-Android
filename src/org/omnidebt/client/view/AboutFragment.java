@@ -23,16 +23,13 @@ public class AboutFragment extends Fragment {
 	
 	private LinearLayout		llLayout	= null;
 	private FragmentActivity	faActivity	= null;
-		
-	public AboutFragment() {
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        
-        faActivity	= (FragmentActivity)	super.getActivity();
-        llLayout	= (LinearLayout)		inflater.inflate(R.layout.about_fragment, container, false);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		
+		faActivity	= (FragmentActivity)	super.getActivity();
+		llLayout	= (LinearLayout)		inflater.inflate(R.layout.about_fragment, container, false);
 
 		ivJordan = (ImageView) llLayout.findViewById(R.id.imageJordan);
 		ivJordan.setOnClickListener(onClickJordan);
@@ -43,9 +40,9 @@ public class AboutFragment extends Fragment {
 		ivMathea = (ImageView) llLayout.findViewById(R.id.imageMathea);
 		ivMathea.setOnClickListener(onClickMathea);
 
-        return llLayout;
+		return llLayout;
 
-    }
+	}
 
 	private OnClickListener onClickJordan = new View.OnClickListener() {
 		@Override
