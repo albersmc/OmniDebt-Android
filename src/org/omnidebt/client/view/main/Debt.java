@@ -10,5 +10,4 @@ public class Debt {
 		this.owner=o;
 		this.value=v;
 	}
-
 }
