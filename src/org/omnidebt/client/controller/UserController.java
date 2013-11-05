@@ -43,7 +43,13 @@ public class UserController {
 	
 	static public Debt[] getDebtList()
 	{
-		Debt[] list=new Debt[]{};
+		Debt[] list=new Debt[]{
+				
+				new Debt("potato","potatu","potata"),
+				new Debt("potito","potitu","potita"),
+				new Debt("poteto","potetu","poteta"),
+				new Debt("pototo","pototu","potota"),
+		};
 		
 		return list;
 	}
