@@ -2,10 +2,13 @@ package org.omnidebt.client.view;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.view.LoginListener.ConnectResult;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,9 +27,32 @@ public class ContactFragment extends Fragment {
 		faActivity	= (FragmentActivity)	super.getActivity();
 		lvLayout	= (ListView)			inflater.inflate(R.layout.contact_fragment, container, false);
 		
+		ContactProvider.tryRetreiveContact(contactListener);
 		lvLayout.setAdapter(new ContactArrayAdapter(faActivity, R.layout.contact_item_fragment, ContactProvider.getList()));
 		
 		return lvLayout;
 	}
+	
+	private ContactListener contactListener = new ContactListener() {
+
+		@Override
+		public void onRetreiveContactResult(ERetreiveContactResult result) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onAddContactResult(EAddContactResult result) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onRemoveContactResult(ERemoveContactResult result) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+	};
 
 }
