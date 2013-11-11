@@ -46,13 +46,6 @@ public class LoginActivity extends Activity {
 		bCreateAccount.	setOnClickListener(onClickCreateAccount);
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
-	}
-
 	// On Login clicked
 	private OnClickListener onClickLogin = new View.OnClickListener() {
 		@Override

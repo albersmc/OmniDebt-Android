@@ -7,6 +7,7 @@ import org.omnidebt.client.view.main.ContactArrayAdapter;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,14 @@ public class ContactFragment extends Fragment {
 		lvLayout.setAdapter(new ContactArrayAdapter(faActivity, R.layout.contact_item_fragment, ContactProvider.getList()));
 		
 		return lvLayout;
+	}
+
+	public void onAddContact() {
+		Log.d("contact", "add");
+	}
+
+	public void onEditContact() {
+		Log.d("contact", "edit");
 	}
 	
 	private ContactListener contactListener = new ContactListener() {

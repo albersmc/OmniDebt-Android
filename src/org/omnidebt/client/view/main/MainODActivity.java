@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -71,6 +73,27 @@ public class MainODActivity extends FragmentActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (iPosition.equals(EFragments.Dashboard.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.dashboard, menu);
+		}
+		else if (iPosition.equals(EFragments.Contact.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.contact, menu);
+		}
+		else if (iPosition.equals(EFragments.History.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.history, menu);
+		}
+		else if (iPosition.equals(EFragments.About.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.about, menu);
+		}
+		return true;
+	}
+
+	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		abActionBar.onConfigurationChanged(newConfig);
@@ -83,7 +106,20 @@ public class MainODActivity extends FragmentActivity {
 			return true;
 		}
 
-		// Anything else
+		// Handle presses on the action bar items
+		if(iPosition.equals(EFragments.Contact.ordinal()))
+    	{
+			ContactFragment fragment = (ContactFragment) getFragmentManager().findFragmentById(R.id.fragment_container);
+
+    		if(item.getItemId() == R.id.add_contact)
+    		{
+    			fragment.onAddContact();
+    		}
+    		else if(item.getItemId() == R.id.edit_contacts)
+    		{
+    			fragment.onEditContact();
+    		}
+    	}
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -160,6 +196,8 @@ public class MainODActivity extends FragmentActivity {
 		// Highlight the selected item, update the title, and close the drawer
 		lvDrawerContainer.setItemChecked(iPosition, true);
 		dlMainLayout.closeDrawer(lvDrawerContainer);
+		
+		invalidateOptionsMenu();
 	}
 
 }
