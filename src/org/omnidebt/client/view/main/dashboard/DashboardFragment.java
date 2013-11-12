@@ -11,6 +11,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -30,19 +31,25 @@ public class DashboardFragment extends Fragment {
         
         faActivity	= (FragmentActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
-
+        
+        View theView=faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
+        llLayout.addView(theView, 1);
+        
+        
 	    theList=UserController.getDebtList();
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
 	    viewList.setAdapter(adapter);
 	    
-	    //viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	    //	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-	   // 	{
-	    //		Object theItem=theList[lInt];
-	    	//}
-	//	});
+	    
+	    
+	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
+	    	{
+	    		Object theItem=theList[lInt];
+	    	}
+    	});
 
         return llLayout;
 
