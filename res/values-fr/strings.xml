@@ -25,17 +25,35 @@
 
 	<!-- SignUpActivity -->
     <string name="title_activity_signup">Créer un compte</string>
+    <string name="signup_error_used_login">L\'identifiant que vous avez choisi est déjà utilisé.</string>
+	<string name="signup_invalid_email">L\'adresse email indiquée est invalide.</string>
+    <string name="signup_pwd_different_cpwd">Les mots de passes sont différents.</string>
 
 	<!-- MainODActivity -->
-    <string name="title_activity_main_od">Menu principal</string>
+    <string name="title_activity_main_od">Main Menu</string>
 
-    <string name="signup_invalid_email">L\'addresse email est invalide</string>
-    <string name="signup_pwd_different_cpwd">Les mots de passes sont différents</string>
+    <!-- Drawer -->
+    <string name="drawer_open">Ouvrir le menu latéral</string>
+    <string name="drawer_close">Fermer le menu latéral</string>
     <string-array name="drawer_content">
         <item>Résumé</item>
         <item>Contacts</item>
         <item>Historique</item>
         <item>A propos</item>
+	</string-array>
+    <string-array name="non_top_level_fragments">
+        <item>Ajouter un Contact</item>
     </string-array>
+	<string name="title_activity_dashboard">Tableau de bord</string>
+	<string name="dashboard_dashboard">Tableau de bord</string>
+	<string name="dashboard_debt_owned">Debt Owned</string>
+	<string name="dashboard_debt_owed">Debt Owed</string>
+	<string name="dashboard_balance">Balance</string>
+	<string name="dashboard_payment">Payment</string>
+	<!-- AboutActivity -->
+    <string name="title_activity_about">A Propos</string>
+    <string name="add_contact">Ajouter un Contact</string>
+    <string name="edit_contacts">Modifier Contacts</string>
+    <string name="contact_name">Nom du Contact</string>
 
 </resources>

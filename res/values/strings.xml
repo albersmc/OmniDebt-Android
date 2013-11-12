@@ -31,7 +31,7 @@
 
 	<!-- MainODActivity -->
     <string name="title_activity_main_od">Main Menu</string>
-    
+
     <!-- Drawer -->
     <string name="drawer_open">Open Drawer</string>
     <string name="drawer_close">Close Drawer</string>
@@ -40,15 +40,21 @@
         <item>Contacts</item>
         <item>History</item>
         <item>About</item>
+	</string-array>
+    <string-array name="non_top_level_fragments">
+        <item>Add Contact</item>
     </string-array>
-        <string name="title_activity_dashboard">Dashboard</string>
-        <string name="dashboard_dashboard">Dashboard</string>
-        <string name="dashboard_debt_owned">Debt Owned</string>
-        <string name="dashboard_debt_owed">Debt Owed</string>
-        <string name="dashboard_balance">Balance</string>
-        <string name="dashboard_payment">Payment</string>
+	<string name="title_activity_dashboard">Dashboard</string>
+	<string name="dashboard_dashboard">Dashboard</string>
+	<string name="dashboard_debt_owned">Debt Owned</string>
+	<string name="dashboard_debt_owed">Debt Owed</string>
+	<string name="dashboard_balance">Balance</string>
+	<string name="dashboard_payment">Payment</string>
 
 	<!-- AboutActivity -->
     <string name="title_activity_about">About</string>
+    <string name="add_contact">Add Contact</string>
+    <string name="edit_contacts">Edit Contacts</string>
+    <string name="contact_name">Contact Name</string>
 
 </resources>

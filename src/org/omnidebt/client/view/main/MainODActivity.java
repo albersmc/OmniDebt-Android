@@ -1,19 +1,25 @@
 package org.omnidebt.client.view.main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.omnidebt.client.R;
 import org.omnidebt.client.view.main.about.AboutFragment;
+import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
 import org.omnidebt.client.view.main.dashboard.DashboardFragment;
 import org.omnidebt.client.view.main.history.HistoryFragment;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,17 +29,25 @@ import android.widget.ListView;
 public class MainODActivity extends FragmentActivity {
 	
 	private enum			EFragments {
+		// Top level Fragments
 		Dashboard,
 		Contact,
 		History,
-		About
+		About,
+
+		// Other
+		NonTopLevel,
+
+		AddContact
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
 	private String[]				sDrawerContent		= null;
+	private String[]				sNonTopLevelTitles	= null;
 	private ListView				lvDrawerContainer	= null;
 	private ActionBarDrawerToggle	abActionBar			= null;
 	private Integer					iPosition			= null;
+	private List<Integer>			lPreviousFragments	= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +57,9 @@ public class MainODActivity extends FragmentActivity {
 		dlMainLayout		= (DrawerLayout)	findViewById(R.id.drawer_layout);
 		lvDrawerContainer	= (ListView)		findViewById(R.id.drawer_container);
 		sDrawerContent		= (String[])		getResources().getStringArray(R.array.drawer_content);
+		sNonTopLevelTitles	= (String[])		getResources().getStringArray(R.array.non_top_level_fragments);
 		iPosition			= EFragments.Dashboard.ordinal();
+		lPreviousFragments	= new				ArrayList<Integer>();
 
 		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
 			R.string.drawer_open, R.string.drawer_close);
@@ -71,6 +87,27 @@ public class MainODActivity extends FragmentActivity {
 	}
 
 	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		if (iPosition.equals(EFragments.Dashboard.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.dashboard, menu);
+		}
+		else if (iPosition.equals(EFragments.Contact.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.contact, menu);
+		}
+		else if (iPosition.equals(EFragments.History.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.history, menu);
+		}
+		else if (iPosition.equals(EFragments.About.ordinal()))
+		{
+			getMenuInflater().inflate(R.menu.about, menu);
+		}
+		return true;
+	}
+
+	@Override
 	public void onConfigurationChanged(Configuration newConfig) {
 		super.onConfigurationChanged(newConfig);
 		abActionBar.onConfigurationChanged(newConfig);
@@ -83,9 +120,38 @@ public class MainODActivity extends FragmentActivity {
 			return true;
 		}
 
-		// Anything else
+		// Handle presses on the action bar items
+		if(iPosition.equals(EFragments.Contact.ordinal()))
+    	{
+			ContactFragment fragment = (ContactFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+    		if(item.getItemId() == R.id.add_contact)
+    		{
+    			fragment.onAddContact();
+    		}
+    		else if(item.getItemId() == R.id.edit_contacts)
+    		{
+    			fragment.onEditContact();
+    		}
+    	}
 
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onBackPressed()
+	{
+		Integer length = lPreviousFragments.size();
+
+		if(length.equals(0))
+		{
+			super.onBackPressed();
+		}
+		else if(lPreviousFragments.get(length-1).equals(EFragments.Contact.ordinal()))
+		{
+			lPreviousFragments.remove(length-1);
+			changeFragment(EFragments.Contact.ordinal());
+		}
 	}
 	
 	private class ODDrawerItemClickListener implements ListView.OnItemClickListener {
@@ -113,53 +179,105 @@ public class MainODActivity extends FragmentActivity {
 
 		@Override
 		public void onDrawerClosed(View view) {
-			getActionBar().setTitle(sDrawerContent[iPosition]);
+			updateActionBarTitle();
 			invalidateOptionsMenu();
 		}
 		
 	};
 	
-	private void changeFragment(int position) {
-		iPosition = position;
-		
+	private void changeFragment(Integer position) {
 
 		// Create a new fragment and specify args
-		Fragment fragment = null;
-		Bundle args = new Bundle();
+		Fragment	fragment	= null;
+		Bundle		args		= new Bundle();
+		boolean		hasAnim		= false;
+		Integer		animPos		= iPosition;
 
+		FragmentManager fragmentManager			= getSupportFragmentManager();
+		FragmentTransaction fragmentTransaction	= fragmentManager.beginTransaction();
 
-		if( iPosition.equals(EFragments.Dashboard.ordinal()) )
+		if( position.equals(EFragments.Dashboard.ordinal()) )
 		{
 			fragment = new DashboardFragment();
+			lPreviousFragments.clear();
 			//args.putInt(ContactFragment.ARG_..., position);
 		}
-		else if( iPosition.equals(EFragments.Contact.ordinal()) )
+		else if( position.equals(EFragments.Contact.ordinal()) )
 		{
 			fragment = new ContactFragment();
+			lPreviousFragments.clear();
 			//args.putInt(ContactFragment.ARG_..., position);
+			if(iPosition.equals(EFragments.AddContact.ordinal()))
+			{
+				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
+				hasAnim = true;
+			}
 		}
-		else if( iPosition.equals(EFragments.History.ordinal()) )
+		else if( position.equals(EFragments.History.ordinal()) )
 		{
 			fragment = new HistoryFragment();
+			lPreviousFragments.clear();
 			//args.putInt(HistoryFragment.ARG_..., position);
 		}
-		else if( iPosition.equals(EFragments.About.ordinal()) )
+		else if( position.equals(EFragments.About.ordinal()) )
 		{
 			fragment = new AboutFragment();
+			lPreviousFragments.clear();
 			//args.putInt(AboutFragment.ARG_..., position);
 		}
+		else if( position.equals(EFragments.AddContact.ordinal()))
+		{
+			fragment = new AddContactFragment();
+			lPreviousFragments.add(iPosition);
+			//args.putInt(AddContactFragment.ARG_..., position);
+			if(iPosition.equals(EFragments.Contact.ordinal()))
+			{
+				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
+				hasAnim = true;
+			}
+		}
+
+		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
+		{
+			if(iPosition.equals(EFragments.AddContact.ordinal()))
+				animPos = EFragments.Contact.ordinal();
+		}
+
+		if(!hasAnim)
+		{
+			if(position > animPos)
+				fragmentTransaction.setCustomAnimations(R.anim.bottom_in, R.anim.top_out);
+			else if(position < animPos)
+				fragmentTransaction.setCustomAnimations(R.anim.top_in, R.anim.bottom_out);
+		}
+
+		iPosition = position;
 
 		fragment.setArguments(args);
 
 		// Insert the fragment by replacing any existing fragment
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction()
-						.replace(R.id.fragment_container, fragment)
-						.commit();
+
+		fragmentTransaction.replace(R.id.fragment_container, fragment)
+							.commit();
 
 		// Highlight the selected item, update the title, and close the drawer
 		lvDrawerContainer.setItemChecked(iPosition, true);
 		dlMainLayout.closeDrawer(lvDrawerContainer);
+		
+		invalidateOptionsMenu();
+		updateActionBarTitle();
+	}
+
+	public void updateActionBarTitle()
+	{
+		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
+			getActionBar().setTitle(sNonTopLevelTitles[iPosition - EFragments.NonTopLevel.ordinal() - 1]);
+		else
+			getActionBar().setTitle(sDrawerContent[iPosition]);
+	}
+	
+	public void goToAddContact() {
+		changeFragment(EFragments.AddContact.ordinal());
 	}
 
 }

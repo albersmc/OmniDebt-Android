@@ -2,8 +2,8 @@ package org.omnidebt.client.view.main.history;
 
 import org.omnidebt.client.R;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;

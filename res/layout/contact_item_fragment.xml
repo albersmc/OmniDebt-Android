@@ -2,72 +2,77 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp"
+    android:gravity="left|center_horizontal"
+    android:orientation="vertical"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:orientation="vertical" >
-    
-	<LinearLayout
-	    android:layout_width="fill_parent"
-	    android:layout_height="wrap_content"
-	    android:gravity="left|center_vertical"
-	    android:orientation="horizontal" >
+    android:paddingTop="16dp" >
 	    
-	    <TextView
-	        android:id="@+id/contact_name"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:textAppearance="?android:attr/textAppearanceMedium"/>
-	    
-	</LinearLayout>
+    <TextView
+        android:id="@+id/contact_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
 	
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
-	    android:gravity="right|center_vertical"
-	    android:orientation="horizontal" >
-	    
-	    <View android:layout_width="wrap_content"
-	        android:layout_height="0dip"
-	        android:layout_weight="1" />
+	    android:gravity="center"
+	    android:orientation="horizontal"
+	    android:showDividers="middle" >
 	    
 	    <ImageView
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_logotest" />
+	        android:adjustViewBounds="true"
+	        android:maxHeight="@dimen/activity_vertical_margin"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/ic_balance" />
+	    
+	    <View android:layout_width="wrap_content"
+	        android:layout_height="0dip"
+	        android:layout_weight="1" />
 	
 	    <TextView
 	        android:id="@+id/contact_balance"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:textColor="#00f"
-	        android:textAppearance="?android:attr/textAppearanceMedium"/>
+	        android:paddingRight="10dp"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textColor="#00f" />
+	    
+	    <ImageView
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:adjustViewBounds="true"
+	        android:maxHeight="@dimen/activity_vertical_margin"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/ic_money_in" />
 	    
 	    <View android:layout_width="wrap_content"
 	        android:layout_height="0dip"
 	        android:layout_weight="1" />
 	    
-	    <ImageView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_launcher" />
-	    
 	    <TextView
 	        android:id="@+id/contact_positive"
 	        android:layout_width="wrap_content"
-	       	android:layout_height="wrap_content"
-	       	android:textColor="#0f0"
-	       	android:textAppearance="?android:attr/textAppearanceMedium"/>
-	    
-	    <View android:layout_width="wrap_content"
-	       	android:layout_height="0dip"
-	       	android:layout_weight="1" />
+	        android:layout_height="wrap_content"
+	        android:paddingRight="10dp"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:textColor="#0f0" />
 	    
 		<ImageView
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:src="@drawable/ic_member3" />
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:adjustViewBounds="true"
+		    android:maxHeight="@dimen/activity_vertical_margin"
+		    android:scaleType="centerInside"
+		    android:src="@drawable/ic_money_out" />
+	    
+	    <View android:layout_width="wrap_content"
+	        android:layout_height="0dip"
+	        android:layout_weight="1" />
 	
 	    <TextView
 	        android:id="@+id/contact_negative"
