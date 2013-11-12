@@ -54,5 +54,18 @@ public class UserController {
 		return list;
 	}
 	
+	static public Debt[] getDebtHistoric()
+	{
+		Debt[] list=new Debt[]{
+				
+				new Debt("potato","potatu","potata"),
+				new Debt("potito","potitu","potita"),
+				new Debt("poteto","potetu","poteta"),
+				new Debt("pototo","pototu","potota"),
+		};
+		
+		return list;
+	}
+	
 
 }

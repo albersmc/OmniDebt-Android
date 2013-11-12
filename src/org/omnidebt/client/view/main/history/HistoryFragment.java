@@ -1,6 +1,10 @@
 package org.omnidebt.client.view.main.history;
 
+
 import org.omnidebt.client.R;
+import org.omnidebt.client.controller.UserController;
+import org.omnidebt.client.view.main.Debt;
+import org.omnidebt.client.view.main.DebtAdapter;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,28 +12,32 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
-public class HistoryFragment extends Fragment {
+public class HistoryFragment extends Fragment{
+	public Debt[] theList;
+	public ListView viewList;
+	public DebtAdapter adapter;
 	
-	private ListView			lvLayout	= null;
+	private LinearLayout		llLayout	= null;
 	private FragmentActivity	faActivity	= null;
-	private String[]			sListContent		= null;
-	
-	public HistoryFragment() {
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		faActivity	= (FragmentActivity)	super.getActivity();
-		lvLayout	= (ListView)			inflater.inflate(R.layout.history_fragment, container, false);
-		sListContent	= (String[]) lvLayout.getResources().getStringArray(R.array.drawer_content);
 		
-		lvLayout.setAdapter(new ArrayAdapter<String>(faActivity, R.layout.debt_item_fragment, sListContent));
-		
-		return lvLayout;
-	}
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        
+        faActivity	= (FragmentActivity)	super.getActivity();
+        llLayout	= (LinearLayout)		inflater.inflate(R.layout.historic_fragment, container, false);
+        
+	    theList=UserController.getDebtHistoric();
+		viewList=(ListView) llLayout.findViewById(R.id.listHistoric);
+		
+	    adapter=new DebtAdapter(faActivity, R.layout.historic_item_fragment, theList);
+	    viewList.setAdapter(adapter);
+
+        return llLayout;
+
+    }
 }
