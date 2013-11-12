@@ -5,8 +5,8 @@ import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.DebtAdapter;
 
-import android.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
