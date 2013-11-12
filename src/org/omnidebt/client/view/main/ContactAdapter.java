@@ -12,13 +12,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ContactArrayAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends ArrayAdapter<Contact> {
 	
 	Context			cContext	= null;
 	int				iLayout		= 0;
 	List<Contact>	lcData		= null;
 
-	public ContactArrayAdapter(Context context, int resource, List<Contact> objects) {
+	public ContactAdapter(Context context, int resource, List<Contact> objects) {
 		super(context, resource, objects);
 		cContext	= context;
 		iLayout		= resource;
@@ -56,7 +56,7 @@ public class ContactArrayAdapter extends ArrayAdapter<Contact> {
 		return rowView;
 		
 	}
-	
+
 	static class ContactHolder
 	{
 		TextView tvName;

@@ -280,4 +280,9 @@ public class MainODActivity extends FragmentActivity {
 		changeFragment(EFragments.AddContact.ordinal());
 	}
 
+	public void goToPreviousFragment() {
+		if(!lPreviousFragments.isEmpty())
+			changeFragment(lPreviousFragments.get(lPreviousFragments.size()-1));
+	}
+	
 }
