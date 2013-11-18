@@ -40,4 +40,12 @@ public class HistoryFragment extends Fragment{
         return llLayout;
 
     }
+    
+    
+    private HistoryListener hListener=new HistoryListener(){
+    	public void onRetrieveHistoryListener()
+    	{
+    		
+    	}
+    };
 }
