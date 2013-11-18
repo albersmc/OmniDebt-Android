@@ -57,5 +57,6 @@
     <string name="edit_contacts">Edit Contacts</string>
     <string name="contact_name">Contact Name</string>
     <string name="button_cancel">Cancel</string>
+    <string name="remove">Remove</string>
 
 </resources>

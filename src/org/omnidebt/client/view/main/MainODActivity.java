@@ -129,10 +129,6 @@ public class MainODActivity extends FragmentActivity {
     		{
     			fragment.onAddContact();
     		}
-    		else if(item.getItemId() == R.id.edit_contacts)
-    		{
-    			fragment.onEditContact();
-    		}
     	}
 
 		return super.onOptionsItemSelected(item);
@@ -283,6 +279,13 @@ public class MainODActivity extends FragmentActivity {
 	public void goToPreviousFragment() {
 		if(!lPreviousFragments.isEmpty())
 			changeFragment(lPreviousFragments.get(lPreviousFragments.size()-1));
+	}
+
+	public void multipleSelection(Integer number) {
+		if(number.equals(0))
+			updateActionBarTitle();
+		else
+			getActionBar().setTitle(number.toString());
 	}
 	
 }

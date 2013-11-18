@@ -6,6 +6,8 @@ import org.omnidebt.client.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +16,17 @@ import android.widget.TextView;
 
 public class ContactAdapter extends ArrayAdapter<Contact> {
 	
-	Context			cContext	= null;
-	int				iLayout		= 0;
-	List<Contact>	lcData		= null;
+	Context				cContext	= null;
+	int					iLayout		= 0;
+	List<Contact>		lcData		= null;
+	SparseBooleanArray	baSelected	= null;
 
-	public ContactAdapter(Context context, int resource, List<Contact> objects) {
+	public ContactAdapter(Context context, int resource, List<Contact> objects, SparseBooleanArray baArray) {
 		super(context, resource, objects);
 		cContext	= context;
 		iLayout		= resource;
 		lcData		= objects;
+		baSelected	= baArray;
 	}
 	
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -52,6 +56,11 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		holder.tvBalance.setText(contact.dBalance.toString());
 		holder.tvPositive.setText(contact.dPositive.toString());
 		holder.tvNegative.setText(contact.dNegative.toString());
+
+		if(baSelected.get(position))
+			rowView.setBackgroundColor(Color.parseColor("#424242"));
+		else
+			rowView.setBackgroundColor(Color.parseColor("#ffffff"));
 
 		return rowView;
 		

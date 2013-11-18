@@ -66,11 +66,17 @@ public class ContactProvider {
 		Log.d("contact", ((Integer)lcData.size()).toString());
 	}
 	
-	static public void tryAddRemove(RemoveContactListener callback) {
+	static public void tryRemoveContact(Integer position, RemoveContactListener callback) {
+		if(lcData.size() > position) {
+			lcData.remove(lcData.get(position));
+			Log.d("contact", "remove " + position.toString());
+		}
+
+		Log.d("contact", ((Integer) lcData.size()).toString());
 		callback.onRemoveContactResult(RemoveContactListener.ERemoveContactResult.Success);
 	}
 
-	static public void addContact(Contact c) {
+	static private void addContact(Contact c) {
 		if(!lcData.contains(c))
 			lcData.add(c);
 	}
