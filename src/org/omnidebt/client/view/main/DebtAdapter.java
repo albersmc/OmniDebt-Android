@@ -52,10 +52,10 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		return row;
 	}
 	
-	static class DebtHolder
+	public static class DebtHolder
 	{
-		TextView date;
-		TextView person;
-		TextView value;
+		public TextView date;
+		public TextView person;
+		public TextView value;
 	}
 }
