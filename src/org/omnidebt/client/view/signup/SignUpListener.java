@@ -1,12 +1,15 @@
 package org.omnidebt.client.view.signup;
 
-
 public interface SignUpListener {
+
 	public enum SignUpResult {
 		Succeed,
 		WrongIDs,
 		UsedLogin,
-		Failed
+		Failed,
+		UnknownError
 	}
+
 	public void onConnectResult(SignUpResult code);
+
 }

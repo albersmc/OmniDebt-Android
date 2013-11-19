@@ -34,9 +34,9 @@ public class SignUpActivity extends Activity{
 					String strConfirmPasswd=((EditText) findViewById(R.id.editConfirmPassword)).getText().toString();
 					
 					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
-					
-					
-					
+
+					TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
+					errorLabel.setText(R.string.login_trying_login);
 				}
 				
 			}
