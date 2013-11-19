@@ -55,5 +55,6 @@
     <string name="add_contact">Ajouter un Contact</string>
     <string name="edit_contacts">Modifier Contacts</string>
     <string name="contact_name">Nom du Contact</string>
+    <string name="button_cancel">Annuler</string>
 
 </resources>
