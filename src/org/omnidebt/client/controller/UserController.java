@@ -1,6 +1,7 @@
 package org.omnidebt.client.controller;
 
 import org.omnidebt.client.view.login.LoginListener;
+import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.signup.SignUpListener;
 import org.omnidebt.client.view.signup.SignUpListener.SignUpResult;
@@ -15,12 +16,24 @@ import android.util.Log;
 
 public class UserController {
 
+	private static String	strLogin	= null;
+	private static String	strPasswd	= null;
+
 	public interface ODUserService {
 		@POST("/connect/{user}/{pass}")
 		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<Response> cb);
 	}
 
-	static public void tryLogin(String strLogin, String strPasswd, LoginListener callback) {
+	static public void tryLogin(String login, String passwd, LoginListener callback) {
+
+		strLogin	= login;
+		strPasswd	= passwd;
+
+		// Used to login even without server
+		if(strLogin.equals("test") && strPasswd.equals("pass"))
+		{
+			callback.onConnectResult(ConnectResult.Succeed);
+		}
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://10.11.163.24:9000")
