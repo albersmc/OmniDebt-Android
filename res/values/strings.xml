@@ -22,6 +22,8 @@
     <string name="button_accept_connection">Login</string>
     <string name="login_wrong_ids">Login or password incorrect</string>
     <string name="login_failed">Problem to connect to server</string>
+    <string name="login_unkown_error">Unkown error</string>
+    <string name="login_trying_login">Connection ...</string>
 
 	<!-- SignUpActivity -->
     <string name="title_activity_signup">SignUp</string>

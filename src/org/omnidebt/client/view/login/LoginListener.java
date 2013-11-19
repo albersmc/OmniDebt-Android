@@ -5,9 +5,9 @@ public interface LoginListener {
 	public enum ConnectResult {
 		Succeed,
 		WrongIDs,
-		Failed
+		Failed,
+		UnkownError
 	}
-	
 	
 	public void onConnectResult(ConnectResult code);
 
