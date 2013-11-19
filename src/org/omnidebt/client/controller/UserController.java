@@ -87,6 +87,9 @@ public class UserController {
 		return list;
 	}
 
+	static public String getName() {
+		return strLogin;
+	}
 
 }
 
