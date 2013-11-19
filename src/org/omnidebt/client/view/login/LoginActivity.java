@@ -52,8 +52,10 @@ public class LoginActivity extends Activity {
 		public void onClick(View v) {
 			String	strLogin	= etLogin.getText().toString();
 			String	strPassword	= etPassword.getText().toString();
+
+			tvLoginStatus.setText(R.string.login_trying_login);
 			
-			Log.i("login", "Try connection");
+			Log.i("login", "Try login");
 			UserController.tryLogin(strLogin, strPassword, loginListener);
 		}
 	};
@@ -101,13 +103,15 @@ public class LoginActivity extends Activity {
 			}
 			else if(code.equals(ConnectResult.WrongIDs)) {
 				// Clear form and explain error to the user
-				Log.w("login", "Authentication failed : wrong ids");
 				etLogin.setText("");
 				etPassword.setText("");
 				tvLoginStatus.setText(R.string.login_wrong_ids);
 			}
 			else if(code.equals(ConnectResult.Failed)) {
 				tvLoginStatus.setText(R.string.login_failed);
+			}
+			else if(code.equals(ConnectResult.UnkownError)) {
+				tvLoginStatus.setText(R.string.login_unkown_error);
 			}
 		}
 	};

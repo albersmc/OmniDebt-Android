@@ -26,8 +26,8 @@ public class UserConnectCallback implements Callback<Response> {
 		}
 		else
 		{
-			Log.w("login", "Unexpected error");
-			callback.onConnectResult(ConnectResult.Failed);
+			Log.e("login", "Unexpected error");
+			callback.onConnectResult(ConnectResult.UnkownError);
 		}
 	}
 
@@ -36,7 +36,7 @@ public class UserConnectCallback implements Callback<Response> {
 
 		if (error.isNetworkError())
 		{
-			Log.w("login", "Authentication failed : conenction with database problem");
+			Log.e("login", "Authentication failed : conenction with database problem");
 			callback.onConnectResult(ConnectResult.Failed);
 		}
 		else if(error.getResponse().getStatus() == 401)
@@ -46,8 +46,8 @@ public class UserConnectCallback implements Callback<Response> {
 		}
 		else
 		{
-			Log.w("login", "Unexpected error");
-			callback.onConnectResult(ConnectResult.Failed);
+			Log.e("login", "Unexpected error");
+			callback.onConnectResult(ConnectResult.UnkownError);
 		}
 	}
 }
