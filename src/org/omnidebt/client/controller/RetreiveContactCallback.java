@@ -28,27 +28,35 @@ public class RetreiveContactCallback implements Callback<Response> {
 		if(response.getStatus() == 200)
 		{
 			try{
-				String res = new String();
-				Scanner scan = new Scanner(r.getBody().in()).useDelimiter(" ");
-				while(scan.hasNext())
+				Scanner test = new Scanner(r.getBody().in()).useDelimiter(" ");
+				if(test.next().equals("Aucun") && test.next().equals("contact"))
 				{
-					String s = scan.next();
-					if(s.length() != 0)
+					Log.i("contact", "No contact");
+					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
+				}
+				else
+				{
+					Scanner scan = new Scanner(r.getBody().in()).useDelimiter(" ");
+					while(scan.hasNext())
 					{
-						Contact contact	= new Contact();
-						contact.sName		= s;
-						contact.dBalance	= 0.;
-						contact.dPositive	= 0.;
-						contact.dNegative	= 0.;
-						ContactProvider.addContact(contact);
+						String s = scan.next();
+						if(s.length() != 0)
+						{
+							Contact contact	= new Contact();
+							contact.sName		= s;
+							contact.dBalance	= 0.;
+							contact.dPositive	= 0.;
+							contact.dNegative	= 0.;
+							ContactProvider.addContact(contact);
 
-						Log.i("contact", "Got a contact Succeed");
-						callback.onRetreiveContactResult(ERetreiveContactResult.Success);
-					}
-					else
-					{
-						Log.i("contact", "Unkown Error len = 0");
-						callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+							Log.i("contact", "Got a contact Succeed");
+							callback.onRetreiveContactResult(ERetreiveContactResult.Success);
+						}
+						else
+						{
+							Log.i("contact", "Unkown Error len = 0");
+							callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+						}
 					}
 				}
 			} catch(IOException e) {

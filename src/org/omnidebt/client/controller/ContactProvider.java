@@ -33,7 +33,7 @@ public class ContactProvider {
 	static public void tryRetreiveContact(RetreiveContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://10.11.163.24:9000")
+			.setServer("http://88.185.252.7")
 			.build();
 
 		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
@@ -49,7 +49,7 @@ public class ContactProvider {
 	static public void tryAddContact(String name, AddContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://10.11.163.24:9000")
+			.setServer("http://88.185.252.7")
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);
