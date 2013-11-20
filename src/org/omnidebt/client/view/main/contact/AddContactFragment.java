@@ -43,7 +43,8 @@ public class AddContactFragment extends Fragment {
 	private OnClickListener onClickAddContact = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
-			String name = ((TextView) llLayout.findViewById(R.id.contact_name)).getText().toString();
+			String name		= ((TextView)	llLayout.findViewById(R.id.contact_name)).getText().toString();
+			((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.login_trying_login);
 			ContactProvider.tryAddContact(name, addContactListener);
 		}
 	};
@@ -64,7 +65,22 @@ public class AddContactFragment extends Fragment {
 			if(result.equals(EAddContactResult.Success))
 			{
 				moActivity.goToPreviousFragment();
-
+			}
+			else if(result.equals(EAddContactResult.ContactAlready))
+			{
+				((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.contact_already);
+			}
+			else if(result.equals(EAddContactResult.UnknownContact))
+			{
+				((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.unknown_contact);
+			}
+			else if(result.equals(EAddContactResult.Failed))
+			{
+				((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.login_failed);
+			}
+			else if(result.equals(EAddContactResult.UnknownError))
+			{
+				((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.login_unkown_error);
 			}
 		}
 		

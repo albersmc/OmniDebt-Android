@@ -4,7 +4,11 @@ public interface AddContactListener {
 
 	public enum	EAddContactResult {
 		Success,
-		Failed
+		ContactAlready,
+		UnknownContact,
+		Failed,
+		UnknownError
+
 	};
 	
 	public void onAddContactResult(EAddContactResult result);

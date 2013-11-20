@@ -33,6 +33,16 @@ public class AddContactCallback implements Callback<Response> {
 					Log.i("login", "Authentication Succeed");
 					callback.onAddContactResult(EAddContactResult.Success);
 				}
+				if(res.equals("2"))
+				{
+					Log.i("login", "Already a contact");
+					callback.onAddContactResult(EAddContactResult.ContactAlready);
+				}
+				if(res.equals("3"))
+				{
+					Log.i("login", "Unknown Contact");
+					callback.onAddContactResult(EAddContactResult.UnknownContact);
+				}
 				else
 				{
 					Log.i("login", "Unkown Error");
