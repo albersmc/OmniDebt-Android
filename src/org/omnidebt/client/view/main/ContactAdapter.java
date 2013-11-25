@@ -40,7 +40,7 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 			
 			holder = new ContactHolder();
 			holder.tvName		=(TextView)	rowView.findViewById(R.id.contact_name);
-			holder.tvBalance		=(TextView)	rowView.findViewById(R.id.contact_balance);
+			holder.tvBalance	=(TextView)	rowView.findViewById(R.id.contact_balance);
 			holder.tvPositive	=(TextView)	rowView.findViewById(R.id.contact_positive);
 			holder.tvNegative	=(TextView)	rowView.findViewById(R.id.contact_negative);
 			

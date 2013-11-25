@@ -19,6 +19,7 @@ import android.util.Log;
 
 public class ContactProvider {
 	
+	static Contact			cUser		= null;
 	static List<Contact>	lcData		= new ArrayList<Contact>();
 	static List<Contact>	lcToRemove	= new ArrayList<Contact>();
 	
@@ -79,6 +80,15 @@ public class ContactProvider {
 			Log.e("contact", "Remove contact position out of bounds");
 	}
 
+	static public void retreiveUser() {
+		Log.d("contact", "called");
+		cUser			= new Contact();
+		cUser.sName		= UserController.getName();
+		cUser.dBalance	= 0.;
+		cUser.dPositive	= 0.;
+		cUser.dNegative	= 0.;
+	}
+
 	static public void addContact(Contact c) {
 		if(!lcData.contains(c))
 			lcData.add(c);
@@ -94,6 +104,20 @@ public class ContactProvider {
 
 	static public void resetContact() {
 		lcData.clear();
+	}
+
+	static public Contact getContact(String strName) {
+		Contact c = new Contact();
+		c.sName = strName;
+
+		if(cUser.equals(c))
+			return cUser;
+
+		int i = lcData.indexOf(c);
+		if(i > -1)
+			return lcData.get(i);
+
+		return null;
 	}
 
 }
