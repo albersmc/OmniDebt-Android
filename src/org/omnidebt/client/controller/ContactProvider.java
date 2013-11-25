@@ -8,77 +8,116 @@ import org.omnidebt.client.view.main.contact.AddContactListener;
 import org.omnidebt.client.view.main.contact.RemoveContactListener;
 import org.omnidebt.client.view.main.contact.RetreiveContactListener;
 
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.client.Response;
+import retrofit.http.GET;
+import retrofit.http.POST;
+import retrofit.http.Path;
+
 import android.util.Log;
 
 public class ContactProvider {
 	
-	static List<Contact>	lcData = new ArrayList<Contact>();
+	static Contact			cUser		= null;
+	static List<Contact>	lcData		= new ArrayList<Contact>();
+	static List<Contact>	lcToRemove	= new ArrayList<Contact>();
 	
 	static public List<Contact> getList() {
 		return lcData;		
 	}
+
+	public interface ODRetreiveContactService {
+		@GET("/getContacts/{user}")
+		void tryRetreive(@Path("user") String user, Callback<Response> cb);
+	}
 	
 	static public void tryRetreiveContact(RetreiveContactListener callback) {
-		Contact contact1	= new Contact();
-		contact1.sName		= "Test";
-		contact1.dBalance	= 42.;
-		contact1.dPositive	= 66.;
-		contact1.dNegative	= 24.;
-		
-		Contact contact2	= new Contact();
-		contact2.sName		= "Stupidly long name for the sake of tests";
-		contact2.dBalance	= 420.;
-		contact2.dPositive	= 660.;
-		contact2.dNegative	= 240.;
-		
-		Contact contact3	= new Contact();
-		contact3.sName		= "Other Name";
-		contact3.dBalance	= 42000.;
-		contact3.dPositive	= 66000.;
-		contact3.dNegative	= 24000.;
-		
-		Contact contact4	= new Contact();
-		contact4.sName		= "Yet another Name";
-		contact4.dBalance	= 4200.;
-		contact4.dPositive	= 6600.;
-		contact4.dNegative	= 2400.;
-		
-		addContact(contact1);
-		addContact(contact1);
-		addContact(contact2);
-		addContact(contact3);
-		addContact(contact4);
-		
-		callback.onRetreiveContactResult(RetreiveContactListener.ERetreiveContactResult.Success);
+
+		RestAdapter restAdapter = new RestAdapter.Builder()
+			.setServer("http://88.185.252.7")
+			.build();
+
+		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
+
+		service.tryRetreive(UserController.getName(), new RetreiveContactCallback(callback));
+	}
+
+	public interface ODAddContactService {
+		@POST("/newContact/{user}/{contact}")
+		void tryAdd(@Path("user") String user, @Path("contact") String contact, Callback<Response> cb);
 	}
 
 	static public void tryAddContact(String name, AddContactListener callback) {
 
-		Contact contact		= new Contact();
-		contact.sName		= name;
-		contact.dBalance	= 0.0;
-		contact.dPositive	= 3.14;
-		contact.dNegative	= 3.14;
-		addContact(contact);
+		RestAdapter restAdapter = new RestAdapter.Builder()
+			.setServer("http://88.185.252.7")
+			.build();
 
-		callback.onAddContactResult(AddContactListener.EAddContactResult.Success);
+		ODAddContactService service = restAdapter.create(ODAddContactService.class);
 
-		Log.d("contact", ((Integer)lcData.size()).toString());
+		service.tryAdd(UserController.getName(), name, new AddContactCallback(callback));
 	}
 	
-	static public void tryRemoveContact(Integer position, RemoveContactListener callback) {
-		if(lcData.size() > position) {
-			lcData.remove(lcData.get(position));
-			Log.d("contact", "remove " + position.toString());
-		}
-
-		Log.d("contact", ((Integer) lcData.size()).toString());
-		callback.onRemoveContactResult(RemoveContactListener.ERemoveContactResult.Success);
+	public interface ODRemoveContactService {
+		@POST("/deleteContact/{user}/{contact}")
+		void tryRemove(@Path("user") String user, @Path("contact") String contact, Callback<Response> cb);
 	}
 
-	static private void addContact(Contact c) {
+	static public void tryRemoveContact(Integer position, RemoveContactListener callback) {
+		RestAdapter restAdapter = new RestAdapter.Builder()
+			.setServer("http://88.185.252.7")
+			.build();
+
+		ODRemoveContactService service = restAdapter.create(ODRemoveContactService.class);
+
+		if(position < lcData.size())
+		{
+			lcToRemove.add(lcData.get(position));
+			service.tryRemove(UserController.getName(), lcData.get(position).sName, new RemoveContactCallback(callback));
+		}
+		else
+			Log.e("contact", "Remove contact position out of bounds");
+	}
+
+	static public void retreiveUser() {
+		Log.d("contact", "called");
+		cUser			= new Contact();
+		cUser.sName		= UserController.getName();
+		cUser.dBalance	= 0.;
+		cUser.dPositive	= 0.;
+		cUser.dNegative	= 0.;
+	}
+
+	static public void addContact(Contact c) {
 		if(!lcData.contains(c))
 			lcData.add(c);
+	}
+
+	static public void removeContact() {
+		if(!lcToRemove.isEmpty())
+		{
+			lcData.remove(lcToRemove.get(0));
+			lcToRemove.remove(lcToRemove.get(0));
+		}
+	}
+
+	static public void resetContact() {
+		lcData.clear();
+	}
+
+	static public Contact getContact(String strName) {
+		Contact c = new Contact();
+		c.sName = strName;
+
+		if(cUser.equals(c))
+			return cUser;
+
+		int i = lcData.indexOf(c);
+		if(i > -1)
+			return lcData.get(i);
+
+		return null;
 	}
 
 }

@@ -5,6 +5,16 @@
     android:gravity="center"
     android:orientation="vertical" >
     
+	<View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/add_contact_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center" />
+    
     <View android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1" />
@@ -22,6 +32,10 @@
 	<View android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_weight="1" />
+	
+	<View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 	<LinearLayout
     android:layout_width="fill_parent"
@@ -48,5 +62,9 @@
 	<View android:layout_width="wrap_content"
 	android:layout_height="wrap_content"
 	android:layout_weight="1" />
+	
+	<View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 </LinearLayout>

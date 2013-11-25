@@ -52,11 +52,17 @@
 	<string name="dashboard_debt_owed">Debt Owed</string>
 	<string name="dashboard_balance">Balance</string>
 	<string name="dashboard_payment">Payment</string>
+	
 	<!-- AboutActivity -->
     <string name="title_activity_about">A Propos</string>
     <string name="add_contact">Ajouter un Contact</string>
     <string name="edit_contacts">Modifier Contacts</string>
     <string name="contact_name">Nom du Contact</string>
     <string name="button_cancel">Annuler</string>
+    
+        
+    <!-- Add Contact -->
+    <string name="contact_already">Contact déjà présent</string>
+    <string name="unknown_contact">Contact inconnu, vérifiez le nom</string>
 
 </resources>

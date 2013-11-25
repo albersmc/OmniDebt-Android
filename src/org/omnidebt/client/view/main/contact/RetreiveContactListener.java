@@ -4,7 +4,7 @@ public interface RetreiveContactListener {
 	
 	public enum	ERetreiveContactResult {
 		Success,
-		Failure
+		Failed
 	};
 	
 	public void onRetreiveContactResult(ERetreiveContactResult result);

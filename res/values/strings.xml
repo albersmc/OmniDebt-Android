@@ -22,7 +22,7 @@
     <string name="button_accept_connection">Login</string>
     <string name="login_wrong_ids">Login or password incorrect</string>
     <string name="login_failed">Problem to connect to server</string>
-    <string name="login_unkown_error">Unkown error</string>
+    <string name="login_unkown_error">Unknown error</string>
     <string name="login_trying_login">Connection ...</string>
 
 	<!-- SignUpActivity -->
@@ -60,5 +60,9 @@
     <string name="contact_name">Contact Name</string>
     <string name="button_cancel">Cancel</string>
     <string name="remove">Remove</string>
+    
+    <!-- Add Contact -->
+    <string name="contact_already">Contact already in your list</string>
+    <string name="unknown_contact">Unknown contact, check the name</string>
 
 </resources>

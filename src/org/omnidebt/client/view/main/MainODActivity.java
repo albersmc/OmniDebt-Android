@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.omnidebt.client.R;
+import org.omnidebt.client.controller.ContactProvider;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
@@ -84,6 +85,12 @@ public class MainODActivity extends FragmentActivity {
 	protected void onPostCreate(Bundle savedInstanceState) {
 		super.onPostCreate(savedInstanceState);
 		abActionBar.syncState();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		ContactProvider.resetContact();
 	}
 
 	@Override

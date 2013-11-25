@@ -5,7 +5,9 @@ public interface RemoveContactListener {
 	public enum	ERemoveContactResult {
 		Success,
 		DebtExist,
-		Failure
+		UnknownContact,
+		Failure,
+		UnknownError
 	};
 	
 	public void onRemoveContactResult(ERemoveContactResult result);

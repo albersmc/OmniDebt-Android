@@ -63,6 +63,7 @@ public class ContactFragment extends Fragment {
 		@Override
 		public void onRetreiveContactResult(ERetreiveContactResult result) {
 			caAdapter.sort(new ContactComparator());
+			caAdapter.notifyDataSetChanged();
 		}
 		
 	};
@@ -72,7 +73,6 @@ public class ContactFragment extends Fragment {
 		@Override
 		public void onRemoveContactResult(ERemoveContactResult result) {
 			// TODO Auto-generated method stub
-			Log.d("contact", "test");
 			caAdapter.sort(new ContactComparator());
 			caAdapter.notifyDataSetChanged();
 		}
