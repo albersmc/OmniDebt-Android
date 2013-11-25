@@ -19,9 +19,14 @@ public class UserController {
 	private static String	strLogin	= null;
 	private static String	strPasswd	= null;
 
-	public interface ODUserService {
+	public interface ODLoginService {
 		@POST("/connect/{user}/{pass}")
 		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<Response> cb);
+	}
+
+	public interface ODSignupService {
+		@POST("/signup/{user}/{pass}/{email}")
+		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<Response> cb);
 	}
 
 	static public void tryLogin(String login, String passwd, LoginListener callback) {
@@ -39,24 +44,20 @@ public class UserController {
 			.setServer("http://10.11.163.24:9000")
 			.build();
 
-		ODUserService service = restAdapter.create(ODUserService.class);
+		ODLoginService service = restAdapter.create(ODLoginService.class);
 
 		service.tryConnect(strLogin, strPasswd, new UserConnectCallback(callback));
 	}
 	
 	static public void trySignUp(String strLogin, String strEmail, String strPasswd, String strConfirmPassword, SignUpListener callback) {
-		if(strLogin.equals("nonet")) {
-			Log.w("login", "Authentication failed : conenction with database problem");
-			callback.onConnectResult(SignUpResult.Failed);
-		}
-		else if(strLogin.equals("test")) {
-			Log.i("login", "Authentication Succeed");
-			callback.onConnectResult(SignUpResult.Succeed);
-		}
-		else {
-			Log.w("login", "Authentication failed : wrong ids");
-			callback.onConnectResult(SignUpResult.UsedLogin);
-		}
+
+		RestAdapter restAdapter = new RestAdapter.Builder()
+			.setServer("http://10.11.163.24:9000")
+			.build();
+
+		ODSignupService service = restAdapter.create(ODSignupService.class);
+
+		service.trySignup(strLogin, strPasswd, strEmail, new UserSignupCallback(callback));
 	}
 	
 	
