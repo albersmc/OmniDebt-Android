@@ -1,6 +1,7 @@
 package org.omnidebt.client.view.main.dashboard;
 
 import org.omnidebt.client.R;
+import org.omnidebt.client.controller.DebtController;
 import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.DebtAdapter;
@@ -45,22 +46,22 @@ public class DashboardFragment extends Fragment {
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
 	    viewList.setAdapter(adapter);
 	    
-	    
-	    
-	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-	    	{
-	    		DebtHolder tag=(DebtHolder) v.getTag();
-	    		sendRequest(tag.date.getText().toString(), tag.person.getText().toString(), tag.value.getText().toString());
-	    	}
-    	});
-	    
 	    pl=new PaiementListener(){
 	    	public void onConnectResult(PaiementResult pr)
 	    	{
 	    		
 	    	}
 	    };
+	    
+	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
+	    	{
+	    		DebtHolder tag=(DebtHolder) v.getTag();
+	    		DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), pl);
+	    	}
+    	});
+	    
+	    
 
         return llLayout;
 

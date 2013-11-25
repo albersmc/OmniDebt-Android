@@ -1,6 +1,7 @@
 package org.omnidebt.client.controller;
 
 import org.omnidebt.client.view.main.DebtCreateListener;
+import org.omnidebt.client.view.main.dashboard.PaiementListener;
 
 import retrofit.http.POST;
 import retrofit.Callback;
@@ -15,8 +16,8 @@ public class DebtController {
 		@POST("/newDebt/{nameLender}/{nameOwner}/{debt}")
 		void tryCreate(@Path("nameLender") String nameLender, @Path("nameOwner") String nameOwner, @Path("debt") float debt, Callback<Response> cb);
 		
-		@POST("/newDebt/{nameLender}/{nameOwner}/{debt}")
-		void tryPay(@Path("nameLender") String nameLender, @Path("nameOwner") String nameOwner, @Path("debt") float debt, Callback<Response> cb);
+		@POST("/closeDebt/{nameUser}/{nameContact}")
+		void tryPay(@Path("nameUser") String nameUser, @Path("nameContact") String nameContact, Callback<Response> cb);
 		
 		
 	}
@@ -29,12 +30,12 @@ public class DebtController {
 		ds.tryCreate(nameLender, nameOwner, debt, new DebtCreateCallback(cb));
 	}
 	
-	public static void tryPay(String nameLender, String nameOwner, float debt, DebtCreateListener cb)
+	public static void tryPay(String nameUser, String nameContact, PaiementListener cb)
 	{
-		RestAdapter ra=new RestAdapter.Builder().setServer("http://10.11.163.24:9000").build();
+		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7:9000").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
-		ds.tryPay(nameLender, nameOwner, debt, new DebtCreateCallback(cb));
+		ds.tryPay(nameUser, nameContact, new DebtPayCallback(cb));
 	}
 	
 }
