@@ -92,4 +92,8 @@ public class ContactProvider {
 		}
 	}
 
+	static public void resetContact() {
+		lcData.clear();
+	}
+
 }
