@@ -1,8 +1,11 @@
 package org.omnidebt.client.view.main.history;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.omnidebt.client.R;
-import org.omnidebt.client.controller.UserController;
+import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.DebtAdapter;
 
@@ -12,12 +15,11 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
 public class HistoryFragment extends Fragment{
-	public Debt[] theList;
+	public List<Debt> theList;
 	public ListView viewList;
 	public DebtAdapter adapter;
 	
@@ -31,7 +33,7 @@ public class HistoryFragment extends Fragment{
         faActivity	= (FragmentActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.historic_fragment, container, false);
         
-	    theList=UserController.getDebtHistoric();
+	    theList= DebtProvider.getAll();
 		viewList=(ListView) llLayout.findViewById(R.id.listHistoric);
 		
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);

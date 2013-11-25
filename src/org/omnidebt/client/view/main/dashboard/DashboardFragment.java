@@ -1,7 +1,10 @@
 package org.omnidebt.client.view.main.dashboard;
 
+import java.util.List;
+
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.Contact;
 import org.omnidebt.client.view.main.Debt;
@@ -11,6 +14,7 @@ import org.omnidebt.client.view.main.DebtAdapter.DebtHolder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +24,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class DashboardFragment extends Fragment {
-	public Debt[] theList;
+	public List<Debt> theList;
 	public ListView viewList;
 	public DebtAdapter adapter;
 	
@@ -49,13 +53,11 @@ public class DashboardFragment extends Fragment {
         llLayout.addView(theView, 0);
         
         
-	    theList=UserController.getDebtList();
+	    theList= DebtProvider.getOpen();
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
 	    viewList.setAdapter(adapter);
-	    
-	    
 	    
 	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)

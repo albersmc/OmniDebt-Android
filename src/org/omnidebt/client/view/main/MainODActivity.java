@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
@@ -63,7 +64,7 @@ public class MainODActivity extends FragmentActivity {
 		lPreviousFragments	= new				ArrayList<Integer>();
 
 		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
-			R.string.drawer_open, R.string.drawer_close);
+															R.string.drawer_open, R.string.drawer_close);
 
 		// Set the adapter for the list view
 		lvDrawerContainer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, sDrawerContent));
@@ -75,6 +76,10 @@ public class MainODActivity extends FragmentActivity {
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+
+
+		ContactProvider.retreiveUser();
+		DebtProvider.retreiveAll();
 
 		// Setup the selected fragment
 		changeFragment(iPosition);
@@ -91,6 +96,7 @@ public class MainODActivity extends FragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		ContactProvider.resetContact();
+		DebtProvider.resetDebt();
 	}
 
 	@Override

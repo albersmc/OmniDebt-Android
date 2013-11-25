@@ -34,7 +34,6 @@ public class UserController {
 		// Used to login even without server
 		if(strLogin.equals("test") && strPasswd.equals("pass"))
 		{
-			ContactProvider.retreiveUser();
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 
