@@ -34,7 +34,7 @@ public class HistoryFragment extends Fragment{
 	    theList=UserController.getDebtHistoric();
 		viewList=(ListView) llLayout.findViewById(R.id.listHistoric);
 		
-	    adapter=new DebtAdapter(faActivity, R.layout.historic_item_fragment, theList);
+	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
 	    viewList.setAdapter(adapter);
 
         return llLayout;

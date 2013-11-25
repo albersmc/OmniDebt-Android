@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DebtAdapter extends ArrayAdapter<Debt>{
@@ -47,7 +48,9 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		Debt debt=data[position];
 		holder.date.setText(debt.date);
 		holder.person.setText(debt.owner);
-		holder.value.setText(debt.value);
+		holder.value.setText(debt.value.toString());
+		if(debt.closed)
+			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.INVISIBLE);
 		
 		return row;
 	}

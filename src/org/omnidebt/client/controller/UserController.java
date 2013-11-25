@@ -4,15 +4,12 @@ import org.omnidebt.client.view.login.LoginListener;
 import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.signup.SignUpListener;
-import org.omnidebt.client.view.signup.SignUpListener.SignUpResult;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
 import retrofit.http.POST;
 import retrofit.http.Path;
-
-import android.util.Log;
 
 public class UserController {
 
@@ -66,10 +63,10 @@ public class UserController {
 	{
 		Debt[] list=new Debt[]{
 				
-				new Debt("potato","potatu","potata"),
-				new Debt("potito","potitu","potita"),
-				new Debt("poteto","potetu","poteta"),
-				new Debt("pototo","pototu","potota"),
+				new Debt("potato","potatu", 0., false),
+				new Debt("potito","potitu", 0., false),
+				new Debt("poteto","potetu", 0., false),
+				new Debt("pototo","pototu", 0., false),
 		};
 		
 		return list;
@@ -79,10 +76,10 @@ public class UserController {
 	{
 		Debt[] list=new Debt[]{
 				
-				new Debt("potato","potatu","potata"),
-				new Debt("potito","potitu","potita"),
-				new Debt("poteto","potetu","poteta"),
-				new Debt("pototo","pototu","potota"),
+				new Debt("potato","potatu", 0., false),
+				new Debt("potito","potitu", 0., false),
+				new Debt("poteto","potetu", 0., false),
+				new Debt("pototo","pototu", 0., true),
 		};
 		
 		return list;
