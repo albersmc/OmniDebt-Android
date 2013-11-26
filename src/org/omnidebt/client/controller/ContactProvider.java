@@ -76,7 +76,7 @@ public class ContactProvider {
 		if(position < lcData.size())
 		{
 			lcToRemove.add(lcData.get(position));
-			service.tryRemove(UserController.getName(), lcData.get(position).sName, new RemoveContactCallback(callback));
+			service.tryRemove(UserController.getName(), lcData.get(position).name, new RemoveContactCallback(callback));
 		}
 		else
 			Log.e("contact", "Remove contact position out of bounds");
@@ -84,11 +84,11 @@ public class ContactProvider {
 
 	static public void retreiveUser() {
 		Log.d("contact", "called");
-		cUser			= new Contact();
-		cUser.sName		= UserController.getName();
-		cUser.dBalance	= 0.;
-		cUser.dPositive	= 0.;
-		cUser.dNegative	= 0.;
+		cUser				= new Contact();
+		cUser.name			= UserController.getName();
+		cUser.balance		= 0.;
+		cUser.pos	= 0.;
+		cUser.neg	= 0.;
 	}
 
 	static public void addContact(Contact c) {
@@ -110,7 +110,7 @@ public class ContactProvider {
 
 	static public Contact getContact(String strName) {
 		Contact c = new Contact();
-		c.sName = strName;
+		c.name = strName;
 
 		if(cUser.equals(c))
 			return cUser;

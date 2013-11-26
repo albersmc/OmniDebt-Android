@@ -38,6 +38,11 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				}
 			}
+			else if(r.status.equals("KO"))
+			{
+				Log.e("contact", "No Contact");
+				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
+			}
 			else
 			{
 				Log.e("contact", "Unexpected error");

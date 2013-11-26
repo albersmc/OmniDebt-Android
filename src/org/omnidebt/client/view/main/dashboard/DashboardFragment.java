@@ -24,12 +24,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class DashboardFragment extends Fragment {
+
 	public List<Debt> theList;
 	public ListView viewList;
 	public DebtAdapter adapter;
 	
 	private LinearLayout		llLayout	= null;
 	private FragmentActivity	faActivity	= null;
+
+	private String				sUser		= "";
 	
 	private PaiementListener pl;
 		
@@ -45,15 +48,20 @@ public class DashboardFragment extends Fragment {
 		Contact user	= ContactProvider.getContact(UserController.getName());
         View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 
-		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(user.sName);
-		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.dBalance.toString());
-		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.dBalance.toString());
-		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.dBalance.toString());
+		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(user.name);
+		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
+		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
+		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
 
         llLayout.addView(theView, 0);
+
+		sUser = getArguments().getString("User");
         
-        
-	    theList= DebtProvider.getOpen();
+		if(sUser.length() == 0)
+			theList = DebtProvider.getOpen();
+		else
+			theList = DebtProvider.getContact(sUser);
+
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
 	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
