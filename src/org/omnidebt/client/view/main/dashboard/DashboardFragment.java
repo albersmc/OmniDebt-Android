@@ -12,10 +12,15 @@ import org.omnidebt.client.view.main.DebtAdapter.DebtHolder;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
+import org.omnidebt.client.view.main.MainODActivity;
+
+
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,9 +29,9 @@ public class DashboardFragment extends Fragment {
 	public Debt[] theList;
 	public ListView viewList;
 	public DebtAdapter adapter;
-	
+	public Button addDebtButton;
 	private LinearLayout		llLayout	= null;
-	private FragmentActivity	faActivity	= null;
+	private MainODActivity	faActivity	= null;
 	
 	private PaiementListener pl;
 		
@@ -36,7 +41,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         
-        faActivity	= (FragmentActivity)	super.getActivity();
+        faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
         
 		Contact user	= ContactProvider.getContact(UserController.getName());
@@ -49,6 +54,7 @@ public class DashboardFragment extends Fragment {
 
         llLayout.addView(theView, 0);
         
+        addDebtButton=(Button) llLayout.findViewById(R.id.AddDebtButton);
         
 	    theList=UserController.getDebtList();
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
@@ -71,10 +77,36 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
-	    
+	    if(user.sName.equals(UserController.getName()))
+	    {
+	    	addDebtButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	    }
+	    else
+	    {
+	    	addDebtButton.setOnClickListener(new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					// TODO Auto-generated method stub
+					
+				}
+			});
+	    }
 
         return llLayout;
 
+    }
+    
+    public void onAddDebt()
+    {
+    	faActivity.goToAddDebt();
     }
     
     public void sendRequest(String date, String person, String value)

@@ -8,6 +8,7 @@ import org.omnidebt.client.controller.ContactProvider;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
+import org.omnidebt.client.view.main.dashboard.AddDebtFragment;
 import org.omnidebt.client.view.main.dashboard.DashboardFragment;
 import org.omnidebt.client.view.main.history.HistoryFragment;
 
@@ -39,7 +40,9 @@ public class MainODActivity extends FragmentActivity {
 		// Other
 		NonTopLevel,
 
-		AddContact
+		AddContact,
+		
+		AddDebt
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
@@ -135,6 +138,15 @@ public class MainODActivity extends FragmentActivity {
     		if(item.getItemId() == R.id.add_contact)
     		{
     			fragment.onAddContact();
+    		}
+    	}
+		if(iPosition.equals(EFragments.Dashboard.ordinal()))
+    	{
+			DashboardFragment fragment = (DashboardFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+
+    		if(item.getItemId() == R.id.add_debt)
+    		{
+    			fragment.onAddDebt();
     		}
     	}
 
@@ -239,11 +251,27 @@ public class MainODActivity extends FragmentActivity {
 				hasAnim = true;
 			}
 		}
+		else if(position.equals(EFragments.AddDebt.ordinal()))
+		{
+			fragment = new AddDebtFragment();
+			lPreviousFragments.add(iPosition);
+			//args.putInt(AddDebtFragment.ARG_..., position);
+			if(iPosition.equals(EFragments.Dashboard.ordinal()))
+			{
+				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
+				hasAnim = true;
+			}
+		}
 
 		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
 		{
 			if(iPosition.equals(EFragments.AddContact.ordinal()))
 				animPos = EFragments.Contact.ordinal();
+		}
+		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
+		{
+			if(iPosition.equals(EFragments.AddDebt.ordinal()))
+				animPos = EFragments.Dashboard.ordinal();
 		}
 
 		if(!hasAnim)
@@ -281,6 +309,10 @@ public class MainODActivity extends FragmentActivity {
 	
 	public void goToAddContact() {
 		changeFragment(EFragments.AddContact.ordinal());
+	}
+	
+	public void goToAddDebt() {
+		changeFragment(EFragments.AddDebt.ordinal());
 	}
 
 	public void goToPreviousFragment() {

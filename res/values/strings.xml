@@ -45,6 +45,7 @@
 	</string-array>
     <string-array name="non_top_level_fragments">
         <item>Add Contact</item>
+        <item>Add Debt</item>
     </string-array>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="dashboard_dashboard">Dashboard</string>
@@ -64,5 +65,7 @@
     <!-- Add Contact -->
     <string name="contact_already">Contact already in your list</string>
     <string name="unknown_contact">Unknown contact, check the name</string>
+    <string name="dashboard_add_debt">Add Debt</string>
+    <string name="add_debt_button">Add Debt</string>
 
 </resources>
