@@ -11,7 +11,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class UserSignupCallback implements Callback<Response> {
+public class UserSignupCallback implements Callback<UserSignupCallback.SignupResponse> {
 
 	private SignUpListener callback = null;
 
@@ -20,29 +20,21 @@ public class UserSignupCallback implements Callback<Response> {
 	}
 	
 	@Override
-	public void success(Response r, Response response) {
+	public void success(SignupResponse r, Response response) {
 		if(response.getStatus() == 200)
 		{
-			byte array[] = new byte[1];
-			try {
-				response.getBody().in().read(array, 0, 1);
-				String res = new String(array);
-				if(res.equals("1"))
-				{
-					Log.i("login", "Authentication Succeed");
-					callback.onConnectResult(SignUpResult.Succeed);
-				}
-				else if(res.equals("2"))
-				{
-					Log.i("login", "Already used login");
-					callback.onConnectResult(SignUpResult.UsedLogin);
-				}
-				else
-				{
-					Log.i("login", "Unkown Error");
-					callback.onConnectResult(SignUpResult.UnknownError);
-				}
-			} catch(IOException e) {
+			if(r.status.equals("OK"))
+			{
+				Log.i("login", "Authentication Succeed");
+				callback.onConnectResult(SignUpResult.Succeed);
+			}
+			else if(r.status.equals("EXIST"))
+			{
+				Log.i("login", "Already used login");
+				callback.onConnectResult(SignUpResult.UsedLogin);
+			}
+			else
+			{
 				Log.i("login", "Unkown Error");
 				callback.onConnectResult(SignUpResult.UnknownError);
 			}
@@ -67,4 +59,12 @@ public class UserSignupCallback implements Callback<Response> {
 			callback.onConnectResult(SignUpResult.UnknownError);
 		}
 	}
+
+	public class SignupResponse {
+
+		public String status = null;
+		public String message = null;
+
+	}
+
 }

@@ -2,6 +2,7 @@
 package org.omnidebt.client.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Scanner;
 
 import org.omnidebt.client.view.main.Contact;
@@ -14,7 +15,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class RetreiveContactCallback implements Callback<Response> {
+public class RetreiveContactCallback implements Callback<RetreiveContactCallback.RetreiveContactResponse> {
 
 	private RetreiveContactListener callback = null;
 
@@ -23,43 +24,24 @@ public class RetreiveContactCallback implements Callback<Response> {
 	}
 	
 	@Override
-	public void success(Response r, Response response) {
+	public void success(RetreiveContactResponse r, Response response) {
 
 		if(response.getStatus() == 200)
 		{
-			try{
-				Scanner test = new Scanner(r.getBody().in()).useDelimiter(" ");
-				if(test.next().equals("Aucun") && test.next().equals("contact"))
+			if(r.status.equals("OK"))
+			{
+				for(Contact c : r.contacts)
 				{
-					Log.i("contact", "No contact");
+					ContactProvider.addContact(c);
+
+					Log.i("contact", "Got a contact Succeed");
 					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				}
-				else
-				{
-					Scanner scan = new Scanner(r.getBody().in()).useDelimiter(" ");
-					while(scan.hasNext())
-					{
-						String s = scan.next();
-						if(s.length() != 0)
-						{
-							Contact contact	= new Contact();
-							contact.sName		= s;
-							contact.dBalance	= 0.;
-							contact.dPositive	= 0.;
-							contact.dNegative	= 0.;
-							ContactProvider.addContact(contact);
-
-							Log.i("contact", "Got a contact Succeed");
-							callback.onRetreiveContactResult(ERetreiveContactResult.Success);
-						}
-						else
-						{
-							Log.i("contact", "Unkown Error len = 0");
-							callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
-						}
-					}
-				}
-			} catch(IOException e) {
+			}
+			else
+			{
+				Log.e("contact", "Unexpected error");
+				callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
 			}
 		}
 		else
@@ -82,6 +64,11 @@ public class RetreiveContactCallback implements Callback<Response> {
 			Log.e("contact", "Unexpected error 2");
 			callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
 		}
+	}
+
+	public class RetreiveContactResponse {
+		public String status;
+		public List<Contact> contacts;
 	}
 }
 

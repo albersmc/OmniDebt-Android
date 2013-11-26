@@ -1,5 +1,7 @@
 package org.omnidebt.client.controller;
 
+import org.omnidebt.client.controller.UserConnectCallback.ConnectResponse;
+import org.omnidebt.client.controller.UserSignupCallback.SignupResponse;
 import org.omnidebt.client.view.login.LoginListener;
 import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 import org.omnidebt.client.view.main.Debt;
@@ -7,7 +9,6 @@ import org.omnidebt.client.view.signup.SignUpListener;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.client.Response;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -18,12 +19,12 @@ public class UserController {
 
 	public interface ODLoginService {
 		@POST("/connect/{user}/{pass}")
-		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<Response> cb);
+		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<ConnectResponse> cb);
 	}
 
 	public interface ODSignupService {
 		@POST("/signup/{user}/{pass}/{email}")
-		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<Response> cb);
+		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<SignupResponse> cb);
 	}
 
 	static public void tryLogin(String login, String passwd, LoginListener callback) {
