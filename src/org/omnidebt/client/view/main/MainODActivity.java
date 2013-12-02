@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
@@ -39,7 +40,8 @@ public class MainODActivity extends FragmentActivity {
 		// Other
 		NonTopLevel,
 
-		AddContact
+		AddContact,
+		ContactInfos
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
@@ -63,7 +65,7 @@ public class MainODActivity extends FragmentActivity {
 		lPreviousFragments	= new				ArrayList<Integer>();
 
 		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
-			R.string.drawer_open, R.string.drawer_close);
+															R.string.drawer_open, R.string.drawer_close);
 
 		// Set the adapter for the list view
 		lvDrawerContainer.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, sDrawerContent));
@@ -75,6 +77,10 @@ public class MainODActivity extends FragmentActivity {
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
+
+
+		ContactProvider.retreiveUser();
+		DebtProvider.retreiveAll();
 
 		// Setup the selected fragment
 		changeFragment(iPosition);
@@ -91,6 +97,7 @@ public class MainODActivity extends FragmentActivity {
 	protected void onDestroy() {
 		super.onDestroy();
 		ContactProvider.resetContact();
+		DebtProvider.resetDebt();
 	}
 
 	@Override
@@ -187,8 +194,12 @@ public class MainODActivity extends FragmentActivity {
 		}
 		
 	};
-	
+
 	private void changeFragment(Integer position) {
+		changeFragment(position, "");
+	}
+	
+	private void changeFragment(Integer position, String arg) {
 
 		// Create a new fragment and specify args
 		Fragment	fragment	= null;
@@ -202,15 +213,16 @@ public class MainODActivity extends FragmentActivity {
 		if( position.equals(EFragments.Dashboard.ordinal()) )
 		{
 			fragment = new DashboardFragment();
+			args.putString("User", "");
 			lPreviousFragments.clear();
-			//args.putInt(ContactFragment.ARG_..., position);
 		}
 		else if( position.equals(EFragments.Contact.ordinal()) )
 		{
 			fragment = new ContactFragment();
 			lPreviousFragments.clear();
 			//args.putInt(ContactFragment.ARG_..., position);
-			if(iPosition.equals(EFragments.AddContact.ordinal()))
+			if(iPosition.equals(EFragments.AddContact.ordinal()) ||
+				iPosition.equals(EFragments.ContactInfos.ordinal()))
 			{
 				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
 				hasAnim = true;
@@ -233,6 +245,19 @@ public class MainODActivity extends FragmentActivity {
 			fragment = new AddContactFragment();
 			lPreviousFragments.add(iPosition);
 			//args.putInt(AddContactFragment.ARG_..., position);
+			if(iPosition.equals(EFragments.Contact.ordinal()))
+			{
+				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
+				hasAnim = true;
+			}
+		}
+		else if( position.equals(EFragments.ContactInfos.ordinal()))
+		{
+			fragment = new DashboardFragment();
+			lPreviousFragments.add(iPosition);
+
+			args.putString("User", arg);
+
 			if(iPosition.equals(EFragments.Contact.ordinal()))
 			{
 				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
@@ -281,6 +306,10 @@ public class MainODActivity extends FragmentActivity {
 	
 	public void goToAddContact() {
 		changeFragment(EFragments.AddContact.ordinal());
+	}
+
+	public void goToContactInfos(String name) {
+		changeFragment(EFragments.ContactInfos.ordinal(), name);
 	}
 
 	public void goToPreviousFragment() {

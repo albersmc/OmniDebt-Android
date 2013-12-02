@@ -9,7 +9,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class UserConnectCallback implements Callback<Response> {
+public class UserConnectCallback implements Callback<UserConnectCallback.ConnectResponse> {
 
 	private LoginListener callback = null;
 
@@ -18,7 +18,7 @@ public class UserConnectCallback implements Callback<Response> {
 	}
 	
 	@Override
-	public void success(Response r, Response response) {
+	public void success(ConnectResponse r, Response response) {
 		if(response.getStatus() == 200)
 		{
 			Log.i("login", "Authentication Succeed");
@@ -27,7 +27,7 @@ public class UserConnectCallback implements Callback<Response> {
 		}
 		else
 		{
-			Log.e("login", "Unexpected error");
+			Log.e("login", "Success : Unexpected error");
 			callback.onConnectResult(ConnectResult.UnkownError);
 		}
 	}
@@ -47,8 +47,16 @@ public class UserConnectCallback implements Callback<Response> {
 		}
 		else
 		{
-			Log.e("login", "Unexpected error");
+			Log.e("login", "Error : Unexpected error");
 			callback.onConnectResult(ConnectResult.UnkownError);
 		}
 	}
+
+	public class ConnectResponse {
+
+		public String status = null;
+		public String message = null;
+
+	}
+
 }

@@ -1,18 +1,16 @@
 package org.omnidebt.client.controller;
 
+import org.omnidebt.client.controller.UserConnectCallback.ConnectResponse;
+import org.omnidebt.client.controller.UserSignupCallback.SignupResponse;
 import org.omnidebt.client.view.login.LoginListener;
 import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.signup.SignUpListener;
-import org.omnidebt.client.view.signup.SignUpListener.SignUpResult;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.client.Response;
 import retrofit.http.POST;
 import retrofit.http.Path;
-
-import android.util.Log;
 
 public class UserController {
 
@@ -21,12 +19,12 @@ public class UserController {
 
 	public interface ODLoginService {
 		@POST("/connect/{user}/{pass}")
-		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<Response> cb);
+		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<ConnectResponse> cb);
 	}
 
 	public interface ODSignupService {
 		@POST("/signup/{user}/{pass}/{email}")
-		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<Response> cb);
+		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<SignupResponse> cb);
 	}
 
 	static public void tryLogin(String login, String passwd, LoginListener callback) {
@@ -37,7 +35,6 @@ public class UserController {
 		// Used to login even without server
 		if(strLogin.equals("test") && strPasswd.equals("pass"))
 		{
-			ContactProvider.retreiveUser();
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 
@@ -66,10 +63,10 @@ public class UserController {
 	{
 		Debt[] list=new Debt[]{
 				
-				new Debt("potato","potatu","potata"),
-				new Debt("potito","potitu","potita"),
-				new Debt("poteto","potetu","poteta"),
-				new Debt("pototo","pototu","potota"),
+				new Debt("potato","potatu", 0., false),
+				new Debt("potito","potitu", 0., false),
+				new Debt("poteto","potetu", 0., false),
+				new Debt("pototo","pototu", 0., false),
 		};
 		
 		return list;
@@ -79,10 +76,10 @@ public class UserController {
 	{
 		Debt[] list=new Debt[]{
 				
-				new Debt("potato","potatu","potata"),
-				new Debt("potito","potitu","potita"),
-				new Debt("poteto","potetu","poteta"),
-				new Debt("pototo","pototu","potota"),
+				new Debt("potato","potatu", 0., false),
+				new Debt("potito","potitu", 0., false),
+				new Debt("poteto","potetu", 0., false),
+				new Debt("pototo","pototu", 0., true),
 		};
 		
 		return list;

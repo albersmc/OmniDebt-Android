@@ -11,7 +11,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class AddContactCallback implements Callback<Response> {
+public class AddContactCallback implements Callback<AddContactCallback.AddContactResponse> {
 
 	private AddContactListener callback = null;
 
@@ -20,35 +20,27 @@ public class AddContactCallback implements Callback<Response> {
 	}
 	
 	@Override
-	public void success(Response r, Response response) {
+	public void success(AddContactResponse r, Response response) {
 
 		if(response.getStatus() == 200)
 		{
-			byte array[] = new byte[1];
-			try {
-				response.getBody().in().read(array, 0, 1);
-				String res = new String(array);
-				if(res.equals("1"))
-				{
-					Log.i("login", "Authentication Succeed");
-					callback.onAddContactResult(EAddContactResult.Success);
-				}
-				if(res.equals("2"))
-				{
-					Log.i("login", "Already a contact");
-					callback.onAddContactResult(EAddContactResult.ContactAlready);
-				}
-				if(res.equals("3"))
-				{
-					Log.i("login", "Unknown Contact");
-					callback.onAddContactResult(EAddContactResult.UnknownContact);
-				}
-				else
-				{
-					Log.i("login", "Unkown Error");
-					callback.onAddContactResult(EAddContactResult.Failed);
-				}
-			} catch(IOException e) {
+			if(r.status.equals("OK"))
+			{
+				Log.i("login", "Authentication Succeed");
+				callback.onAddContactResult(EAddContactResult.Success);
+			}
+			else if(r.status.equals("EXIST"))
+			{
+				Log.i("login", "Already a contact");
+				callback.onAddContactResult(EAddContactResult.ContactAlready);
+			}
+			else if(r.status.equals("UNKNOWN"))
+			{
+				Log.i("login", "Unknown Contact");
+				callback.onAddContactResult(EAddContactResult.UnknownContact);
+			}
+			else
+			{
 				Log.i("login", "Unkown Error");
 				callback.onAddContactResult(EAddContactResult.Failed);
 			}
@@ -73,6 +65,11 @@ public class AddContactCallback implements Callback<Response> {
 			Log.e("login", "Unexpected error");
 			callback.onAddContactResult(EAddContactResult.Failed);
 		}
+	}
+
+	public class AddContactResponse {
+		public String status;
+		public String message;
 	}
 }
 

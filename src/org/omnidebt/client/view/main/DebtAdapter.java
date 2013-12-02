@@ -1,28 +1,32 @@
 package org.omnidebt.client.view.main;
 
+import java.util.List;
+
 import org.omnidebt.client.R;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class DebtAdapter extends ArrayAdapter<Debt>{
 	Context context;
 	int layoutResourceId;    
-    Debt data[] = null;
+    List<Debt> data = null;
 	
-	public DebtAdapter(Context context, int layoutResourceId, Debt[] data)
+	public DebtAdapter(Context context, int layoutResourceId, List<Debt> data)
 	{
 		super(context, layoutResourceId, data);
 		this.layoutResourceId = layoutResourceId;
         this.context = context;
         this.data = data;
 	}
-	
+
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
 		View row=convertView;
@@ -44,10 +48,15 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 			holder=(DebtHolder) row.getTag();
 		}
 		
-		Debt debt=data[position];
+		Debt debt=data.get(position);
 		holder.date.setText(debt.date);
 		holder.person.setText(debt.owner);
-		holder.value.setText(debt.value);
+		holder.value.setText(debt.value.toString());
+		Log.d("debt", debt.owner + " " + ( (Boolean) debt.closed ).toString());
+		if(debt.closed)
+			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.INVISIBLE);
+		else
+			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.VISIBLE);
 		
 		return row;
 	}
