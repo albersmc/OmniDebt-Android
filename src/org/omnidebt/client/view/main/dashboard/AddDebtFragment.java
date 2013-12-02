@@ -26,12 +26,15 @@ public class AddDebtFragment extends Fragment{
 	private Button addDebt;
 	private DebtCreateListener dcl;
 	private DebtCreateCallback dcc;
+	private String sUser;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
         
         faActivity	= (FragmentActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.add_debt_fragment, container, false);
+        
+        sUser=savedInstanceState.getString("User");
         
 	    et=(EditText) llLayout.findViewById(R.id.AddDebtValue);
 	    cancel=(Button) llLayout.findViewById(R.id.AddDebtCancelButton);
@@ -68,14 +71,16 @@ public class AddDebtFragment extends Fragment{
 				if(value>0)
 				{
 					nameLender=UserController.getName();
+					nameOwner=sUser;
 					
 				}
 				else
 				{
+					nameLender=sUser;
 					nameOwner=UserController.getName();
 				}
 				
-				//DebtController.tryCreate(nameLender, nameOwner, value, dcl);
+				DebtController.tryCreate(nameLender, nameOwner, value, dcl);
 			}
 		});
 	    

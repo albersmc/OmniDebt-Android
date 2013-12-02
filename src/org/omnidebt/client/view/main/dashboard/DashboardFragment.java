@@ -32,7 +32,7 @@ public class DashboardFragment extends Fragment {
 	public Button addDebtButton;
 	private LinearLayout		llLayout	= null;
 	private MainODActivity	faActivity	= null;
-	
+	public String sUser;
 	private PaiementListener pl;
 		
 	public DashboardFragment() {
@@ -106,6 +106,7 @@ public class DashboardFragment extends Fragment {
     
     public void onAddDebt()
     {
+    	
     	faActivity.goToAddDebt();
     }
     

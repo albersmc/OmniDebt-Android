@@ -253,6 +253,7 @@ public class MainODActivity extends FragmentActivity {
 		}
 		else if(position.equals(EFragments.AddDebt.ordinal()))
 		{
+			args.putString("User", ((DashboardFragment)fragment).sUser);
 			fragment = new AddDebtFragment();
 			lPreviousFragments.add(iPosition);
 			//args.putInt(AddDebtFragment.ARG_..., position);
@@ -271,7 +272,9 @@ public class MainODActivity extends FragmentActivity {
 		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
 		{
 			if(iPosition.equals(EFragments.AddDebt.ordinal()))
+			{
 				animPos = EFragments.Dashboard.ordinal();
+			}
 		}
 
 		if(!hasAnim)
