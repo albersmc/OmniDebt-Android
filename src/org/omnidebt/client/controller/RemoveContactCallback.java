@@ -12,7 +12,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class RemoveContactCallback implements Callback<Response> {
+public class RemoveContactCallback implements Callback<RemoveContactCallback.RemoveContactResponse> {
 
 	private RemoveContactListener callback = null;
 
@@ -21,38 +21,30 @@ public class RemoveContactCallback implements Callback<Response> {
 	}
 	
 	@Override
-	public void success(Response r, Response response) {
+	public void success(RemoveContactResponse r, Response response) {
 
 		if(response.getStatus() == 200)
 		{
-			byte array[] = new byte[1];
-			try {
-				response.getBody().in().read(array, 0, 1);
-				String res = new String(array);
-				if(res.equals("1"))
-				{
-					Log.i("login", "Authentication Succeed");
-					ContactProvider.removeContact();
-					callback.onRemoveContactResult(ERemoveContactResult.Success);
-				}
-				else if(res.equals("2"))
-				{
-					Log.i("login", "A Debt Still Exist");
-					callback.onRemoveContactResult(ERemoveContactResult.DebtExist);
-				}
-				else if(res.equals("3"))
-				{
-					Log.i("login", "Unknown Contact");
-					callback.onRemoveContactResult(ERemoveContactResult.UnknownContact);
-				}
-				else
-				{
-					Log.i("login", "Unkown Error");
-					callback.onRemoveContactResult(ERemoveContactResult.Failure);
-				}
-			} catch(IOException e) {
+			if(r.status.equals("OK"))
+			{
+				Log.i("login", "Authentication Succeed");
+				ContactProvider.removeContact();
+				callback.onRemoveContactResult(ERemoveContactResult.Success);
+			}
+			else if(r.status.equals("EXIST"))
+			{
+				Log.i("login", "A Debt Still Exist");
+				callback.onRemoveContactResult(ERemoveContactResult.DebtExist);
+			}
+			else if(r.status.equals("KO"))
+			{
+				Log.i("login", "Unknown Contact");
+				callback.onRemoveContactResult(ERemoveContactResult.UnknownContact);
+			}
+			else
+			{
 				Log.i("login", "Unkown Error");
-				callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
+				callback.onRemoveContactResult(ERemoveContactResult.Failure);
 			}
 		}
 		else
@@ -76,5 +68,11 @@ public class RemoveContactCallback implements Callback<Response> {
 			callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
 		}
 	}
+
+	public class RemoveContactResponse {
+		public String status;
+		public String message;
+	}
+
 }
 

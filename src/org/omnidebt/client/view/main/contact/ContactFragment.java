@@ -8,7 +8,6 @@ import org.omnidebt.client.view.main.MainODActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.view.ActionMode;
 import android.view.LayoutInflater;
@@ -18,7 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView.MultiChoiceModeListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ContactFragment extends Fragment {
 
@@ -43,6 +45,7 @@ public class ContactFragment extends Fragment {
 
 		lvLayout.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
 		lvLayout.setMultiChoiceModeListener(multiChoiceListener);
+		lvLayout.setOnItemClickListener(onItemClickListener);
 
 		return lvLayout;
 	}
@@ -57,6 +60,15 @@ public class ContactFragment extends Fragment {
 	public void onAddContact() {
 		moActivity.goToAddContact();
 	}
+
+	private OnItemClickListener onItemClickListener	= new OnItemClickListener() {
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
+			moActivity.goToContactInfos(( (TextView) arg1.findViewById(R.id.contact_name) ).getText().toString());
+		}
+		
+	};
 
 	private RetreiveContactListener retreiveContactListener	= new RetreiveContactListener() {
 

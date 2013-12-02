@@ -46,6 +46,7 @@
     <string-array name="non_top_level_fragments">
         <item>Add Contact</item>
         <item>Add Debt</item>
+        <item>Contact Infos</item>
     </string-array>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="dashboard_dashboard">Dashboard</string>
