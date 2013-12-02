@@ -42,12 +42,11 @@ public class MainODActivity extends FragmentActivity {
 		NonTopLevel,
 
 		AddContact,
-<<<<<<< HEAD
+
 		
-		AddDebt
-=======
+		AddDebt,
 		ContactInfos
->>>>>>> refs/heads/master
+
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
@@ -281,7 +280,8 @@ public class MainODActivity extends FragmentActivity {
 		}
 		else if(position.equals(EFragments.AddDebt.ordinal()))
 		{
-			args.putString("User", ((DashboardFragment)fragment).sUser);
+			
+			args.putString("User", arg);
 			fragment = new AddDebtFragment();
 			lPreviousFragments.add(iPosition);
 			//args.putInt(AddDebtFragment.ARG_..., position);
@@ -342,8 +342,15 @@ public class MainODActivity extends FragmentActivity {
 		changeFragment(EFragments.AddContact.ordinal());
 	}
 	
-	public void goToAddDebt() {
-		changeFragment(EFragments.AddDebt.ordinal());
+	public void goToAddDebt(String name) {
+		if(name!="")
+		{
+			changeFragment(EFragments.AddDebt.ordinal(), name);
+		}
+		else
+		{
+			changeFragment(EFragments.Contact.ordinal());
+		}
 	}
 
 	public void goToContactInfos(String name) {

@@ -36,7 +36,7 @@ public class DashboardFragment extends Fragment {
 	private LinearLayout		llLayout	= null;
 
 	private MainODActivity	faActivity	= null;
-	private String				sUser		= "";
+	public String				sUser		= "";
 
 	private PaiementListener pl;
 		
@@ -62,7 +62,6 @@ public class DashboardFragment extends Fragment {
 		sUser = getArguments().getString("User");
         
 
-        addDebtButton=(Button) llLayout.findViewById(R.id.AddDebtButton);
 	   
 		if(sUser.length() == 0)
 			theList = DebtProvider.getOpen();
@@ -98,28 +97,7 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
-	    if(user.sName.equals(UserController.getName()))
-	    {
-	    	addDebtButton.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-	    }
-	    else
-	    {
-	    	addDebtButton.setOnClickListener(new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					// TODO Auto-generated method stub
-					
-				}
-			});
-	    }
+	    
 
         return llLayout;
 
@@ -128,7 +106,7 @@ public class DashboardFragment extends Fragment {
     public void onAddDebt()
     {
     	
-    	faActivity.goToAddDebt();
+    	faActivity.goToAddDebt(sUser);
     }
     
     public void sendRequest(String date, String person, String value)

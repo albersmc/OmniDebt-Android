@@ -72,15 +72,17 @@ public class AddDebtFragment extends Fragment{
 				{
 					nameLender=UserController.getName();
 					nameOwner=sUser;
+					DebtController.tryCreate(nameLender, nameOwner, value, dcl);
 					
 				}
-				else
+				else if(value <0)
 				{
 					nameLender=sUser;
 					nameOwner=UserController.getName();
+					DebtController.tryCreate(nameLender, nameOwner, value, dcl);
 				}
 				
-				DebtController.tryCreate(nameLender, nameOwner, value, dcl);
+				
 			}
 		});
 	    
