@@ -21,12 +21,12 @@ public class DebtCreateCallback implements Callback<Response>{
 	public void success(Response r, Response response) {
 		if(response.getStatus() == 200)
 		{
-			Log.i("login", "Authentication Succeed");
+			Log.i("add_debt", "Debt Create Succeed");
 			callback.onConnectResult(DebtCreateResult.success);
 		}
 		else
 		{
-			Log.w("login", "Unexpected error");
+			Log.w("add_debt", "Unexpected error");
 			callback.onConnectResult(DebtCreateResult.failure);
 		}
 	}
@@ -36,12 +36,12 @@ public class DebtCreateCallback implements Callback<Response>{
 
 		if (error.isNetworkError())
 		{
-			Log.w("login", "Authentication failed : conenction with database problem");
+			Log.w("add_debt", "Debt Create failed : conenction with database problem");
 			callback.onConnectResult(DebtCreateResult.failure);
 		}
 		else
 		{
-			Log.w("login", "Unexpected error");
+			Log.w("add_debt", "Unexpected error");
 			callback.onConnectResult(DebtCreateResult.failure);
 		}
 	}

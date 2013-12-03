@@ -4,12 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/add_debt_error_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <EditText
         android:id="@+id/AddDebtValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="number" >
+        android:inputType="numberSigned|numberDecimal" >
 
         <requestFocus />
     </EditText>

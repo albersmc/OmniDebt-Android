@@ -107,7 +107,7 @@ public class MainODActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (iPosition.equals(EFragments.Dashboard.ordinal()))
+		if (iPosition.equals(EFragments.Dashboard.ordinal()) || iPosition.equals(EFragments.ContactInfos.ordinal()))
 		{
 			getMenuInflater().inflate(R.menu.dashboard, menu);
 		}
@@ -149,7 +149,7 @@ public class MainODActivity extends FragmentActivity {
     			fragment.onAddContact();
     		}
     	}
-		if(iPosition.equals(EFragments.Dashboard.ordinal()))
+		if(iPosition.equals(EFragments.Dashboard.ordinal()) || iPosition.equals(EFragments.ContactInfos.ordinal()))
     	{
 			DashboardFragment fragment = (DashboardFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
@@ -158,6 +158,7 @@ public class MainODActivity extends FragmentActivity {
     			fragment.onAddDebt();
     		}
     	}
+		
 
 		return super.onOptionsItemSelected(item);
 	}
@@ -285,7 +286,7 @@ public class MainODActivity extends FragmentActivity {
 			fragment = new AddDebtFragment();
 			lPreviousFragments.add(iPosition);
 			//args.putInt(AddDebtFragment.ARG_..., position);
-			if(iPosition.equals(EFragments.Dashboard.ordinal()))
+			if(iPosition.equals(EFragments.Dashboard.ordinal())||iPosition.equals(EFragments.ContactInfos.ordinal()))
 			{
 				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
 				hasAnim = true;
