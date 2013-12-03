@@ -52,7 +52,7 @@ public class DashboardFragment extends Fragment {
 		Contact user	= ContactProvider.getContact(UserController.getName());
         View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 
-		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(user.name);
+		
 		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
 		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
 		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
@@ -61,6 +61,8 @@ public class DashboardFragment extends Fragment {
 
 		sUser = getArguments().getString("User");
 
+		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(sUser);
+	   
 		if(sUser.length() == 0)
 			theList = DebtProvider.getOpen();
 		else

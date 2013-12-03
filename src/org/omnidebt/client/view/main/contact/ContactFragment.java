@@ -39,6 +39,10 @@ public class ContactFragment extends Fragment {
 		moActivity	= (MainODActivity)	super.getActivity();
 		lvLayout	= (ListView)		inflater.inflate(R.layout.contact_fragment, container, false);
 		baSelected	= new SparseBooleanArray();
+		
+		ContactProvider.resetContact();
+		ContactProvider.tryRetreiveContact(retreiveContactListener);
+		
 		caAdapter	= new ContactAdapter(moActivity, R.layout.contact_item_fragment, ContactProvider.getList(), baSelected);
 
 		bIsSelectContact = getArguments().getBoolean("isSelectContact");
@@ -46,6 +50,7 @@ public class ContactFragment extends Fragment {
 			bIsSelectContact = false;
 
 		ContactProvider.tryRetreiveContact(retreiveContactListener);
+
 		lvLayout.setAdapter(caAdapter);
 
 		lvLayout.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item android:id="@+id/add_debt" android:title="@string/add_debt_button" android:menuCategory="system" android:showAsAction="always" android:visible="true" android:icon="@drawable/ic_money_in"></item>
+    
+
+</menu>

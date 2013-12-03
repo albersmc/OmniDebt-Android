@@ -105,8 +105,12 @@ public class MainODActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+<<<<<<< HEAD
 		if (iPosition.equals(EFragments.Dashboard.ordinal()) ||
 			iPosition.equals(EFragments.ContactInfos.ordinal()) )
+=======
+		if (iPosition.equals(EFragments.Dashboard.ordinal()) || iPosition.equals(EFragments.ContactInfos.ordinal()))
+>>>>>>> origin/rest
 		{
 			getMenuInflater().inflate(R.menu.dashboard, menu);
 		}
@@ -160,6 +164,7 @@ public class MainODActivity extends FragmentActivity {
     			fragment.onAddDebt();
     		}
     	}
+		
 
 		return super.onOptionsItemSelected(item);
 	}

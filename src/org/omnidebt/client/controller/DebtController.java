@@ -24,7 +24,7 @@ public class DebtController {
 	
 	public static void tryCreate(String nameLender, String nameOwner, float debt, DebtCreateListener cb)
 	{
-		RestAdapter ra=new RestAdapter.Builder().setServer("http://10.11.163.24:9000").build();
+		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
 		ds.tryCreate(nameLender, nameOwner, debt, new DebtCreateCallback(cb));
@@ -32,7 +32,7 @@ public class DebtController {
 	
 	public static void tryPay(String nameUser, String nameContact, PaiementListener cb)
 	{
-		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7:9000").build();
+		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
 		ds.tryPay(nameUser, nameContact, new DebtPayCallback(cb));
