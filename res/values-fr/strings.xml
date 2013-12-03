@@ -45,7 +45,7 @@
 	</string-array>
     <string-array name="non_top_level_fragments">
         <item>Ajouter un Contact</item>
-        <item>Infos<item>Ajouter un Contact</item> Contact</item>
+        <item>Infos Contact</item>
     </string-array>
 	<string name="title_activity_dashboard">Tableau de bord</string>
 	<string name="dashboard_dashboard">Tableau de bord</string>
