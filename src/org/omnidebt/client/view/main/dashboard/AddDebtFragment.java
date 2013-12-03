@@ -31,7 +31,7 @@ public class AddDebtFragment extends Fragment{
 	private DebtCreateCallback dcc;
 	private String sUser;
 	public TextView	err;
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
         

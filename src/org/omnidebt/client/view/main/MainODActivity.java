@@ -55,6 +55,8 @@ public class MainODActivity extends FragmentActivity {
 	private Integer					iPosition			= null;
 	private List<Integer>			lPreviousFragments	= null;
 
+	private String					sAddDebtName		= "";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -258,7 +260,7 @@ public class MainODActivity extends FragmentActivity {
 		else if( position.equals(EFragments.ContactInfos.ordinal()))
 		{
 			fragment = new DashboardFragment();
-			args.putString("User", arg);
+			args.putBoolean("User", true);
 			if(iPosition.equals(EFragments.Contact.ordinal()))
 				isGoingDeeper = true;
 		}
@@ -345,6 +347,7 @@ public class MainODActivity extends FragmentActivity {
 	}
 	
 	public void goToAddDebt(String name) {
+		sAddDebtName = name;
 		if(name!="")
 		{
 			changeFragment(EFragments.AddDebt.ordinal(), name);
@@ -374,6 +377,11 @@ public class MainODActivity extends FragmentActivity {
 			updateActionBarTitle();
 		else
 			getActionBar().setTitle(number.toString());
+	}
+
+	public String getAddDebtName()
+	{
+		return sAddDebtName;
 	}
 	
 }

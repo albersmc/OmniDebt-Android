@@ -59,14 +59,25 @@ public class DashboardFragment extends Fragment {
 
         llLayout.addView(theView, 0);
 
-		sUser = getArguments().getString("User");
+		if(getArguments().getBoolean("User"))
+		{
+			sUser = faActivity.getAddDebtName();
+			theList = DebtProvider.getContactOpen(sUser);
+		}
+		else
+		{
+			sUser = UserController.getName();
+			theList = DebtProvider.getOpen();
+		}
 
 		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(sUser);
 	   
 		if(sUser.length() == 0)
-			theList = DebtProvider.getOpen();
+		{
+		}
 		else
-			theList = DebtProvider.getContact(sUser);
+		{
+		}
 
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
