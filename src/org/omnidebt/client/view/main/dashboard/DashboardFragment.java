@@ -60,9 +60,7 @@ public class DashboardFragment extends Fragment {
         llLayout.addView(theView, 0);
 
 		sUser = getArguments().getString("User");
-        
 
-	   
 		if(sUser.length() == 0)
 			theList = DebtProvider.getOpen();
 		else

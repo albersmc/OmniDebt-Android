@@ -42,11 +42,9 @@ public class MainODActivity extends FragmentActivity {
 		NonTopLevel,
 
 		AddContact,
-
-		
 		AddDebt,
-		ContactInfos
-
+		ContactInfos,
+		SelectContact
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
@@ -107,11 +105,13 @@ public class MainODActivity extends FragmentActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		if (iPosition.equals(EFragments.Dashboard.ordinal()))
+		if (iPosition.equals(EFragments.Dashboard.ordinal()) ||
+			iPosition.equals(EFragments.ContactInfos.ordinal()) )
 		{
 			getMenuInflater().inflate(R.menu.dashboard, menu);
 		}
-		else if (iPosition.equals(EFragments.Contact.ordinal()))
+		else if (iPosition.equals(EFragments.Contact.ordinal()) ||
+				iPosition.equals(EFragments.SelectContact.ordinal()))
 		{
 			getMenuInflater().inflate(R.menu.contact, menu);
 		}
@@ -140,7 +140,8 @@ public class MainODActivity extends FragmentActivity {
 		}
 
 		// Handle presses on the action bar items
-		if(iPosition.equals(EFragments.Contact.ordinal()))
+		if(iPosition.equals(EFragments.Contact.ordinal()) ||
+			iPosition.equals(EFragments.SelectContact.ordinal()))
     	{
 			ContactFragment fragment = (ContactFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
@@ -149,7 +150,8 @@ public class MainODActivity extends FragmentActivity {
     			fragment.onAddContact();
     		}
     	}
-		if(iPosition.equals(EFragments.Dashboard.ordinal()))
+		if(iPosition.equals(EFragments.Dashboard.ordinal()) ||
+			iPosition.equals(EFragments.ContactInfos.ordinal()) )
     	{
 			DashboardFragment fragment = (DashboardFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container);
 
@@ -171,10 +173,9 @@ public class MainODActivity extends FragmentActivity {
 		{
 			super.onBackPressed();
 		}
-		else if(lPreviousFragments.get(length-1).equals(EFragments.Contact.ordinal()))
+		else
 		{
-			lPreviousFragments.remove(length-1);
-			changeFragment(EFragments.Contact.ordinal());
+			goToPreviousFragment();
 		}
 	}
 	
@@ -216,10 +217,11 @@ public class MainODActivity extends FragmentActivity {
 	private void changeFragment(Integer position, String arg) {
 
 		// Create a new fragment and specify args
-		Fragment	fragment	= null;
-		Bundle		args		= new Bundle();
-		boolean		hasAnim		= false;
-		Integer		animPos		= iPosition;
+		Fragment	fragment		= null;
+		Bundle		args			= new Bundle();
+		boolean		isSon			= false;
+		boolean		isGoingDeeper	= false;
+		Integer		iTopLevelParent	= iPosition;
 
 		FragmentManager fragmentManager			= getSupportFragmentManager();
 		FragmentTransaction fragmentTransaction	= fragmentManager.beginTransaction();
@@ -228,89 +230,89 @@ public class MainODActivity extends FragmentActivity {
 		{
 			fragment = new DashboardFragment();
 			args.putString("User", "");
-			lPreviousFragments.clear();
 		}
 		else if( position.equals(EFragments.Contact.ordinal()) )
 		{
 			fragment = new ContactFragment();
-			lPreviousFragments.clear();
-			//args.putInt(ContactFragment.ARG_..., position);
-			if(iPosition.equals(EFragments.AddContact.ordinal()) ||
-				iPosition.equals(EFragments.ContactInfos.ordinal()))
-			{
-				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
-				hasAnim = true;
-			}
 		}
 		else if( position.equals(EFragments.History.ordinal()) )
 		{
 			fragment = new HistoryFragment();
-			lPreviousFragments.clear();
-			//args.putInt(HistoryFragment.ARG_..., position);
 		}
 		else if( position.equals(EFragments.About.ordinal()) )
 		{
 			fragment = new AboutFragment();
-			lPreviousFragments.clear();
-			//args.putInt(AboutFragment.ARG_..., position);
 		}
 		else if( position.equals(EFragments.AddContact.ordinal()))
 		{
 			fragment = new AddContactFragment();
-			lPreviousFragments.add(iPosition);
-			//args.putInt(AddContactFragment.ARG_..., position);
-			if(iPosition.equals(EFragments.Contact.ordinal()))
-			{
-				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-				hasAnim = true;
-			}
+			isGoingDeeper = true;
+		}
+		else if(position.equals(EFragments.AddDebt.ordinal()))
+		{
+			fragment = new AddDebtFragment();
+			args.putString("User", arg);
+			isGoingDeeper = true;
 		}
 		else if( position.equals(EFragments.ContactInfos.ordinal()))
 		{
 			fragment = new DashboardFragment();
-			lPreviousFragments.add(iPosition);
-
 			args.putString("User", arg);
-
 			if(iPosition.equals(EFragments.Contact.ordinal()))
-			{
-				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-				hasAnim = true;
-			}
+				isGoingDeeper = true;
 		}
-		else if(position.equals(EFragments.AddDebt.ordinal()))
+		else if( position.equals(EFragments.SelectContact.ordinal()))
 		{
-			
-			args.putString("User", arg);
-			fragment = new AddDebtFragment();
-			lPreviousFragments.add(iPosition);
-			//args.putInt(AddDebtFragment.ARG_..., position);
+			fragment = new ContactFragment();
+			args.putBoolean("isSelectContact", true);
 			if(iPosition.equals(EFragments.Dashboard.ordinal()))
+				isGoingDeeper = true;
+		}
+
+		if(position.compareTo(EFragments.NonTopLevel.ordinal()) < 0)
+		{
+			int i = lPreviousFragments.size() - 1;
+			while(i > -1 && lPreviousFragments.get(i).compareTo(EFragments.NonTopLevel.ordinal()) > 0)
 			{
+				i--;
+			}
+
+			if(i > -1)
+			{
+				iTopLevelParent = lPreviousFragments.get(i);
+				if(iTopLevelParent == position)
+					isSon = true;
+			}
+
+
+			lPreviousFragments.clear();
+			if(isSon && !position.equals(iPosition))
+			{
+				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
+			}
+			else
+			{
+				if(position.compareTo(iTopLevelParent) < 0)
+				{
+					fragmentTransaction.setCustomAnimations(R.anim.top_in, R.anim.bottom_out);
+				}
+				else if(position.compareTo(iTopLevelParent) > 0)
+				{
+					fragmentTransaction.setCustomAnimations(R.anim.bottom_in, R.anim.top_out);
+				}
+			}
+		}
+		else
+		{
+			if(isGoingDeeper)
+			{
+				lPreviousFragments.add(iPosition);
 				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
-				hasAnim = true;
 			}
-		}
-
-		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
-		{
-			if(iPosition.equals(EFragments.AddContact.ordinal()))
-				animPos = EFragments.Contact.ordinal();
-		}
-		if(iPosition.compareTo(EFragments.NonTopLevel.ordinal()) > 0)
-		{
-			if(iPosition.equals(EFragments.AddDebt.ordinal()))
+			else
 			{
-				animPos = EFragments.Dashboard.ordinal();
+				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
 			}
-		}
-
-		if(!hasAnim)
-		{
-			if(position > animPos)
-				fragmentTransaction.setCustomAnimations(R.anim.bottom_in, R.anim.top_out);
-			else if(position < animPos)
-				fragmentTransaction.setCustomAnimations(R.anim.top_in, R.anim.bottom_out);
 		}
 
 		iPosition = position;
@@ -318,7 +320,6 @@ public class MainODActivity extends FragmentActivity {
 		fragment.setArguments(args);
 
 		// Insert the fragment by replacing any existing fragment
-
 		fragmentTransaction.replace(R.id.fragment_container, fragment)
 							.commit();
 
@@ -349,7 +350,7 @@ public class MainODActivity extends FragmentActivity {
 		}
 		else
 		{
-			changeFragment(EFragments.Contact.ordinal());
+			changeFragment(EFragments.SelectContact.ordinal());
 		}
 	}
 
@@ -359,7 +360,12 @@ public class MainODActivity extends FragmentActivity {
 
 	public void goToPreviousFragment() {
 		if(!lPreviousFragments.isEmpty())
-			changeFragment(lPreviousFragments.get(lPreviousFragments.size()-1));
+		{
+			int pos = lPreviousFragments.size() - 1;
+			changeFragment(lPreviousFragments.get(pos));
+			if(!lPreviousFragments.isEmpty())
+				lPreviousFragments.remove(pos);
+		}
 	}
 
 	public void multipleSelection(Integer number) {

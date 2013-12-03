@@ -34,7 +34,7 @@ public class AddDebtFragment extends Fragment{
         faActivity	= (FragmentActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.add_debt_fragment, container, false);
         
-        sUser=savedInstanceState.getString("User");
+        sUser=getArguments().getString("User");
         
 	    et=(EditText) llLayout.findViewById(R.id.AddDebtValue);
 	    cancel=(Button) llLayout.findViewById(R.id.AddDebtCancelButton);
