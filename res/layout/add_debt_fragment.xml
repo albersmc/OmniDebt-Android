@@ -3,38 +3,58 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/add_debt_error_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/AddDebtValue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
+        android:hint="@string/add_debt_hint"
         android:inputType="numberSigned|numberDecimal" >
 
         <requestFocus />
     </EditText>
+    
+        
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+        
+        <Button
+            android:id="@+id/AddDebtSubmitButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/add_debt_button" />
 
         <Button
             android:id="@+id/AddDebtCancelButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/button_cancel" />
-
-        <Button
-            android:id="@+id/AddDebtSubmitButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/add_debt_button" />
-
+        
     </LinearLayout>
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 </LinearLayout>

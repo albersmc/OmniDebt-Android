@@ -32,7 +32,7 @@
     <string name="signup_pwd_different_cpwd">Les mots de passes sont différents.</string>
 
 	<!-- MainODActivity -->
-    <string name="title_activity_main_od">Main Menu</string>
+    <string name="title_activity_main_od">Menu Principal</string>
 
     <!-- Drawer -->
     <string name="drawer_open">Ouvrir le menu latéral</string>
@@ -45,7 +45,7 @@
 	</string-array>
     <string-array name="non_top_level_fragments">
         <item>Ajouter un Contact</item>
-        <item>Ajouter une Dête</item>
+        <item>Ajouter une Dette</item>
         <item>Infos Contact</item>
         <item>Sélectionner Contact</item>
     </string-array>
@@ -62,10 +62,13 @@
     <string name="edit_contacts">Modifier Contacts</string>
     <string name="contact_name">Nom du Contact</string>
     <string name="button_cancel">Annuler</string>
+    <string name="remove">Supprimer</string>
     
-        
     <!-- Add Contact -->
     <string name="contact_already">Contact déjà présent</string>
     <string name="unknown_contact">Contact inconnu, vérifiez le nom</string>
+    <string name="dashboard_add_debt">Ajouter une dette</string>
+    <string name="add_debt_button">Ajouter une dette</string>
+    <string name="add_debt_hint">Montant</string>
 
 </resources>

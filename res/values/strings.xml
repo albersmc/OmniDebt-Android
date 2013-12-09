@@ -69,5 +69,6 @@
     <string name="unknown_contact">Unknown contact, check the name</string>
     <string name="dashboard_add_debt">Add Debt</string>
     <string name="add_debt_button">Add Debt</string>
+    <string name="add_debt_hint">Amount</string>
 
 </resources>

@@ -49,16 +49,6 @@ public class DashboardFragment extends Fragment {
         faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
         
-		Contact user	= ContactProvider.getContact(UserController.getName());
-        View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
-
-		
-		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
-		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
-		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
-
-        llLayout.addView(theView, 0);
-
 		if(getArguments().getBoolean("User"))
 		{
 			sUser = faActivity.getAddDebtName();
@@ -70,14 +60,16 @@ public class DashboardFragment extends Fragment {
 			theList = DebtProvider.getOpen();
 		}
 
+		Contact user	= ContactProvider.getContact(sUser);
+        View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
+
 		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(sUser);
-	   
-		if(sUser.length() == 0)
-		{
-		}
-		else
-		{
-		}
+
+		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
+		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
+		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
+
+        llLayout.addView(theView, 0);
 
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
@@ -108,7 +100,7 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
-	    
+		Log.d("fragments", "Creating Dashboard");
 
         return llLayout;
 
@@ -116,8 +108,7 @@ public class DashboardFragment extends Fragment {
     
     public void onAddDebt()
     {
-    	
-    	faActivity.goToAddDebt(sUser);
+		faActivity.goToAddDebt(sUser);
     }
     
     public void sendRequest(String date, String person, String value)

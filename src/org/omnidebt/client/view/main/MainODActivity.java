@@ -6,6 +6,7 @@ import java.util.List;
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.ContactProvider;
 import org.omnidebt.client.controller.DebtProvider;
+import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
@@ -85,7 +86,7 @@ public class MainODActivity extends FragmentActivity {
 
 
 		ContactProvider.retreiveUser();
-		DebtProvider.retreiveAll();
+		DebtProvider.retreiveAll(retreiveDebtListener);
 
 		// Setup the selected fragment
 		changeFragment(iPosition);
@@ -348,17 +349,18 @@ public class MainODActivity extends FragmentActivity {
 	
 	public void goToAddDebt(String name) {
 		sAddDebtName = name;
-		if(name!="")
+		if(name.equals(UserController.getName()))
 		{
-			changeFragment(EFragments.AddDebt.ordinal(), name);
+			changeFragment(EFragments.SelectContact.ordinal());
 		}
 		else
 		{
-			changeFragment(EFragments.SelectContact.ordinal());
+			changeFragment(EFragments.AddDebt.ordinal(), name);
 		}
 	}
 
 	public void goToContactInfos(String name) {
+		sAddDebtName = name;
 		changeFragment(EFragments.ContactInfos.ordinal(), name);
 	}
 
@@ -383,5 +385,22 @@ public class MainODActivity extends FragmentActivity {
 	{
 		return sAddDebtName;
 	}
+
+	RetreiveDebtListener retreiveDebtListener = new RetreiveDebtListener() {
+
+		@Override
+		public void onRetreiveDebtResult(ERetreiveDebtResult result) {
+			if(result.equals(ERetreiveDebtResult.Success))
+			{
+			}
+			else if(result.equals(ERetreiveDebtResult.Failed))
+			{
+			}
+			else if(result.equals(ERetreiveDebtResult.UnkownError))
+			{
+			}
+		}
+
+	};
 	
 }

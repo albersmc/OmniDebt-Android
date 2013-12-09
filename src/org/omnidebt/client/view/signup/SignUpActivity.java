@@ -33,6 +33,8 @@ public class SignUpActivity extends Activity{
 					String strPasswd=((EditText) findViewById(R.id.editPassword)).getText().toString();
 					String strConfirmPasswd=((EditText) findViewById(R.id.editConfirmPassword)).getText().toString();
 					
+					
+					Button cancelButton=(Button) findViewById(R.id.CancelButton);
 					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
 
 					TextView errorLabel=(TextView) findViewById(R.id.errorLabel);

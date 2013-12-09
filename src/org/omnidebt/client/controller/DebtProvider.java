@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.omnidebt.client.view.main.Debt;
+import org.omnidebt.client.view.main.RetreiveDebtListener;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -16,18 +17,18 @@ public class DebtProvider {
 	static private List<Debt> ldData = new ArrayList<Debt>();
 
 	public interface ODRetreiveDebtService {
-		@GET("/getDebts/{user}")
+		@GET("/getAllDebts/{user}")
 		void tryRetreive(@Path("user") String user, Callback<Response> cb);
 	}
 
-	static public void retreiveAll() {
+	static public void retreiveAll(RetreiveDebtListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);
 
-		service.tryRetreive(UserController.getName(), new RetreiveDebtCallback());
+		service.tryRetreive(UserController.getName(), new RetreiveDebtCallback(callback));
 	}
 
 	static public List<Debt> getAll() {
