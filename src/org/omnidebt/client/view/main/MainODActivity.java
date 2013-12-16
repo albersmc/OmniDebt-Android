@@ -55,7 +55,7 @@ public class MainODActivity extends FragmentActivity {
 	private ActionBarDrawerToggle	abActionBar			= null;
 	private Integer					iPosition			= null;
 	private List<Integer>			lPreviousFragments	= null;
-
+	public Fragment 				currentFragment		= null;
 	private String					sAddDebtName		= "";
 
 	@Override
@@ -233,6 +233,7 @@ public class MainODActivity extends FragmentActivity {
 		if( position.equals(EFragments.Dashboard.ordinal()) )
 		{
 			fragment = new DashboardFragment();
+			currentFragment=fragment;
 			args.putString("User", "");
 		}
 		else if( position.equals(EFragments.Contact.ordinal()) )
