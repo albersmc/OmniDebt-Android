@@ -56,6 +56,7 @@ public class MainODActivity extends FragmentActivity {
 	private ActionBarDrawerToggle	abActionBar			= null;
 	private Integer					iPosition			= null;
 	private List<Integer>			lPreviousFragments	= null;
+	public Fragment 				currentFragment		= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -228,6 +229,7 @@ public class MainODActivity extends FragmentActivity {
 		if( position.equals(EFragments.Dashboard.ordinal()) )
 		{
 			fragment = new DashboardFragment();
+			currentFragment=fragment;
 			args.putString("User", "");
 			lPreviousFragments.clear();
 		}
