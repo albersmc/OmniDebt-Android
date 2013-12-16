@@ -31,7 +31,7 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
-		
+
 		etLogin			= (EditText)findViewById(R.id.text_edit_login);
 		etPassword		= (EditText)findViewById(R.id.text_edit_password);
 		
@@ -44,6 +44,20 @@ public class LoginActivity extends Activity {
 		bLogin.			setOnClickListener(onClickLogin);
 		bCancel.		setOnClickListener(onClickCancel);
 		bCreateAccount.	setOnClickListener(onClickCreateAccount);
+
+		if(savedInstanceState != null) {
+			etLogin.setText(savedInstanceState.getString("login"));
+			etPassword.setText(savedInstanceState.getString("passwd"));
+			tvLoginStatus.setText(savedInstanceState.getString("status"));
+		}
+		
+	}
+
+	@Override
+	protected void onSaveInstanceState (Bundle outState) {
+		outState.putString("login", etLogin.getText().toString());
+		outState.putString("passwd", etPassword.getText().toString());
+		outState.putString("status", tvLoginStatus.getText().toString());
 	}
 
 	// On Login clicked

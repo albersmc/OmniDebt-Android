@@ -14,11 +14,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class SignUpActivity extends Activity{
+
+	EditText etName		= null;
+	EditText etEmail	= null;
+	EditText etPasswd	= null;
+	EditText etConfirm	= null;
+	TextView tvStatus	= null;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_signup);
+
+		etName		= (EditText) findViewById(R.id.editLogin);
+		etEmail		= (EditText) findViewById(R.id.editEmail);
+		etPasswd	= (EditText) findViewById(R.id.editPassword);
+		etConfirm	= (EditText) findViewById(R.id.editConfirmPassword);
+		tvStatus	= (TextView) findViewById(R.id.errorLabel);
 		
 		Button signUpButton=(Button) findViewById(R.id.SignUpButton);
 		signUpButton.setOnClickListener(new View.OnClickListener() {
@@ -28,17 +40,15 @@ public class SignUpActivity extends Activity{
 				// TODO Auto-generated method stub
 				if(validate())
 				{
-					String strLogin=((EditText) findViewById(R.id.editLogin)).getText().toString();
-					String strEmail=((EditText) findViewById(R.id.editEmail)).getText().toString();
-					String strPasswd=((EditText) findViewById(R.id.editPassword)).getText().toString();
-					String strConfirmPasswd=((EditText) findViewById(R.id.editConfirmPassword)).getText().toString();
-					
+					String strLogin			= etName.getText().toString();
+					String strEmail			= etEmail.getText().toString();
+					String strPasswd		= etPasswd.getText().toString();
+					String strConfirmPasswd	= etConfirm.getText().toString();
 					
 					Button cancelButton=(Button) findViewById(R.id.CancelButton);
 					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
 
-					TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
-					errorLabel.setText(R.string.login_trying_login);
+					tvStatus.setText(R.string.login_trying_login);
 				}
 				
 			}
@@ -55,8 +65,26 @@ public class SignUpActivity extends Activity{
 				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
 		});
+
+		if(savedInstanceState != null)
+		{
+			etName.setText(savedInstanceState.getString("name"));
+			etEmail.setText(savedInstanceState.getString("email"));
+			etPasswd.setText(savedInstanceState.getString("passwd"));
+			etConfirm.setText(savedInstanceState.getString("confirm"));
+			tvStatus.setText(savedInstanceState.getString("status"));
+		}
 	}
 	
+	@Override
+	protected void onSaveInstanceState (Bundle outState) {
+		outState.putString("name", etName.getText().toString());
+		outState.putString("email", etEmail.getText().toString());
+		outState.putString("passwd", etPasswd.getText().toString());
+		outState.putString("confirm", etPasswd.getText().toString());
+		outState.putString("status", tvStatus.getText().toString());
+	}
+
 	public boolean validate()
 	{
 		String string_pattern="^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -66,12 +94,12 @@ public class SignUpActivity extends Activity{
 		Matcher matcher=pattern.matcher(mail_str);
 		if(!matcher.matches())
 		{
-			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_invalid_email);
+			tvStatus.setText(R.string.signup_invalid_email);
 		}
 		boolean pweqcpw=((EditText) findViewById(R.id.editPassword)).getText().toString().equals(((EditText) findViewById(R.id.editConfirmPassword)).getText().toString());
 		if(!pweqcpw)
 		{
-			((TextView) findViewById(R.id.errorLabel)).setText(R.string.signup_pwd_different_cpwd);
+			tvStatus.setText(R.string.signup_pwd_different_cpwd);
 		}
 		boolean valid=(matcher.matches() && pweqcpw);
 		return valid;
@@ -94,14 +122,13 @@ public class SignUpActivity extends Activity{
 			}
 			else
 			{
-				TextView errorLabel=(TextView) findViewById(R.id.errorLabel);
 				if(code.equals(SignUpResult.UsedLogin))
 				{
-					errorLabel.setText(R.string.signup_error_used_login);
+					tvStatus.setText(R.string.signup_error_used_login);
 				}
 				if(code.equals(SignUpResult.Failed))
 				{
-					errorLabel.setText(R.string.login_failed);
+					tvStatus.setText(R.string.login_failed);
 				}
 			}
 			
