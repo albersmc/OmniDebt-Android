@@ -47,6 +47,7 @@
         <item>Add Contact</item>
         <item>Add Debt</item>
         <item>Contact Infos</item>
+        <item>Select Contact</item>
     </string-array>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="dashboard_dashboard">Dashboard</string>
@@ -68,5 +69,6 @@
     <string name="unknown_contact">Unknown contact, check the name</string>
     <string name="dashboard_add_debt">Add Debt</string>
     <string name="add_debt_button">Add Debt</string>
+    <string name="add_debt_hint">Amount</string>
 
 </resources>

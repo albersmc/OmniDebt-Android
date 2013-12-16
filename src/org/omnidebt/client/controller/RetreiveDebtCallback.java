@@ -1,14 +1,20 @@
 package org.omnidebt.client.controller;
 
-import org.omnidebt.client.view.main.Debt;
+import org.omnidebt.client.view.main.RetreiveDebtListener;
+import org.omnidebt.client.view.main.RetreiveDebtListener.ERetreiveDebtResult;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import android.util.Log;
+
 public class RetreiveDebtCallback implements Callback<Response> {
 
-	public RetreiveDebtCallback () {
+	RetreiveDebtListener callback = null;
+
+	public RetreiveDebtCallback (RetreiveDebtListener c) {
+		callback = c;
 	}
 
 	@Override
@@ -16,12 +22,15 @@ public class RetreiveDebtCallback implements Callback<Response> {
 
 		if(response.getStatus() == 200)
 		{
+
+			Log.i("debts", "Retreived Debts");
+			callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		}
 		else
 		{
+			Log.e("debts", "Unkown error retreiving debts");
+			callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
 		}
-
-		createFakeDebts();
 	}
 
 	@Override
@@ -29,21 +38,20 @@ public class RetreiveDebtCallback implements Callback<Response> {
 
 		if (error.isNetworkError())
 		{
+			Log.e("debts", "Network error retreiving debts");
+			callback.onRetreiveDebtResult(ERetreiveDebtResult.Failed);
 		}
 		else
 		{
+			Log.e("debts", "Unkown error retreiving debts");
+			callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
 		}
-
-		createFakeDebts();
 	}
 
-	public void createFakeDebts() {
-		DebtProvider.addDebt(new Debt("30/11/2013", "Fluttershy", 3.14, false));
-		DebtProvider.addDebt(new Debt("06/12/2013", "RainbowDash", 3.14, false));
-		DebtProvider.addDebt(new Debt("13/12/2013", "TwilightSparkle", 3.14, true));
-		DebtProvider.addDebt(new Debt("20/12/2013", "Rarity", 3.14, true));
-		DebtProvider.addDebt(new Debt("27/12/2013", "AppleJack", 3.14, true));
-		DebtProvider.addDebt(new Debt("23/11/2013", "PinkiePie", 3.14, false));
+	public class RetreiveDebtResult {
+
+		public String status = "";
+		//public List<> contacts = "";
 	}
 
 }

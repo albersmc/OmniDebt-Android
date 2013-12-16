@@ -31,14 +31,14 @@ public class AddDebtFragment extends Fragment{
 	private DebtCreateCallback dcc;
 	private String sUser;
 	public TextView	err;
-	
+
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
         
         faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.add_debt_fragment, container, false);
         
-        sUser=this.getArguments().getString("User");
+        sUser=getArguments().getString("User");
         
 	    et=(EditText) llLayout.findViewById(R.id.AddDebtValue);
 	    cancel=(Button) llLayout.findViewById(R.id.AddDebtCancelButton);

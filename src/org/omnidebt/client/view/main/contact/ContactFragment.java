@@ -24,11 +24,12 @@ import android.widget.TextView;
 
 public class ContactFragment extends Fragment {
 
-	private ListView			lvLayout	= null;
-	private MainODActivity		moActivity	= null;
-	private ContactAdapter		caAdapter	= null;
-	private Integer				iNumber		= null;
-	private SparseBooleanArray	baSelected	= null;
+	private ListView			lvLayout			= null;
+	private MainODActivity		moActivity			= null;
+	private ContactAdapter		caAdapter			= null;
+	private Integer				iNumber				= null;
+	private SparseBooleanArray	baSelected			= null;
+	private Boolean				bIsSelectContact	= false;
 	
 	public ContactFragment() {
 	}
@@ -44,7 +45,12 @@ public class ContactFragment extends Fragment {
 		
 		caAdapter	= new ContactAdapter(moActivity, R.layout.contact_item_fragment, ContactProvider.getList(), baSelected);
 
-		
+		bIsSelectContact = getArguments().getBoolean("isSelectContact");
+		if(bIsSelectContact == null)
+			bIsSelectContact = false;
+
+		ContactProvider.tryRetreiveContact(retreiveContactListener);
+
 		lvLayout.setAdapter(caAdapter);
 
 		lvLayout.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
@@ -69,7 +75,11 @@ public class ContactFragment extends Fragment {
 
 		@Override
 		public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-			moActivity.goToContactInfos(( (TextView) arg1.findViewById(R.id.contact_name) ).getText().toString());
+
+			if(bIsSelectContact)
+				moActivity.goToAddDebt(( (TextView) arg1.findViewById(R.id.contact_name) ).getText().toString());
+			else
+				moActivity.goToContactInfos(( (TextView) arg1.findViewById(R.id.contact_name) ).getText().toString());
 		}
 		
 	};

@@ -1,83 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="25dp"
+    android:layout_height="fill_parent"
     android:gravity="center"
     android:orientation="vertical" >
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/errorLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="15"
         android:gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/editLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="15"
         android:hint="@string/hint_login" >
 
         <requestFocus />
     </EditText>
+    
+	<View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/editEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="15"
         android:hint="@string/hint_email"
         android:inputType="textEmailAddress" />
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="15"
         android:ems="10"
         android:hint="@string/hint_passwd"
         android:inputType="textPassword" />
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/editConfirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_weight="15"
         android:ems="10"
         android:hint="@string/hint_confirm_password"
         android:inputType="textPassword" />
+    
+	<View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="fill_horizontal"
-        android:layout_weight="25"
         android:gravity="center|center_horizontal|fill_horizontal" >
 
         <Button
             android:id="@+id/SignUpButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="25"
+            android:layout_weight="1"
             android:text="@string/hint_signup" />
 
         <Button
             android:id="@+id/CancelButton"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_weight="25"
+            android:layout_weight="1"
             android:text="@string/button_cancel_connection" />
     </LinearLayout>
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
 </LinearLayout>
