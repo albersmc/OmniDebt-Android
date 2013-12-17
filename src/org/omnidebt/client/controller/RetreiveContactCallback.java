@@ -30,15 +30,15 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 		{
 			if(r.status.equals("OK"))
 			{
+				ContactProvider.resetContact();
 				ContactProvider.addSelf(r.self);
-				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				for(Contact c : r.contacts)
 				{
 					ContactProvider.addContact(c);
 
 					Log.i("contact", "Got a contact Succeed");
-					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				}
+				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 			}
 			else if(r.status.equals("KO"))
 			{
