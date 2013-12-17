@@ -93,10 +93,6 @@ public class MainODActivity extends FragmentActivity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-
-		ContactProvider.retreiveUser();
-		DebtProvider.retreiveAll(retreiveDebtListener);
-
 		// Setup the selected fragment
 		if(savedInstanceState != null)
 			changeFragment(iPosition, savedInstanceState.getBundle("fragment"));
@@ -411,21 +407,4 @@ public class MainODActivity extends FragmentActivity {
 		return sAddDebtName;
 	}
 
-	RetreiveDebtListener retreiveDebtListener = new RetreiveDebtListener() {
-
-		@Override
-		public void onRetreiveDebtResult(ERetreiveDebtResult result) {
-			if(result.equals(ERetreiveDebtResult.Success))
-			{
-			}
-			else if(result.equals(ERetreiveDebtResult.Failed))
-			{
-			}
-			else if(result.equals(ERetreiveDebtResult.UnkownError))
-			{
-			}
-		}
-
-	};
-	
 }

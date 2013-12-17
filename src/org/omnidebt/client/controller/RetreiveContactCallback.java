@@ -30,6 +30,8 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 		{
 			if(r.status.equals("OK"))
 			{
+				ContactProvider.addSelf(r.self);
+				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				for(Contact c : r.contacts)
 				{
 					ContactProvider.addContact(c);
@@ -73,6 +75,7 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 
 	public class RetreiveContactResponse {
 		public String status;
+		public Contact self;
 		public List<Contact> contacts;
 	}
 }

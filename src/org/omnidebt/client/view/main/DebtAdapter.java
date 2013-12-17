@@ -58,7 +58,7 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		
 		Debt debt=data.get(position);
 		holder.date.setText(debt.date);
-		holder.person.setText(debt.owner);
+		holder.person.setText(debt.name);
 		holder.value.setText(debt.value.toString());
 		holder.pay.setOnClickListener(new View.OnClickListener() {
 			
@@ -80,7 +80,7 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 					
 				};
 				DashboardFragment db=(DashboardFragment) ((MainODActivity) v2.getContext()).currentFragment;
-				DebtController.tryPay(UserController.getName(), db.theList.get(pos).owner, pl);
+				DebtController.tryPay(UserController.getName(), db.theList.get(pos).name, pl);
 			}
 		});
 		

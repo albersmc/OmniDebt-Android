@@ -22,7 +22,6 @@ public class UserConnectCallback implements Callback<UserConnectCallback.Connect
 		if(response.getStatus() == 200)
 		{
 			Log.i("login", "Authentication Succeed");
-			ContactProvider.retreiveUser();
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 		else

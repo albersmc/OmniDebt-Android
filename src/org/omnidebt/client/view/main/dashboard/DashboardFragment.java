@@ -3,23 +3,23 @@ package org.omnidebt.client.view.main.dashboard;
 import java.util.List;
 
 import org.omnidebt.client.R;
-import org.omnidebt.client.controller.DebtController;
 import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.controller.DebtController;
 import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.Contact;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.DebtAdapter;
 import org.omnidebt.client.view.main.DebtAdapter.DebtHolder;
+import org.omnidebt.client.view.main.MainODActivity;
+import org.omnidebt.client.view.main.RetreiveDebtListener;
+import org.omnidebt.client.view.main.contact.RetreiveContactListener;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
-import org.omnidebt.client.view.main.MainODActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -72,6 +72,12 @@ public class DashboardFragment extends Fragment {
 			( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
 			( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
 		}
+		else
+		{
+			( (TextView)	theView.findViewById(R.id.contact_balance)	).setText("0");
+			( (TextView)	theView.findViewById(R.id.contact_positive)	).setText("0");
+			( (TextView)	theView.findViewById(R.id.contact_negative)	).setText("0");
+		}
 
         llLayout.addView(theView, 0);
 
@@ -104,6 +110,8 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
+		ContactProvider.tryRetreiveContact(retreiveContactListener);
+		DebtProvider.retreiveAll(retreiveDebtListener);
 
         return llLayout;
 
@@ -118,6 +126,51 @@ public class DashboardFragment extends Fragment {
     {
     	
     }
+
+	private RetreiveContactListener retreiveContactListener	= new RetreiveContactListener() {
+
+		@Override
+		public void onRetreiveContactResult(ERetreiveContactResult result) {
+			if(result.equals(ERetreiveContactResult.Success))
+			{
+				Log.d("contact", "Updating self");
+				View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
+				Contact user	= ContactProvider.getContact(sUser);
+				if(user != null)
+				{
+					Log.d("contact", "user not null");
+					( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
+					( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
+					( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
+				}
+				else
+				{
+					Log.d("contact", "user null");
+					( (TextView)	theView.findViewById(R.id.contact_balance)	).setText("0");
+					( (TextView)	theView.findViewById(R.id.contact_positive)	).setText("0");
+					( (TextView)	theView.findViewById(R.id.contact_negative)	).setText("0");
+				}
+			}
+		}
+		
+	};
+
+	RetreiveDebtListener retreiveDebtListener = new RetreiveDebtListener() {
+
+		@Override
+		public void onRetreiveDebtResult(ERetreiveDebtResult result) {
+			if(result.equals(ERetreiveDebtResult.Success))
+			{
+			}
+			else if(result.equals(ERetreiveDebtResult.Failed))
+			{
+			}
+			else if(result.equals(ERetreiveDebtResult.UnkownError))
+			{
+			}
+		}
+
+	};
 
 }
 

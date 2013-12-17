@@ -82,12 +82,8 @@ public class ContactProvider {
 			Log.e("contact", "Remove contact position out of bounds");
 	}
 
-	static public void retreiveUser() {
-		cUser				= new Contact();
-		cUser.name			= UserController.getName();
-		cUser.balance		= 0.;
-		cUser.pos	= 0.;
-		cUser.neg	= 0.;
+	static public void addSelf(Contact c) {
+		cUser = c;
 	}
 
 	static public void addContact(Contact c) {
@@ -111,7 +107,7 @@ public class ContactProvider {
 		Contact c = new Contact();
 		c.name = strName;
 
-		if(cUser.equals(c))
+		if(cUser != null && cUser.equals(c))
 			return cUser;
 
 		int i = lcData.indexOf(c);

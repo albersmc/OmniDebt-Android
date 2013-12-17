@@ -3,12 +3,12 @@ package org.omnidebt.client.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.omnidebt.client.controller.RetreiveDebtCallback.RetreiveDebtResponse;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.RetreiveDebtListener;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.client.Response;
 import retrofit.http.GET;
 import retrofit.http.Path;
 
@@ -18,7 +18,7 @@ public class DebtProvider {
 
 	public interface ODRetreiveDebtService {
 		@GET("/getAllDebts/{user}")
-		void tryRetreive(@Path("user") String user, Callback<Response> cb);
+		void tryRetreive(@Path("user") String user, Callback<RetreiveDebtResponse> cb);
 	}
 
 	static public void retreiveAll(RetreiveDebtListener callback) {
@@ -52,7 +52,7 @@ public class DebtProvider {
 
 		for(Debt d : ldData)
 		{
-			if(d.owner.equals(name))
+			if(d.name.equals(name))
 				open.add(d);
 		}
 
@@ -64,7 +64,7 @@ public class DebtProvider {
 
 		for(Debt d : ldData)
 		{
-			if(d.owner.equals(name) && !d.closed)
+			if(d.name.equals(name) && !d.closed)
 				open.add(d);
 		}
 
