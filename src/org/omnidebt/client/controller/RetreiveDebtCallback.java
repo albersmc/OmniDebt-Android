@@ -27,6 +27,16 @@ public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.Retre
 		{
 
 			Log.i("debts", "Retreived Debts");
+			DebtProvider.resetDebt();
+			for(Debt d : r.in)
+			{
+				DebtProvider.addDebt(d);
+			}
+			for(Debt c : r.out)
+			{
+				DebtProvider.addDebt(c);
+			}
+			
 			callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		}
 		else
@@ -54,8 +64,8 @@ public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.Retre
 	public class RetreiveDebtResponse {
 
 		public String status = "";
-		public List<Debt> in = null;
-		public List<Debt> out = null;
+		public List<Debt> in;
+		public List<Debt> out;
 	}
 
 }

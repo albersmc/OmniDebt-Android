@@ -84,6 +84,9 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 			}
 		});
 		
+
+		Log.d("debt", debt.name + " " + ( (Boolean) debt.closed ).toString());
+
 		if(debt.closed)
 			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.INVISIBLE);
 		else

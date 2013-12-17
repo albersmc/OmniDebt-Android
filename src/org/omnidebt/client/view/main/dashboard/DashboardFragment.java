@@ -34,6 +34,7 @@ public class DashboardFragment extends Fragment {
 	public DebtAdapter adapter;
 	public Button addDebtButton;
 	private LinearLayout		llLayout	= null;
+	private View theView = null;
 
 	private MainODActivity	faActivity	= null;
 	public String				sUser		= "";
@@ -49,43 +50,12 @@ public class DashboardFragment extends Fragment {
         faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
         
-		if(getArguments() != null && getArguments().getBoolean("User"))
-		{
-			sUser = faActivity.getAddDebtName();
-			theList = DebtProvider.getContactOpen(sUser);
-		}
-		else
-		{
-			sUser = UserController.getName();
-			theList = DebtProvider.getOpen();
-		}
-
-		Contact user	= ContactProvider.getContact(sUser);
-
-        View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
-
-		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(sUser);
-
-		if(user != null)
-		{
-			( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
-			( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
-			( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
-		}
-		else
-		{
-			( (TextView)	theView.findViewById(R.id.contact_balance)	).setText("0");
-			( (TextView)	theView.findViewById(R.id.contact_positive)	).setText("0");
-			( (TextView)	theView.findViewById(R.id.contact_negative)	).setText("0");
-		}
+        theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 
         llLayout.addView(theView, 0);
 
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
-	    adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
-	    viewList.setAdapter(adapter);
-	    
 	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
 	    	{
@@ -133,9 +103,19 @@ public class DashboardFragment extends Fragment {
 		public void onRetreiveContactResult(ERetreiveContactResult result) {
 			if(result.equals(ERetreiveContactResult.Success))
 			{
+				if(getArguments() != null && getArguments().getBoolean("User"))
+				{
+					sUser = faActivity.getAddDebtName();
+					theList = DebtProvider.getContactOpen(sUser);
+				}
+				else
+				{
+					sUser = UserController.getName();
+					theList = DebtProvider.getOpen();
+				}
 				Log.d("contact", "Updating self");
-				View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 				Contact user	= ContactProvider.getContact(sUser);
+				( (TextView)	theView.findViewById(R.id.contact_name)	).setText(sUser);
 				if(user != null)
 				{
 					Log.d("contact", "user not null");

@@ -32,3 +32,4 @@ proguard/
 
 # Vim tmp files
 .*.swp
+.*.swo

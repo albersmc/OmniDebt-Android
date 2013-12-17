@@ -18,7 +18,7 @@ public class DebtProvider {
 
 	public interface ODRetreiveDebtService {
 		@GET("/getAllDebts/{user}")
-		void tryRetreive(@Path("user") String user, Callback<RetreiveDebtResponse> cb);
+		void tryRetreive(@Path("user") String user, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
 	static public void retreiveAll(RetreiveDebtListener callback) {
