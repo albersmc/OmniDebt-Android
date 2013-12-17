@@ -18,7 +18,7 @@ public class DebtProvider {
 
 	public interface ODRetreiveDebtService {
 		@GET("/getAllDebts/{user}")
-		void tryRetreive(@Path("user") String user, Callback<Response> cb);
+		void tryRetreive(@Path("user") String user, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
 	static public void retreiveAll(RetreiveDebtListener callback) {
@@ -36,15 +36,8 @@ public class DebtProvider {
 	}
 
 	static public List<Debt> getOpen() {
-		List<Debt> open = new ArrayList<Debt>();
-
-		for(Debt d : ldData)
-		{
-			if(!d.closed)
-				open.add(d);
-		}
-
-		return open;
+		
+		return ldData;
 	}
 
 	static public List<Debt> getContact(String name) {
@@ -52,7 +45,7 @@ public class DebtProvider {
 
 		for(Debt d : ldData)
 		{
-			if(d.owner.equals(name))
+			if(d.name.equals(name))
 				open.add(d);
 		}
 
@@ -64,7 +57,7 @@ public class DebtProvider {
 
 		for(Debt d : ldData)
 		{
-			if(d.owner.equals(name) && !d.closed)
+			if(d.name.equals(name) && !d.closed)
 				open.add(d);
 		}
 

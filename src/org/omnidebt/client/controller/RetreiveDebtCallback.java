@@ -1,5 +1,8 @@
 package org.omnidebt.client.controller;
 
+import java.util.List;
+
+import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.RetreiveDebtListener;
 import org.omnidebt.client.view.main.RetreiveDebtListener.ERetreiveDebtResult;
 
@@ -9,7 +12,7 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class RetreiveDebtCallback implements Callback<Response> {
+public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.RetreiveDebtResponse> {
 
 	RetreiveDebtListener callback = null;
 
@@ -18,12 +21,22 @@ public class RetreiveDebtCallback implements Callback<Response> {
 	}
 
 	@Override
-	public void success(Response r, Response response) {
+	public void success(RetreiveDebtResponse r, Response response) {
 
 		if(response.getStatus() == 200)
 		{
 
 			Log.i("debts", "Retreived Debts");
+			DebtProvider.resetDebt();
+			for(Debt d : r.in)
+			{
+				DebtProvider.addDebt(d);
+			}
+			for(Debt c : r.out)
+			{
+				DebtProvider.addDebt(c);
+			}
+			
 			callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		}
 		else
@@ -48,10 +61,11 @@ public class RetreiveDebtCallback implements Callback<Response> {
 		}
 	}
 
-	public class RetreiveDebtResult {
+	public class RetreiveDebtResponse {
 
 		public String status = "";
-		//public List<> contacts = "";
+		public List<Debt> in;
+		public List<Debt> out;
 	}
 
 }
