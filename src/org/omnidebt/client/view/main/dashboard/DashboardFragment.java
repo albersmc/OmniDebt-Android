@@ -55,9 +55,13 @@ public class DashboardFragment extends Fragment {
         
         faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
+
         DebtProvider.retreiveAll(retreiveDebtListener);
 
+
+
         theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
+
 
         llLayout.addView(theView, 0);
 
@@ -82,7 +86,6 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
-		Log.d("fragments", "Creating Dashboard");
 
         return llLayout;
 

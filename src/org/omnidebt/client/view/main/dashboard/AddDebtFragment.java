@@ -44,6 +44,9 @@ public class AddDebtFragment extends Fragment{
 	    cancel=(Button) llLayout.findViewById(R.id.AddDebtCancelButton);
 	    err=(TextView) llLayout.findViewById(R.id.add_debt_error_view);
 	    addDebt=(Button) llLayout.findViewById(R.id.AddDebtSubmitButton);
+
+		if(getArguments().getString("value") != null);
+			et.setText(getArguments().getString("value"));
 	    
 	    dcl=new DebtCreateListener(){
 	    	public void onConnectResult(DebtCreateResult code)
@@ -104,4 +107,9 @@ public class AddDebtFragment extends Fragment{
         return llLayout;
 
     }
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putString("value", et.getText().toString());
+	}
 }

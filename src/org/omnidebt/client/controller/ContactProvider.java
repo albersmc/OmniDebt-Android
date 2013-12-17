@@ -83,7 +83,6 @@ public class ContactProvider {
 	}
 
 	static public void retreiveUser() {
-		Log.d("contact", "called");
 		cUser				= new Contact();
 		cUser.name			= UserController.getName();
 		cUser.balance		= 0.;

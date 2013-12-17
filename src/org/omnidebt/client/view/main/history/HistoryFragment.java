@@ -42,8 +42,12 @@ public class HistoryFragment extends Fragment{
         return llLayout;
 
     }
-    
-    
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+
+	}
+
     private HistoryListener hListener=new HistoryListener(){
     	public void onRetrieveHistoryListener()
     	{
