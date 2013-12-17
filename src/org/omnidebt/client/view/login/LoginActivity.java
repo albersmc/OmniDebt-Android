@@ -1,6 +1,8 @@
 package org.omnidebt.client.view.login;
 
 import org.omnidebt.client.R;
+import org.omnidebt.client.controller.ContactProvider;
+import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.MainODActivity;
 import org.omnidebt.client.view.signup.SignUpActivity;
@@ -9,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -31,6 +32,9 @@ public class LoginActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+
+		ContactProvider.resetContact();
+		DebtProvider.resetDebt();
 
 		etLogin			= (EditText)findViewById(R.id.text_edit_login);
 		etPassword		= (EditText)findViewById(R.id.text_edit_password);

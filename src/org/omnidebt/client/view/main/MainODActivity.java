@@ -67,8 +67,17 @@ public class MainODActivity extends FragmentActivity {
 		lvDrawerContainer	= (ListView)		findViewById(R.id.drawer_container);
 		sDrawerContent		= (String[])		getResources().getStringArray(R.array.drawer_content);
 		sNonTopLevelTitles	= (String[])		getResources().getStringArray(R.array.non_top_level_fragments);
-		iPosition			= EFragments.Dashboard.ordinal();
-		lPreviousFragments	= new				ArrayList<Integer>();
+		if(savedInstanceState != null)
+		{
+			iPosition			= savedInstanceState.getInt("position");
+			lPreviousFragments	= savedInstanceState.getIntegerArrayList("previous");
+			sAddDebtName		= savedInstanceState.getString("addDebtName");
+		}
+		else
+		{
+			iPosition			= EFragments.Dashboard.ordinal();
+			lPreviousFragments	= new ArrayList<Integer>();
+		}
 
 		abActionBar			= new ODActionBarDrawerToggle(this, dlMainLayout, R.drawable.ic_drawer,
 															R.string.drawer_open, R.string.drawer_close);
@@ -89,8 +98,20 @@ public class MainODActivity extends FragmentActivity {
 		DebtProvider.retreiveAll(retreiveDebtListener);
 
 		// Setup the selected fragment
-		changeFragment(iPosition);
-		getActionBar().setTitle(sDrawerContent[iPosition]);
+		if(savedInstanceState != null)
+			changeFragment(iPosition, savedInstanceState.getBundle("fragment"));
+		else
+			changeFragment(iPosition);
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putInt("position", iPosition);
+		outState.putIntegerArrayList("previous", (ArrayList<Integer>) lPreviousFragments);
+		Bundle state = new Bundle();
+		( (Fragment) getSupportFragmentManager().findFragmentById(R.id.fragment_container) ).onSaveInstanceState(state);
+		outState.putBundle("fragment", state);
+		outState.putString("addDebtName", sAddDebtName);
 	}
 	
 	@Override
@@ -102,8 +123,6 @@ public class MainODActivity extends FragmentActivity {
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();
-		ContactProvider.resetContact();
-		DebtProvider.resetDebt();
 	}
 
 	@Override
@@ -215,14 +234,14 @@ public class MainODActivity extends FragmentActivity {
 	};
 
 	private void changeFragment(Integer position) {
-		changeFragment(position, "");
+		Bundle arg = new Bundle();
+		changeFragment(position, arg);
 	}
 	
-	private void changeFragment(Integer position, String arg) {
+	private void changeFragment(Integer position, Bundle args) {
 
 		// Create a new fragment and specify args
 		Fragment	fragment		= null;
-		Bundle		args			= new Bundle();
 		boolean		isSon			= false;
 		boolean		isGoingDeeper	= false;
 		Integer		iTopLevelParent	= iPosition;
@@ -233,8 +252,8 @@ public class MainODActivity extends FragmentActivity {
 		if( position.equals(EFragments.Dashboard.ordinal()) )
 		{
 			fragment = new DashboardFragment();
+			args.putBoolean("User", false);
 			currentFragment=fragment;
-			args.putString("User", "");
 		}
 		else if( position.equals(EFragments.Contact.ordinal()) )
 		{
@@ -251,13 +270,14 @@ public class MainODActivity extends FragmentActivity {
 		else if( position.equals(EFragments.AddContact.ordinal()))
 		{
 			fragment = new AddContactFragment();
-			isGoingDeeper = true;
+			if(!iPosition.equals(position))
+				isGoingDeeper = true;
 		}
 		else if(position.equals(EFragments.AddDebt.ordinal()))
 		{
 			fragment = new AddDebtFragment();
-			args.putString("User", arg);
-			isGoingDeeper = true;
+			if(!iPosition.equals(position))
+				isGoingDeeper = true;
 		}
 		else if( position.equals(EFragments.ContactInfos.ordinal()))
 		{
@@ -314,7 +334,7 @@ public class MainODActivity extends FragmentActivity {
 				lPreviousFragments.add(iPosition);
 				fragmentTransaction.setCustomAnimations(R.anim.right_in, R.anim.left_out);
 			}
-			else
+			else if(!iPosition.equals(position))
 			{
 				fragmentTransaction.setCustomAnimations(R.anim.left_in, R.anim.right_out);
 			}
@@ -356,13 +376,17 @@ public class MainODActivity extends FragmentActivity {
 		}
 		else
 		{
-			changeFragment(EFragments.AddDebt.ordinal(), name);
+			Bundle arg = new Bundle();
+			arg.putString("User", name);
+			changeFragment(EFragments.AddDebt.ordinal(), arg);
 		}
 	}
 
 	public void goToContactInfos(String name) {
 		sAddDebtName = name;
-		changeFragment(EFragments.ContactInfos.ordinal(), name);
+		Bundle arg = new Bundle();
+		arg.putString("User", name);
+		changeFragment(EFragments.ContactInfos.ordinal(), arg);
 	}
 
 	public void goToPreviousFragment() {

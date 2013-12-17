@@ -49,7 +49,7 @@ public class DashboardFragment extends Fragment {
         faActivity	= (MainODActivity)	super.getActivity();
         llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
         
-		if(getArguments().getBoolean("User"))
+		if(getArguments() != null && getArguments().getBoolean("User"))
 		{
 			sUser = faActivity.getAddDebtName();
 			theList = DebtProvider.getContactOpen(sUser);
@@ -61,13 +61,17 @@ public class DashboardFragment extends Fragment {
 		}
 
 		Contact user	= ContactProvider.getContact(sUser);
+
         View theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 
 		( (TextView)	theView.findViewById(R.id.contact_name)		).setText(sUser);
 
-		( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
-		( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
-		( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
+		if(user != null)
+		{
+			( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
+			( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
+			( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
+		}
 
         llLayout.addView(theView, 0);
 
@@ -100,7 +104,6 @@ public class DashboardFragment extends Fragment {
 	    	}
     	});
 	    
-		Log.d("fragments", "Creating Dashboard");
 
         return llLayout;
 

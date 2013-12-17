@@ -36,7 +36,18 @@ public class AddContactFragment extends Fragment {
 		bAdd.setOnClickListener(onClickAddContact);
 		bCancel.setOnClickListener(onClickCancel);
 
+		if(getArguments().getString("name") != null)
+			((TextView)	llLayout.findViewById(R.id.contact_name)).setText(getArguments().getString("name"));
+		if(getArguments().getString("status") != null)
+			((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(getArguments().getString("status"));
+
 		return llLayout;
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		outState.putString("name", ((TextView)		llLayout.findViewById(R.id.contact_name)).getText().toString());
+		outState.putString("status", ((TextView)	llLayout.findViewById(R.id.add_contact_status)).getText().toString());
 	}
 
 	// On Create Account clicked		

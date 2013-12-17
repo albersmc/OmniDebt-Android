@@ -44,6 +44,11 @@ public class AboutFragment extends Fragment {
 
 	}
 
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+
+	}
+
 	private OnClickListener onClickJordan = new View.OnClickListener() {
 		@Override
 		public void onClick(View v) {
