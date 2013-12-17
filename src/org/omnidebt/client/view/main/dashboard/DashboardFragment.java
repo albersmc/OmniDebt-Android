@@ -44,63 +44,63 @@ public class DashboardFragment extends Fragment {
 	private PaiementListener pl;
 		
 	public DashboardFragment() {
-    }
+	}
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        
-        faActivity	= (MainODActivity)	super.getActivity();
-        llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
-        
-        theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		
+		faActivity	= (MainODActivity)	super.getActivity();
+		llLayout	= (LinearLayout)		inflater.inflate(R.layout.activity_dashboard, container, false);
+		
+		theView	= faActivity.getLayoutInflater().inflate(R.layout.contact_item_fragment,null);
 
-        llLayout.addView(theView, 0);
+		llLayout.addView(theView, 0);
 
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
 		
-	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-	    	{
-	    		DebtHolder tag=(DebtHolder) v.getTag();
-	    		sendRequest(tag.date.getText().toString(), tag.person.getText().toString(), tag.value.getText().toString());
-	    	}
-    	});
-	    
+		viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
+			{
+				DebtHolder tag=(DebtHolder) v.getTag();
+				sendRequest(tag.date.getText().toString(), tag.person.getText().toString(), tag.value.getText().toString());
+			}
+		});
+		
 
-	    pl=new PaiementListener(){
-	    	public void onConnectResult(PaiementResult pr)
-	    	{
-	    		
-	    	}
-	    };
-	    
-	    viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-	    	public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-	    	{
-	    		DebtHolder tag=(DebtHolder) v.getTag();
-	    		DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), pl);
-	    	}
-    	});
+		pl=new PaiementListener(){
+			public void onConnectResult(PaiementResult pr)
+			{
+				
+			}
+		};
+		
+		viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
+			{
+				DebtHolder tag=(DebtHolder) v.getTag();
+				DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), pl);
+			}
+		});
 
 		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
-	    
+		
 		ContactProvider.tryRetreiveContact(retreiveContactListener);
 		DebtProvider.retreiveAll(retreiveDebtListener);
 
-        return llLayout;
+		return llLayout;
 
-    }
-    
-    public void onAddDebt()
-    {
+	}
+	
+	public void onAddDebt()
+	{
 		faActivity.goToAddDebt(sUser);
-    }
-    
-    public void sendRequest(String date, String person, String value)
-    {
-    	
-    }
+	}
+	
+	public void sendRequest(String date, String person, String value)
+	{
+		
+	}
 
 	private RetreiveContactListener retreiveContactListener	= new RetreiveContactListener() {
 
@@ -146,6 +146,18 @@ public class DashboardFragment extends Fragment {
 		public void onRetreiveDebtResult(ERetreiveDebtResult result) {
 			if(result.equals(ERetreiveDebtResult.Success))
 			{
+				if(getArguments().getBoolean("User"))
+				{
+					sUser = faActivity.getAddDebtName();
+					theList = DebtProvider.getContactOpen(sUser);
+				}
+				else
+				{
+					sUser = UserController.getName();
+					theList = DebtProvider.getOpen();
+				}
+				adapter=new DebtAdapter(faActivity, R.layout.debt_list_item, theList);
+				viewList.setAdapter(adapter);
 			}
 			else if(result.equals(ERetreiveDebtResult.Failed))
 			{
