@@ -13,7 +13,9 @@ import org.omnidebt.client.view.main.DebtAdapter;
 import org.omnidebt.client.view.main.DebtAdapter.DebtHolder;
 import org.omnidebt.client.view.main.MainODActivity;
 import org.omnidebt.client.view.main.RetreiveDebtListener;
+import org.omnidebt.client.view.main.RetreiveDebtListener.ERetreiveDebtResult;
 import org.omnidebt.client.view.main.contact.RetreiveContactListener;
+import org.omnidebt.client.view.main.contact.RetreiveContactListener.ERetreiveContactResult;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -79,6 +81,9 @@ public class DashboardFragment extends Fragment {
 	    		DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), pl);
 	    	}
     	});
+
+		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
+		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 	    
 		ContactProvider.tryRetreiveContact(retreiveContactListener);
 		DebtProvider.retreiveAll(retreiveDebtListener);

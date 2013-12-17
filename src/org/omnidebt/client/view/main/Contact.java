@@ -14,7 +14,7 @@ public class Contact {
 
         if (object != null && object instanceof Contact)
         {
-            sameSame = name.equals(((Contact) object).name);
+            sameSame = name.equalsIgnoreCase(((Contact) object).name);
         }
 
         return sameSame;
