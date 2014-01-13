@@ -32,11 +32,14 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 			{
 				ContactProvider.resetContact();
 				ContactProvider.addSelf(r.self);
-				for(Contact c : r.contacts)
+				if(r.contacts != null)
 				{
-					ContactProvider.addContact(c);
+					for(Contact c : r.contacts)
+					{
+						ContactProvider.addContact(c);
 
-					Log.i("contact", "Got a contact Succeed");
+						Log.i("contact", "Got a contact Succeed");
+					}
 				}
 				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 			}

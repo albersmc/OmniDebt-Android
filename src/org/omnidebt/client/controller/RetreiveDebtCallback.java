@@ -28,13 +28,19 @@ public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.Retre
 
 			Log.i("debts", "Retreived Debts");
 			DebtProvider.resetDebt();
-			for(Debt d : r.in)
+			if(r.in != null)
 			{
-				DebtProvider.addDebt(d);
+				for(Debt d : r.in)
+				{
+					DebtProvider.addDebt(d);
+				}
 			}
-			for(Debt c : r.out)
+			if(r.out != null)
 			{
-				DebtProvider.addDebt(c);
+				for(Debt c : r.out)
+				{
+					DebtProvider.addDebt(c);
+				}
 			}
 			
 			callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);

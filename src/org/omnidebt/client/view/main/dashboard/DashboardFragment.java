@@ -118,19 +118,16 @@ public class DashboardFragment extends Fragment {
 					sUser = UserController.getName();
 					theList = DebtProvider.getOpen();
 				}
-				Log.d("contact", "Updating self");
 				Contact user	= ContactProvider.getContact(sUser);
 				( (TextView)	theView.findViewById(R.id.contact_name)	).setText(sUser);
 				if(user != null)
 				{
-					Log.d("contact", "user not null");
-					( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(user.balance.toString());
-					( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(user.pos.toString());
-					( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(user.neg.toString());
+					( (TextView)	theView.findViewById(R.id.contact_balance)	).setText(String.format("%.2f", user.balance));
+					( (TextView)	theView.findViewById(R.id.contact_positive)	).setText(String.format("%.2f", user.pos));
+					( (TextView)	theView.findViewById(R.id.contact_negative)	).setText(String.format("%.2f", user.neg));
 				}
 				else
 				{
-					Log.d("contact", "user null");
 					( (TextView)	theView.findViewById(R.id.contact_balance)	).setText("0");
 					( (TextView)	theView.findViewById(R.id.contact_positive)	).setText("0");
 					( (TextView)	theView.findViewById(R.id.contact_negative)	).setText("0");

@@ -53,9 +53,9 @@ public class ContactAdapter extends ArrayAdapter<Contact> {
 		
 		Contact contact = lcData.get(position);
 		holder.tvName.setText(contact.name);
-		holder.tvBalance.setText(contact.balance.toString());
-		holder.tvPositive.setText(contact.pos.toString());
-		holder.tvNegative.setText(contact.neg.toString());
+		holder.tvBalance.setText(String.format("%.2f", contact.balance));
+		holder.tvPositive.setText(String.format("%.2f", contact.pos));
+		holder.tvNegative.setText(String.format("%.2f", contact.neg));
 
 		if(baSelected.get(position))
 			rowView.setBackgroundColor(Color.parseColor("#424242"));

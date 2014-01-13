@@ -59,7 +59,7 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		Debt debt=data.get(position);
 		holder.date.setText(debt.date);
 		holder.person.setText(debt.name);
-		holder.value.setText(debt.value.toString());
+		holder.value.setText(String.format("%.2f", debt.value));
 		holder.pay.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
