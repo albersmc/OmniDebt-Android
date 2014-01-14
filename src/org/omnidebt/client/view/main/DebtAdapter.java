@@ -10,14 +10,13 @@ import org.omnidebt.client.view.main.dashboard.PaiementListener;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class DebtAdapter extends ArrayAdapter<Debt>{
@@ -61,10 +60,9 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		holder.person.setText(debt.name);
 		holder.value.setText(String.format("%.2f", debt.value));
 		holder.pay.setOnClickListener(new View.OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				final View v2=v;
 				PaiementListener pl=new PaiementListener(){
 					public void onConnectResult(PaiementResult pr){
@@ -83,7 +81,11 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 				DebtController.tryPay(UserController.getName(), db.theList.get(pos).name, pl);
 			}
 		});
-		
+
+		if(debt.owed)
+			holder.value.setTextColor(Color.parseColor("#ff0000"));
+		else
+			holder.value.setTextColor(Color.parseColor("#00ff00"));
 
 		Log.d("debt", debt.name + " " + ( (Boolean) debt.closed ).toString());
 

@@ -6,6 +6,7 @@ public class Debt {
 	public String	name	= "";
 	public Double	value	= 0.;
 	public boolean	closed	= false;
+	public boolean	owed	= false;
 
 	public Debt(String d, String o, Double v, boolean c)
 	{

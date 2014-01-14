@@ -32,14 +32,16 @@ public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.Retre
 			{
 				for(Debt d : r.in)
 				{
+					d.owed = false;
 					DebtProvider.addDebt(d);
 				}
 			}
 			if(r.out != null)
 			{
-				for(Debt c : r.out)
+				for(Debt d : r.out)
 				{
-					DebtProvider.addDebt(c);
+					d.owed = true;
+					DebtProvider.addDebt(d);
 				}
 			}
 			
