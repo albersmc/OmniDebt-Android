@@ -39,7 +39,7 @@ public class UserController {
 		}
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("https://88.185.252.7")
 			.build();
 
 		ODLoginService service = restAdapter.create(ODLoginService.class);
@@ -50,7 +50,7 @@ public class UserController {
 	static public void trySignUp(String strLogin, String strEmail, String strPasswd, String strConfirmPassword, SignUpListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("https://88.185.252.7")
 			.build();
 
 		ODSignupService service = restAdapter.create(ODSignupService.class);
