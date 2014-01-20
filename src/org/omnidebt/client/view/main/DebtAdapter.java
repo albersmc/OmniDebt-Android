@@ -63,22 +63,10 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 
 			@Override
 			public void onClick(View v) {
-				final View v2=v;
-				PaiementListener pl=new PaiementListener(){
-					public void onConnectResult(PaiementResult pr){
-						if(pr==PaiementResult.Succeed)
-						{
-							DashboardFragment db=(DashboardFragment) ((MainODActivity) v2.getContext()).currentFragment;
-							db.theList.remove(pos);
-							DebtAdapter adapter=new DebtAdapter((MainODActivity) v2.getContext(), R.layout.debt_list_item, db.theList);
-							db.viewList.setAdapter(adapter);
-							adapter.notifyDataSetChanged();
-						}
-					}
-					
-				};
-				DashboardFragment db=(DashboardFragment) ((MainODActivity) v2.getContext()).currentFragment;
-				DebtController.tryPay(UserController.getName(), db.theList.get(pos).name, pl);
+				
+				DashboardFragment db=(DashboardFragment) ((MainODActivity)v.getContext()).currentFragment;
+				
+				((MainODActivity)v.getContext()).goToPayDebt(db.theList.get(pos).name, db.theList.get(pos).value);
 			}
 		});
 

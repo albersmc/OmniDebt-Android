@@ -16,10 +16,11 @@ public class DebtController {
 		@POST("/newDebt/{nameLender}/{nameOwner}/{debt}")
 		void tryCreate(@Path("nameLender") String nameLender, @Path("nameOwner") String nameOwner, @Path("debt") float debt, Callback<Response> cb);
 		
-		@POST("/closeDebt/{nameUser}/{nameContact}")
-		void tryPay(@Path("nameUser") String nameUser, @Path("nameContact") String nameContact, Callback<Response> cb);
+		//@POST("/closeDebt/{nameUser}/{nameContact}")
+		//void tryPay(@Path("nameUser") String nameUser, @Path("nameContact") String nameContact, Callback<Response> cb);
 		
-		
+		@POST("/pay/{nameUser}/{nameContact}/{debt}")
+		void tryPay(@Path("nameUser") String nameUser, @Path("nameContact") String nameContact, @Path("debt") Double debt, Callback<Response> cb);
 	}
 	
 	public static void tryCreate(String nameLender, String nameOwner, float debt, DebtCreateListener cb)
@@ -30,12 +31,12 @@ public class DebtController {
 		ds.tryCreate(nameLender, nameOwner, debt, new DebtCreateCallback(cb));
 	}
 	
-	public static void tryPay(String nameUser, String nameContact, PaiementListener cb)
+	public static void tryPay(String nameUser, String nameContact, Double debt, PaiementListener cb)
 	{
 		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
-		ds.tryPay(nameUser, nameContact, new DebtPayCallback(cb));
+		ds.tryPay(nameUser, nameContact, debt, new DebtPayCallback(cb));
 	}
 	
 }
