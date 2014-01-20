@@ -23,7 +23,7 @@ public class DebtProvider {
 
 	static public void retreiveAll(RetreiveDebtListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("https://88.185.252.7")
 			.build();
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);
