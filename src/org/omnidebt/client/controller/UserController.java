@@ -1,5 +1,10 @@
 package org.omnidebt.client.controller;
 
+import java.io.IOException;
+import java.net.Proxy;
+import java.net.URL;
+import java.util.List;
+
 import org.omnidebt.client.controller.UserConnectCallback.ConnectResponse;
 import org.omnidebt.client.controller.UserSignupCallback.SignupResponse;
 import org.omnidebt.client.view.login.LoginListener;
@@ -7,8 +12,12 @@ import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.signup.SignUpListener;
 
+import com.squareup.okhttp.OkAuthenticator;
+import com.squareup.okhttp.OkHttpClient;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
+import retrofit.client.OkClient;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -37,9 +46,31 @@ public class UserController {
 		{
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
+		
+		OkHttpClient client=new OkHttpClient();
+		
+		OkAuthenticator authenticator= new OkAuthenticator(){
 
+			@Override
+			public Credential authenticate(Proxy arg0, URL arg1,
+					List<Challenge> arg2) throws IOException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+
+			@Override
+			public Credential authenticateProxy(Proxy arg0, URL arg1,
+					List<Challenge> arg2) throws IOException {
+				// TODO Auto-generated method stub
+				return null;
+			}
+			
+		};
+		client.setAuthenticator(authenticator);
+		
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("https://88.185.252.7")
+			.setClient(new OkClient(client))
 			.build();
 
 		ODLoginService service = restAdapter.create(ODLoginService.class);
