@@ -14,6 +14,7 @@ import org.omnidebt.client.view.main.contact.RetreiveContactListener;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -30,19 +31,19 @@ public class ContactProvider {
 	}
 
 	public interface ODRetreiveContactService {
-		@GET("/getContacts/{user}")
-		void tryRetreive(@Path("user") String user, Callback<RetreiveContactResponse> cb);
+		@GET("/user/contact")
+		void tryRetreive(@Header("name") String user, @Header("token") String token, Callback<RetreiveContactResponse> cb);
 	}
 	
-	static public void tryRetreiveContact(RetreiveContactListener callback) {
+	static public void tryRetreiveContact(String token, RetreiveContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
 
-		service.tryRetreive(UserController.getName(), new RetreiveContactCallback(callback));
+		service.tryRetreive(UserController.getName(), token, new RetreiveContactCallback(callback));
 	}
 
 	public interface ODAddContactService {

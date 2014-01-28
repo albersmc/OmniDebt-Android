@@ -85,7 +85,7 @@ public class DashboardFragment extends Fragment {
 		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		
-		ContactProvider.tryRetreiveContact(retreiveContactListener);
+		ContactProvider.tryRetreiveContact(faActivity.getPreferences().getString("token", ""), retreiveContactListener);
 		DebtProvider.retreiveAll(retreiveDebtListener);
 
 		return llLayout;

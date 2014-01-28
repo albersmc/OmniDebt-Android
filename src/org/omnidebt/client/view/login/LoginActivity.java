@@ -9,6 +9,7 @@ import org.omnidebt.client.view.signup.SignUpActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,19 +20,23 @@ import android.widget.TextView;
 
 public class LoginActivity extends Activity {
 
-	EditText	etLogin			= null;
-	EditText	etPassword		= null;
+	EditText			etLogin			= null;
+	EditText			etPassword		= null;
 
-	Button		bLogin			= null;
-	Button		bCancel			= null;
-	Button		bCreateAccount	= null;
+	Button				bLogin			= null;
+	Button				bCancel			= null;
+	Button				bCreateAccount	= null;
 
-	TextView	tvLoginStatus	= null;
+	TextView			tvLoginStatus	= null;
+
+	SharedPreferences	preferences		= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
+
+		preferences		= getSharedPreferences("user", 0);
 
 		ContactProvider.resetContact();
 		DebtProvider.resetDebt();
@@ -53,6 +58,10 @@ public class LoginActivity extends Activity {
 			etLogin.setText(savedInstanceState.getString("login"));
 			etPassword.setText(savedInstanceState.getString("passwd"));
 			tvLoginStatus.setText(savedInstanceState.getString("status"));
+		}
+
+		if(!preferences.getString("token", "").equals(""))
+		{
 		}
 		
 	}
@@ -114,7 +123,7 @@ public class LoginActivity extends Activity {
 				tvLoginStatus.setText("");
 				etLogin.setText("");
 				etPassword.setText("");
-				
+
 				Intent mainActivity = new Intent(getApplicationContext(), MainODActivity.class);
 				startActivity(mainActivity);
 				overridePendingTransition(R.anim.right_in, R.anim.left_out);
@@ -131,6 +140,13 @@ public class LoginActivity extends Activity {
 			else if(code.equals(ConnectResult.UnkownError)) {
 				tvLoginStatus.setText(R.string.login_unkown_error);
 			}
+		}
+
+		@Override
+		public void onConnectSuccess(String token) {
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("token", token);
+			editor.commit();
 		}
 	};
 }
