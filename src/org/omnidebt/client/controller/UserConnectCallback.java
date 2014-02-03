@@ -22,6 +22,7 @@ public class UserConnectCallback implements Callback<UserConnectCallback.Connect
 		if(response.getStatus() == 200)
 		{
 			Log.i("login", "Authentication Succeed");
+			callback.onConnectSuccess(r.token);
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 		else
@@ -54,6 +55,7 @@ public class UserConnectCallback implements Callback<UserConnectCallback.Connect
 	public class ConnectResponse {
 
 		public String status = null;
+		public String token = null;
 		public String message = null;
 
 	}

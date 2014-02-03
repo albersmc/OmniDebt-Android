@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.omnidebt.client.R;
-import org.omnidebt.client.controller.ContactProvider;
-import org.omnidebt.client.controller.DebtProvider;
 import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.about.AboutFragment;
 import org.omnidebt.client.view.main.contact.AddContactFragment;
@@ -16,6 +14,7 @@ import org.omnidebt.client.view.main.dashboard.DebtPayFragment;
 import org.omnidebt.client.view.main.history.HistoryFragment;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -59,11 +58,14 @@ public class MainODActivity extends FragmentActivity {
 	private List<Integer>			lPreviousFragments	= null;
 	public Fragment 				currentFragment		= null;
 	private String					sAddDebtName		= "";
+	private SharedPreferences		preferences			= null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_od);
+
+		preferences = getSharedPreferences("user", 0);
 
 		dlMainLayout		= (DrawerLayout)	findViewById(R.id.drawer_layout);
 		lvDrawerContainer	= (ListView)		findViewById(R.id.drawer_container);
@@ -425,6 +427,11 @@ public class MainODActivity extends FragmentActivity {
 	public String getAddDebtName()
 	{
 		return sAddDebtName;
+	}
+
+	public SharedPreferences getPreferences()
+	{
+		return preferences;
 	}
 
 }

@@ -63,10 +63,10 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 
 			@Override
 			public void onClick(View v) {
-				
 				DashboardFragment db=(DashboardFragment) ((MainODActivity)v.getContext()).currentFragment;
 				
 				((MainODActivity)v.getContext()).goToPayDebt(db.theList.get(pos).name, db.theList.get(pos).value);
+
 			}
 		});
 

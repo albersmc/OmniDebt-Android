@@ -10,5 +10,6 @@ public interface LoginListener {
 	}
 	
 	public void onConnectResult(ConnectResult code);
+	public void onConnectSuccess(String token);
 
 }

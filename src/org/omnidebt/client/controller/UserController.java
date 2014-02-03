@@ -17,6 +17,7 @@ import org.omnidebt.client.view.signup.SignUpListener;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
+import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
 
@@ -25,19 +26,20 @@ import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;
 
+
 public class UserController {
 
 	private static String	strLogin	= null;
 	private static String	strPasswd	= null;
 
 	public interface ODLoginService {
-		@POST("/connect/{user}/{pass}")
-		void tryConnect(@Path("user") String user, @Path("pass") String pass, Callback<ConnectResponse> cb);
+		@POST("/connect")
+		void tryConnect(@Header("name") String user, @Header("password") String pass, Callback<ConnectResponse> cb);
 	}
 
 	public interface ODSignupService {
-		@POST("/signup/{user}/{pass}/{email}")
-		void trySignup(@Path("user") String user, @Path("pass") String pass, @Path("email") String email, Callback<SignupResponse> cb);
+		@POST("/user")
+		void trySignup(@Header("name") String user, @Header("password") String pass, @Header("email") String email, Callback<SignupResponse> cb);
 	}
 
 	static public void tryLogin(String login, String passwd, LoginListener callback, Context context) {
@@ -45,6 +47,7 @@ public class UserController {
 		strLogin	= login;
 		strPasswd	= passwd;
 
+/*
 
 		try
 		{
@@ -82,12 +85,22 @@ public class UserController {
 		{
 			Log.e("https", "fail !");
 		}
+*/
+		RestAdapter restAdapter = new RestAdapter.Builder()
+			.setServer("http://88.185.252.7:80")
+			.build();
+
+		ODLoginService service = restAdapter.create(ODLoginService.class);
+
+		service.tryConnect(strLogin, strPasswd, new UserConnectCallback(callback));
+
 	}
 
 	static public void trySignUp(String strLogin, String strEmail, String strPasswd, String strConfirmPassword, SignUpListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("https://88.185.252.7")
+
+			.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODSignupService service = restAdapter.create(ODSignupService.class);

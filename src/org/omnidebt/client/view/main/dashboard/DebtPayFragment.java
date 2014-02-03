@@ -67,7 +67,7 @@ public class DebtPayFragment extends Fragment{
 				};
 				Double paymentValue=Double.parseDouble(value.getText().toString());
 				
-				DebtController.tryPay(UserController.getName(), name, paymentValue, pl);
+				DebtController.tryPay(name, paymentValue, pl);
 				
 			}
 		});

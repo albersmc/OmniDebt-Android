@@ -78,15 +78,16 @@ public class DashboardFragment extends Fragment {
 			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
 			{
 				DebtHolder tag=(DebtHolder) v.getTag();
-				Double debt=0.0;
-				DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), debt, pl);
+
+				DebtController.tryPay(tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
+
 			}
 		});
 
 		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		
-		ContactProvider.tryRetreiveContact(retreiveContactListener);
+		ContactProvider.tryRetreiveContact(faActivity.getPreferences().getString("token", ""), retreiveContactListener);
 		DebtProvider.retreiveAll(retreiveDebtListener);
 
 		return llLayout;
