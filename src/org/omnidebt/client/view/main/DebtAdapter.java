@@ -78,7 +78,7 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 					
 				};
 				DashboardFragment db=(DashboardFragment) ((MainODActivity) v2.getContext()).currentFragment;
-				DebtController.tryPay(UserController.getName(), db.theList.get(pos).name, pl);
+				DebtController.tryPay(db.theList.get(pos).name, pl);
 			}
 		});
 
