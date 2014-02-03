@@ -52,7 +52,7 @@ public class UserController {
 			InputStream in = context.getResources().openRawResource(R.raw.mystore);
 			try
 			{
-				keyStore.load(in, "ez24get".toCharArray());
+				keyStore.load(in, null);
 			} finally
 			{
 				in.close();
