@@ -58,7 +58,6 @@ public class ContactProvider {
 	static public void tryAddContact(String token, String name, AddContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
-			.setClient(new OkClient(client))
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);
