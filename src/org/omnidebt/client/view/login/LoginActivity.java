@@ -80,7 +80,7 @@ public class LoginActivity extends Activity {
 			tvLoginStatus.setText(R.string.login_trying_login);
 			
 			Log.i("login", "Try login");
-			UserController.tryLogin(strLogin, strPassword, loginListener, getApplicationContext());
+			UserController.tryLogin(strLogin, strPassword, loginListener);
 		}
 	};
 
