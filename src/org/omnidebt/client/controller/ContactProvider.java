@@ -11,9 +11,12 @@ import org.omnidebt.client.view.main.contact.AddContactListener;
 import org.omnidebt.client.view.main.contact.RemoveContactListener;
 import org.omnidebt.client.view.main.contact.RetreiveContactListener;
 
+import com.squareup.okhttp.OkHttpClient;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.DELETE;
+import retrofit.client.OkClient;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
@@ -39,7 +42,7 @@ public class ContactProvider {
 	static public void tryRetreiveContact(String token, RetreiveContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7:80")
+		.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
@@ -53,9 +56,9 @@ public class ContactProvider {
 	}
 
 	static public void tryAddContact(String token, String name, AddContactListener callback) {
-
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
+			.setClient(new OkClient(client))
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);

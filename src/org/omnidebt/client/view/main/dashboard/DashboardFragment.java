@@ -78,7 +78,9 @@ public class DashboardFragment extends Fragment {
 			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
 			{
 				DebtHolder tag=(DebtHolder) v.getTag();
-				DebtController.tryPay(tag.person.getText().toString(), tag.value.getText().toString(), pl);
+
+				DebtController.tryPay(tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
+
 			}
 		});
 

@@ -17,8 +17,8 @@ public class DebtProvider {
 	static private List<Debt> ldData = new ArrayList<Debt>();
 
 	public interface ODRetreiveDebtService {
-		@GET("/getAllDebts/{user}")
-		void tryRetreive(@Path("user") String user, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
+		@GET("/debt/user/")
+		void tryRetreive(Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
 	static public void retreiveAll(RetreiveDebtListener callback) {
@@ -28,7 +28,7 @@ public class DebtProvider {
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);
 
-		service.tryRetreive(UserController.getName(), new RetreiveDebtCallback(callback));
+		service.tryRetreive(new RetreiveDebtCallback(callback));
 	}
 
 	static public List<Debt> getAll() {

@@ -10,6 +10,7 @@ import org.omnidebt.client.view.main.contact.AddContactFragment;
 import org.omnidebt.client.view.main.contact.ContactFragment;
 import org.omnidebt.client.view.main.dashboard.AddDebtFragment;
 import org.omnidebt.client.view.main.dashboard.DashboardFragment;
+import org.omnidebt.client.view.main.dashboard.DebtPayFragment;
 import org.omnidebt.client.view.main.history.HistoryFragment;
 
 import android.app.Activity;
@@ -44,7 +45,8 @@ public class MainODActivity extends FragmentActivity {
 		AddContact,
 		AddDebt,
 		ContactInfos,
-		SelectContact
+		SelectContact,
+		PayDebt
 	};
 
 	private DrawerLayout			dlMainLayout		= null;
@@ -295,6 +297,15 @@ public class MainODActivity extends FragmentActivity {
 			if(iPosition.equals(EFragments.Dashboard.ordinal()))
 				isGoingDeeper = true;
 		}
+		else if(position.equals(EFragments.PayDebt.ordinal()))
+		{
+			fragment=new DebtPayFragment();
+			if(iPosition.equals(EFragments.Dashboard.ordinal()))
+			{
+				isGoingDeeper=true;
+			}
+			
+		}
 
 		if(position.compareTo(EFragments.NonTopLevel.ordinal()) < 0)
 		{
@@ -382,6 +393,15 @@ public class MainODActivity extends FragmentActivity {
 			arg.putString("User", name);
 			changeFragment(EFragments.AddDebt.ordinal(), arg);
 		}
+	}
+	
+	public void goToPayDebt(String name, double debt)
+	{
+		Bundle arg=new Bundle();
+		arg.putString("User", name);
+		arg.putString("Debt", ""+debt);
+		
+		changeFragment(EFragments.PayDebt.ordinal(), arg);
 	}
 
 	public void goToContactInfos(String name) {

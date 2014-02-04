@@ -97,7 +97,7 @@ public class AddDebtFragment extends Fragment{
 						
 					}
 					value=Math.abs(value);
-					DebtController.tryCreate(nameLender, nameOwner, value, dcl);
+					DebtController.tryCreate(nameLender, value, dcl);
 					
 				}
 				
