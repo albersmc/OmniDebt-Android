@@ -66,7 +66,7 @@ public class DebtPayFragment extends Fragment{
 				};
 				Double paymentValue=Double.parseDouble(value.getText().toString());
 				
-				DebtController.tryPay(name, paymentValue, pl);
+				DebtController.tryPay(faActivity.getPreferences().getString("token", ""), name, paymentValue, pl);
 				
 			}
 		});

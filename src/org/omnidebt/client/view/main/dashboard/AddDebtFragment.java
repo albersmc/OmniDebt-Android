@@ -93,7 +93,7 @@ public class AddDebtFragment extends Fragment{
 						
 					}
 					value=Math.abs(value);
-					DebtController.tryCreate(nameLender, value, dcl);
+					DebtController.tryCreate(faActivity.getPreferences().getString("token", ""), nameLender, value, dcl);
 					
 				}
 				

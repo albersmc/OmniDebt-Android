@@ -10,6 +10,7 @@ import org.omnidebt.client.view.main.RetreiveDebtListener;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
+import retrofit.http.Header;
 import retrofit.http.Path;
 
 public class DebtProvider {
@@ -18,17 +19,17 @@ public class DebtProvider {
 
 	public interface ODRetreiveDebtService {
 		@GET("/debt/user/")
-		void tryRetreive(Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
+		void tryRetreive(@Header("name") String user, @Header("token") String token, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
-	static public void retreiveAll(RetreiveDebtListener callback) {
+	static public void retreiveAll(String token, RetreiveDebtListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);
 
-		service.tryRetreive(new RetreiveDebtCallback(callback));
+		service.tryRetreive(UserController.getName(), token, new RetreiveDebtCallback(callback));
 	}
 
 	static public List<Debt> getAll() {
