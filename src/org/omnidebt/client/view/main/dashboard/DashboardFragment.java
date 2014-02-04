@@ -19,7 +19,6 @@ import org.omnidebt.client.view.main.contact.RetreiveContactListener.ERetreiveCo
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +78,7 @@ public class DashboardFragment extends Fragment {
 			{
 				DebtHolder tag=(DebtHolder) v.getTag();
 
-				DebtController.tryPay(tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
+				DebtController.tryPay(faActivity.getPreferences().getString("token", ""), tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
 
 			}
 		});
@@ -88,7 +87,7 @@ public class DashboardFragment extends Fragment {
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		
 		ContactProvider.tryRetreiveContact(faActivity.getPreferences().getString("token", ""), retreiveContactListener);
-		DebtProvider.retreiveAll(retreiveDebtListener);
+		DebtProvider.retreiveAll(faActivity.getPreferences().getString("token", ""), retreiveDebtListener);
 
 		return llLayout;
 

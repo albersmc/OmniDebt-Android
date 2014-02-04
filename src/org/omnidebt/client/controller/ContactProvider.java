@@ -11,17 +11,13 @@ import org.omnidebt.client.view.main.contact.AddContactListener;
 import org.omnidebt.client.view.main.contact.RemoveContactListener;
 import org.omnidebt.client.view.main.contact.RetreiveContactListener;
 
-import com.squareup.okhttp.OkHttpClient;
-
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.DELETE;
-import retrofit.client.OkClient;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
-
 import android.util.Log;
 
 public class ContactProvider {
@@ -69,6 +65,7 @@ public class ContactProvider {
 	
 	public interface ODRemoveContactService {
 		@DELETE("/user/contact/{contact}")
+
 		void tryRemove(@Header("name") String user, @Header("token") String token, @Path("contact") String contact, Callback<RemoveContactResponse> cb);
 	}
 

@@ -2,7 +2,6 @@ package org.omnidebt.client.view.main.dashboard;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.DebtController;
-import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.MainODActivity;
 
 import android.os.Bundle;
@@ -67,7 +66,7 @@ public class DebtPayFragment extends Fragment{
 				};
 				Double paymentValue=Double.parseDouble(value.getText().toString());
 				
-				DebtController.tryPay(name, paymentValue, pl);
+				DebtController.tryPay(faActivity.getPreferences().getString("token", ""), name, paymentValue, pl);
 				
 			}
 		});

@@ -4,21 +4,17 @@ import org.omnidebt.client.R;
 import org.omnidebt.client.controller.DebtController;
 import org.omnidebt.client.controller.DebtCreateCallback;
 import org.omnidebt.client.controller.UserController;
-import org.omnidebt.client.view.main.Debt;
-import org.omnidebt.client.view.main.DebtAdapter;
 import org.omnidebt.client.view.main.DebtCreateListener;
 import org.omnidebt.client.view.main.MainODActivity;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class AddDebtFragment extends Fragment{
@@ -97,7 +93,7 @@ public class AddDebtFragment extends Fragment{
 						
 					}
 					value=Math.abs(value);
-					DebtController.tryCreate(nameLender, value, dcl);
+					DebtController.tryCreate(faActivity.getPreferences().getString("token", ""), nameLender, value, dcl);
 					
 				}
 				

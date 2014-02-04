@@ -1,7 +1,6 @@
 package org.omnidebt.client.view.main.history;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.omnidebt.client.R;
