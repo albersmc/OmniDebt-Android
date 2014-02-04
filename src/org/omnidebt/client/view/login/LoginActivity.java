@@ -70,6 +70,12 @@ public class LoginActivity extends Activity {
 		outState.putString("status", tvLoginStatus.getText().toString());
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		tryConnect();
+	}
+
 	// On Login clicked
 	private OnClickListener onClickLogin = new View.OnClickListener() {
 		@Override
@@ -103,13 +109,23 @@ public class LoginActivity extends Activity {
 		if(!preferences.getString("name", "").equals("") &&
 			!preferences.getString("token", "").equals(""))
 		{
+			tvLoginStatus.setText(R.string.login_trying_login);
+			
+			Log.i("login", "Try login");
 			UserController.checkToken(preferences.getString("name", ""), preferences.getString("token", ""), checkTokenListener);
 		}
 
 		else if(!preferences.getString("name", "").equals("") &&
 			!preferences.getString("pass", "").equals(""))
 		{
+			tvLoginStatus.setText(R.string.login_trying_login);
+			
+			Log.i("login", "Try login");
 			UserController.tryLogin(preferences.getString("name", ""), preferences.getString("pass", ""), loginListener);
+
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.clear();
+			editor.commit();
 		}
 	}
 
@@ -171,6 +187,13 @@ public class LoginActivity extends Activity {
 		public void onConnectResult(ConnectResult code) {
 			if(code.equals(ConnectResult.Succeed)) {
 				loginListener.onConnectResult(LoginListener.ConnectResult.Succeed);
+			}
+			else {
+				tvLoginStatus.setText("");
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.clear();
+				editor.commit();
+
 			}
 		}
 	};

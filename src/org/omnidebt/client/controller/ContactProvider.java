@@ -47,6 +47,8 @@ public class ContactProvider {
 
 		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
 
+		Log.d("token", "name:  " + UserController.getName());
+		Log.d("token", "token: " + token);
 		service.tryRetreive(UserController.getName(), token, new RetreiveContactCallback(callback));
 	}
 
