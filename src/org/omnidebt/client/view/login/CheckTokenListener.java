@@ -1,15 +1,15 @@
 package org.omnidebt.client.view.login;
 
-public interface LoginListener {
+public interface CheckTokenListener {
 
 	public enum ConnectResult {
 		Succeed,
-		WrongIDs,
+		WrongToken,
 		Failed,
 		UnkownError
 	}
 	
 	public void onConnectResult(ConnectResult code);
-	public void onConnectSuccess(String name, String token);
 
 }
+

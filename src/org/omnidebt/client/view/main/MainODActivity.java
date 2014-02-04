@@ -194,6 +194,10 @@ public class MainODActivity extends FragmentActivity {
 
 		if(length.equals(0))
 		{
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.clear();
+			editor.commit();
+
 			super.onBackPressed();
 		}
 		else

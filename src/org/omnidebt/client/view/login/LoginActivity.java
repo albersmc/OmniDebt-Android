@@ -60,10 +60,7 @@ public class LoginActivity extends Activity {
 			tvLoginStatus.setText(savedInstanceState.getString("status"));
 		}
 
-		if(!preferences.getString("token", "").equals(""))
-		{
-		}
-		
+		tryConnect();
 	}
 
 	@Override
@@ -97,6 +94,24 @@ public class LoginActivity extends Activity {
 			etPassword.setText("");
 		}
 	};
+
+	private void tryConnect()
+	{
+		Log.d("token", "name  : " + preferences.getString("name", ""));
+		Log.d("token", "pass  : " + preferences.getString("pass", ""));
+		Log.d("token", "token : " + preferences.getString("token", ""));
+		if(!preferences.getString("name", "").equals("") &&
+			!preferences.getString("token", "").equals(""))
+		{
+			UserController.checkToken(preferences.getString("name", ""), preferences.getString("token", ""), checkTokenListener);
+		}
+
+		else if(!preferences.getString("name", "").equals("") &&
+			!preferences.getString("pass", "").equals(""))
+		{
+			UserController.tryLogin(preferences.getString("name", ""), preferences.getString("pass", ""), loginListener);
+		}
+	}
 
 	// On Create Account clicked		
 	private OnClickListener onClickCreateAccount = new View.OnClickListener() {
@@ -143,10 +158,20 @@ public class LoginActivity extends Activity {
 		}
 
 		@Override
-		public void onConnectSuccess(String token) {
+		public void onConnectSuccess(String name, String token) {
 			SharedPreferences.Editor editor = preferences.edit();
+			editor.putString("name", name);
 			editor.putString("token", token);
 			editor.commit();
+		}
+	};
+
+	private CheckTokenListener checkTokenListener = new CheckTokenListener() {
+		@Override
+		public void onConnectResult(ConnectResult code) {
+			if(code.equals(ConnectResult.Succeed)) {
+				loginListener.onConnectResult(LoginListener.ConnectResult.Succeed);
+			}
 		}
 	};
 }

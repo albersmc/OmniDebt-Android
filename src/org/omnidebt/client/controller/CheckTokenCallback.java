@@ -1,7 +1,7 @@
 package org.omnidebt.client.controller;
 
-import org.omnidebt.client.view.login.LoginListener;
-import org.omnidebt.client.view.login.LoginListener.ConnectResult;
+import org.omnidebt.client.view.login.CheckTokenListener;
+import org.omnidebt.client.view.login.CheckTokenListener.ConnectResult;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -9,20 +9,19 @@ import retrofit.client.Response;
 
 import android.util.Log;
 
-public class UserConnectCallback implements Callback<UserConnectCallback.ConnectResponse> {
+public class CheckTokenCallback implements Callback<CheckTokenCallback.CheckTokenResponse> {
 
-	private LoginListener callback = null;
+	private CheckTokenListener callback = null;
 
-	public UserConnectCallback(LoginListener c) {
+	public CheckTokenCallback(CheckTokenListener c) {
 		callback = c;
 	}
 	
 	@Override
-	public void success(ConnectResponse r, Response response) {
+	public void success(CheckTokenResponse r, Response response) {
 		if(response.getStatus() == 200)
 		{
 			Log.i("login", "Authentication Succeed");
-			callback.onConnectSuccess(UserController.getName(), r.token);
 			callback.onConnectResult(ConnectResult.Succeed);
 		}
 		else
@@ -43,7 +42,7 @@ public class UserConnectCallback implements Callback<UserConnectCallback.Connect
 		else if(error.getResponse().getStatus() == 401)
 		{
 			Log.w("login", "Authentication failed : wrong ids");
-			callback.onConnectResult(ConnectResult.WrongIDs);
+			callback.onConnectResult(ConnectResult.WrongToken);
 		}
 		else
 		{
@@ -52,7 +51,7 @@ public class UserConnectCallback implements Callback<UserConnectCallback.Connect
 		}
 	}
 
-	public class ConnectResponse {
+	public class CheckTokenResponse {
 
 		public String status = null;
 		public String token = null;

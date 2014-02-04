@@ -162,7 +162,7 @@ public class ContactFragment extends Fragment {
 	private void deleteSelectedItems() {
 		for(Integer i = baSelected.size(); i >= 0; i--) {
 			if(baSelected.get(i))
-				ContactProvider.tryRemoveContact(i, removeContactListener);
+				ContactProvider.tryRemoveContact(moActivity.getPreferences().getString("token", ""), i, removeContactListener);
 		}
 	}
 

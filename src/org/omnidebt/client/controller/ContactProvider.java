@@ -15,6 +15,7 @@ import com.squareup.okhttp.OkHttpClient;
 
 import retrofit.Callback;
 import retrofit.RestAdapter;
+import retrofit.http.DELETE;
 import retrofit.client.OkClient;
 import retrofit.http.DELETE;
 import retrofit.http.GET;
@@ -51,31 +52,27 @@ public class ContactProvider {
 	}
 
 	public interface ODAddContactService {
-		@POST("/newContact/{user}/{contact}")
-		void tryAdd(@Path("user") String user, @Path("contact") String contact, Callback<AddContactResponse> cb);
+		@POST("/user/contact/{contact}")
+		void tryAdd(@Header("name") String user, @Header("token") String token, @Path("contact") String contact, Callback<AddContactResponse> cb);
 	}
 
-	static public void tryAddContact(String name, AddContactListener callback) {
-		
-		OkHttpClient client=new OkHttpClient();
-		
-
+	static public void tryAddContact(String token, String name, AddContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
-			.setClient(new OkClient(client))
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);
 
-		service.tryAdd(UserController.getName(), name, new AddContactCallback(callback));
+		service.tryAdd(UserController.getName(), token, name, new AddContactCallback(callback));
 	}
 	
 	public interface ODRemoveContactService {
 		@DELETE("/user/contact/{contact}")
-		void tryRemove(@Path("user") String user, @Path("contact") String contact, Callback<RemoveContactResponse> cb);
+
+		void tryRemove(@Header("name") String user, @Header("token") String token, @Path("contact") String contact, Callback<RemoveContactResponse> cb);
 	}
 
-	static public void tryRemoveContact(Integer position, RemoveContactListener callback) {
+	static public void tryRemoveContact(String token, Integer position, RemoveContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
@@ -85,7 +82,7 @@ public class ContactProvider {
 		if(position < lcData.size())
 		{
 			lcToRemove.add(lcData.get(position));
-			service.tryRemove(UserController.getName(), lcData.get(position).name, new RemoveContactCallback(callback));
+			service.tryRemove(UserController.getName(), token, lcData.get(position).name, new RemoveContactCallback(callback));
 		}
 		else
 			Log.e("contact", "Remove contact position out of bounds");

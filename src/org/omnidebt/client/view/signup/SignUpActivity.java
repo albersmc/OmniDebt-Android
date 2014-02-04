@@ -7,6 +7,7 @@ import org.omnidebt.client.R;
 import org.omnidebt.client.controller.UserController;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -117,6 +118,14 @@ public class SignUpActivity extends Activity{
 		public void onConnectResult(SignUpResult code) {
 			if(code.equals(SignUpResult.Succeed))
 			{
+				String name	= etName.getText().toString();
+				String password	= etPasswd.getText().toString();
+				SharedPreferences preferences	= getSharedPreferences("user", 0);
+				SharedPreferences.Editor editor = preferences.edit();
+				editor.putString("name", name);
+				editor.putString("pass", password);
+				editor.commit();
+
 				finish();
 				overridePendingTransition(R.anim.none, R.anim.top_out);
 			}
@@ -133,7 +142,5 @@ public class SignUpActivity extends Activity{
 			}
 			
 		}
-		
-		
 	};
 }
