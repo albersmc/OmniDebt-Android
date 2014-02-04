@@ -51,6 +51,8 @@ public class UserController {
 	}
 
 	static public void checkToken(String login, String token, CheckTokenListener callback) {
+		strLogin	= login;
+
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7:80")
 			.build();
