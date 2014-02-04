@@ -16,6 +16,7 @@ import com.squareup.okhttp.OkHttpClient;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.client.OkClient;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
@@ -70,7 +71,7 @@ public class ContactProvider {
 	}
 	
 	public interface ODRemoveContactService {
-		@POST("/deleteContact/{user}/{contact}")
+		@DELETE("/user/contact/{contact}")
 		void tryRemove(@Path("user") String user, @Path("contact") String contact, Callback<RemoveContactResponse> cb);
 	}
 
