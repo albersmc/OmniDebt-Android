@@ -2,7 +2,6 @@ package org.omnidebt.client.view.main.dashboard;
 
 import org.omnidebt.client.R;
 import org.omnidebt.client.controller.DebtController;
-import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.MainODActivity;
 
 import android.os.Bundle;

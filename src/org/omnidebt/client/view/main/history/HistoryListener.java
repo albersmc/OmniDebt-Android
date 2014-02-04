@@ -1,6 +1,5 @@
 package org.omnidebt.client.view.main.history;
 
-import org.omnidebt.client.view.login.LoginListener.ConnectResult;
 
 public interface HistoryListener {
 	

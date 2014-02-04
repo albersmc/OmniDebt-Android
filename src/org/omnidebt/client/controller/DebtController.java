@@ -3,12 +3,11 @@ package org.omnidebt.client.controller;
 import org.omnidebt.client.view.main.DebtCreateListener;
 import org.omnidebt.client.view.main.dashboard.PaiementListener;
 
-import retrofit.http.DELETE;
-import retrofit.http.POST;
 import retrofit.Callback;
 import retrofit.RestAdapter;
-import retrofit.http.Path;
 import retrofit.client.Response;
+import retrofit.http.POST;
+import retrofit.http.Path;
 
 public class DebtController {
 	

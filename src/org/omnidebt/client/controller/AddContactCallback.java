@@ -1,14 +1,11 @@
 package org.omnidebt.client.controller;
 
-import java.io.IOException;
-
 import org.omnidebt.client.view.main.contact.AddContactListener;
 import org.omnidebt.client.view.main.contact.AddContactListener.EAddContactResult;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.util.Log;
 
 public class AddContactCallback implements Callback<AddContactCallback.AddContactResponse> {

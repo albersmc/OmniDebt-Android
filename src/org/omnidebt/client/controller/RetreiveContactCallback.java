@@ -1,9 +1,7 @@
 
 package org.omnidebt.client.controller;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Scanner;
 
 import org.omnidebt.client.view.main.Contact;
 import org.omnidebt.client.view.main.contact.RetreiveContactListener;
@@ -12,7 +10,6 @@ import org.omnidebt.client.view.main.contact.RetreiveContactListener.ERetreiveCo
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-
 import android.util.Log;
 
 public class RetreiveContactCallback implements Callback<RetreiveContactCallback.RetreiveContactResponse> {
