@@ -41,7 +41,7 @@ public class ContactProvider {
 	static public void tryRetreiveContact(String token, RetreiveContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7:80")
+		.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODRetreiveContactService service = restAdapter.create(ODRetreiveContactService.class);
@@ -60,7 +60,7 @@ public class ContactProvider {
 		
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("https://88.185.252.7")
+			.setServer("http://88.185.252.7")
 			.setClient(new OkClient(client))
 			.build();
 
@@ -76,7 +76,7 @@ public class ContactProvider {
 
 	static public void tryRemoveContact(Integer position, RemoveContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("https://88.185.252.7")
+			.setServer("http://88.185.252.7")
 			.build();
 
 		ODRemoveContactService service = restAdapter.create(ODRemoveContactService.class);
