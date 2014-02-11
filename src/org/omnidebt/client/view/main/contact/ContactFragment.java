@@ -40,7 +40,7 @@ public class ContactFragment extends Fragment {
 		lvLayout	= (ListView)		inflater.inflate(R.layout.contact_fragment, container, false);
 		baSelected	= new SparseBooleanArray();
 		
-		ContactProvider.tryRetreiveContact(moActivity.getPreferences().getString("token", ""), retreiveContactListener);
+		ContactProvider.tryRetreiveContact(this, moActivity.getPreferences().getString("token", ""), retreiveContactListener);
 		
 		caAdapter	= new ContactAdapter(moActivity, R.layout.contact_item_fragment, ContactProvider.getList(), baSelected);
 
@@ -48,7 +48,7 @@ public class ContactFragment extends Fragment {
 		if(bIsSelectContact == null)
 			bIsSelectContact = false;
 
-		ContactProvider.tryRetreiveContact(moActivity.getPreferences().getString("token", ""), retreiveContactListener);
+		ContactProvider.tryRetreiveContact(this, moActivity.getPreferences().getString("token", ""), retreiveContactListener);
 
 		lvLayout.setAdapter(caAdapter);
 
@@ -162,7 +162,7 @@ public class ContactFragment extends Fragment {
 	private void deleteSelectedItems() {
 		for(Integer i = baSelected.size(); i >= 0; i--) {
 			if(baSelected.get(i))
-				ContactProvider.tryRemoveContact(moActivity.getPreferences().getString("token", ""), i, removeContactListener);
+				ContactProvider.tryRemoveContact(this, moActivity.getPreferences().getString("token", ""), i, removeContactListener);
 		}
 	}
 

@@ -18,6 +18,7 @@ import retrofit.http.GET;
 import retrofit.http.Header;
 import retrofit.http.POST;
 import retrofit.http.Path;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class ContactProvider {
@@ -35,7 +36,7 @@ public class ContactProvider {
 		void tryRetreive(@Header("name") String user, @Header("token") String token, Callback<RetreiveContactResponse> cb);
 	}
 	
-	static public void tryRetreiveContact(String token, RetreiveContactListener callback) {
+	static public void tryRetreiveContact(Fragment frag, String token, RetreiveContactListener callback) {
 
 		RestAdapter restAdapter = new RestAdapter.Builder()
 		.setServer("http://88.185.252.7:80")
@@ -45,7 +46,7 @@ public class ContactProvider {
 
 		Log.d("token", "name:  " + UserController.getName());
 		Log.d("token", "token: " + token);
-		service.tryRetreive(UserController.getName(), token, new RetreiveContactCallback(callback));
+		service.tryRetreive(UserController.getName(), token, new RetreiveContactCallback(frag, callback));
 	}
 
 	public interface ODAddContactService {
@@ -53,14 +54,14 @@ public class ContactProvider {
 		void tryAdd(@Header("name") String user, @Header("token") String token, @Path("contact") String contact, Callback<AddContactResponse> cb);
 	}
 
-	static public void tryAddContact(String token, String name, AddContactListener callback) {
+	static public void tryAddContact(Fragment frag, String token, String name, AddContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);
 
-		service.tryAdd(UserController.getName(), token, name, new AddContactCallback(callback));
+		service.tryAdd(UserController.getName(), token, name, new AddContactCallback(frag, callback));
 	}
 	
 	public interface ODRemoveContactService {
@@ -69,7 +70,7 @@ public class ContactProvider {
 		void tryRemove(@Header("name") String user, @Header("token") String token, @Path("contact") String contact, Callback<RemoveContactResponse> cb);
 	}
 
-	static public void tryRemoveContact(String token, Integer position, RemoveContactListener callback) {
+	static public void tryRemoveContact(Fragment frag, String token, Integer position, RemoveContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
@@ -79,7 +80,7 @@ public class ContactProvider {
 		if(position < lcData.size())
 		{
 			lcToRemove.add(lcData.get(position));
-			service.tryRemove(UserController.getName(), token, lcData.get(position).name, new RemoveContactCallback(callback));
+			service.tryRemove(UserController.getName(), token, lcData.get(position).name, new RemoveContactCallback(frag, callback));
 		}
 		else
 			Log.e("contact", "Remove contact position out of bounds");

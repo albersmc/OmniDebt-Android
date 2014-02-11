@@ -10,62 +10,69 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.RetreiveDebtResponse> {
 
 	RetreiveDebtListener callback = null;
+	private Fragment frag;
 
-	public RetreiveDebtCallback (RetreiveDebtListener c) {
+	public RetreiveDebtCallback (Fragment frag, RetreiveDebtListener c) {
 		callback = c;
+		this.frag=frag;
 	}
 
 	@Override
 	public void success(RetreiveDebtResponse r, Response response) {
-
-		if(response.getStatus() == 200)
+		if(frag!=null)
 		{
-
-			Log.i("debts", "Retreived Debts");
-			DebtProvider.resetDebt();
-			if(r.in != null)
+			if(response.getStatus() == 200)
 			{
-				for(Debt d : r.in)
+	
+				Log.i("debts", "Retreived Debts");
+				DebtProvider.resetDebt();
+				if(r.in != null)
 				{
-					d.owed = false;
-					DebtProvider.addDebt(d);
+					for(Debt d : r.in)
+					{
+						d.owed = false;
+						DebtProvider.addDebt(d);
+					}
 				}
+				if(r.out != null)
+				{
+					for(Debt d : r.out)
+					{
+						d.owed = true;
+						DebtProvider.addDebt(d);
+					}
+				}
+				
+				callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 			}
-			if(r.out != null)
+			else
 			{
-				for(Debt d : r.out)
-				{
-					d.owed = true;
-					DebtProvider.addDebt(d);
-				}
+				Log.e("debts", "Unkown error retreiving debts");
+				callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
 			}
-			
-			callback.onRetreiveDebtResult(ERetreiveDebtResult.Success);
-		}
-		else
-		{
-			Log.e("debts", "Unkown error retreiving debts");
-			callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
 		}
 	}
 
 	@Override
 	public void failure(RetrofitError error) {
-
-		if (error.isNetworkError())
+		if(frag!=null)
 		{
-			Log.e("debts", "Network error retreiving debts");
-			callback.onRetreiveDebtResult(ERetreiveDebtResult.Failed);
-		}
-		else
-		{
-			Log.e("debts", "Unkown error retreiving debts");
-			callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
+			if (error.isNetworkError())
+			{
+				Log.e("debts", "Network error retreiving debts");
+				callback.onRetreiveDebtResult(ERetreiveDebtResult.Failed);
+			}
+			else
+			{
+				Log.e("debts", "Unkown error retreiving debts");
+				callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
+			}
 		}
 	}
 

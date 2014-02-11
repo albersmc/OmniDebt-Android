@@ -21,6 +21,7 @@ public class AddContactFragment extends Fragment {
 
 	private Button			bAdd		= null;
 	private Button			bCancel		= null;
+	private Fragment frag=this;
 	
 	public AddContactFragment() {
 	}
@@ -56,7 +57,7 @@ public class AddContactFragment extends Fragment {
 		public void onClick(View v) {
 			String name		= ((TextView)	llLayout.findViewById(R.id.contact_name)).getText().toString();
 			((TextView)	llLayout.findViewById(R.id.add_contact_status)).setText(R.string.login_trying_login);
-			ContactProvider.tryAddContact(moActivity.getPreferences().getString("token", ""), name, addContactListener);
+			ContactProvider.tryAddContact(frag, moActivity.getPreferences().getString("token", ""), name, addContactListener);
 		}
 	};
 

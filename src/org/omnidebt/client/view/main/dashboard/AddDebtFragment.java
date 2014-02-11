@@ -27,6 +27,7 @@ public class AddDebtFragment extends Fragment{
 	private DebtCreateCallback dcc;
 	private String sUser;
 	public TextView	err;
+	private Fragment frag=this;
 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -93,7 +94,7 @@ public class AddDebtFragment extends Fragment{
 						
 					}
 					value=Math.abs(value);
-					DebtController.tryCreate(faActivity.getPreferences().getString("token", ""), nameLender, value, dcl);
+					DebtController.tryCreate(frag, faActivity.getPreferences().getString("token", ""), nameLender, value, dcl);
 					
 				}
 				

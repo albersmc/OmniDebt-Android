@@ -7,6 +7,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class UserConnectCallback implements Callback<UserConnectCallback.ConnectResponse> {

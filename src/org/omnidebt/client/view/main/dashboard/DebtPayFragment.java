@@ -22,6 +22,7 @@ public class DebtPayFragment extends Fragment{
 	MainODActivity faActivity;
 	LinearLayout llLayout;
 	String name;
+	private Fragment frag=this;
 	
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
 	{
@@ -66,7 +67,7 @@ public class DebtPayFragment extends Fragment{
 				};
 				Double paymentValue=Double.parseDouble(value.getText().toString());
 				
-				DebtController.tryPay(faActivity.getPreferences().getString("token", ""), name, paymentValue, pl);
+				DebtController.tryPay(frag, faActivity.getPreferences().getString("token", ""), name, paymentValue, pl);
 				
 			}
 		});

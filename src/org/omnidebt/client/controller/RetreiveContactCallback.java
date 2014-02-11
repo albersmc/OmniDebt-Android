@@ -10,40 +10,50 @@ import org.omnidebt.client.view.main.contact.RetreiveContactListener.ERetreiveCo
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class RetreiveContactCallback implements Callback<RetreiveContactCallback.RetreiveContactResponse> {
 
 	private RetreiveContactListener callback = null;
+	private Fragment frag;
 
-	public  RetreiveContactCallback(RetreiveContactListener c) {
+	public  RetreiveContactCallback(Fragment frag, RetreiveContactListener c) {
 		callback = c;
+		this.frag=frag;
 	}
 	
 	@Override
 	public void success(RetreiveContactResponse r, Response response) {
-
-		if(response.getStatus() == 200)
+		if(frag!=null)
 		{
-			if(r.status.equals("OK"))
+			if(response.getStatus() == 200)
 			{
-				ContactProvider.resetContact();
-				ContactProvider.addSelf(r.self);
-				if(r.contacts != null)
+				if(r.status.equals("OK"))
 				{
-					for(Contact c : r.contacts)
+					ContactProvider.resetContact();
+					ContactProvider.addSelf(r.self);
+					if(r.contacts != null)
 					{
-						ContactProvider.addContact(c);
-
-						Log.i("contact", "Got a contact Succeed");
+						for(Contact c : r.contacts)
+						{
+							ContactProvider.addContact(c);
+	
+							Log.i("contact", "Got a contact Succeed");
+						}
 					}
+					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
 				}
-				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
-			}
-			else if(r.status.equals("KO"))
-			{
-				Log.e("contact", "No Contact");
-				callback.onRetreiveContactResult(ERetreiveContactResult.Success);
+				else if(r.status.equals("KO"))
+				{
+					Log.e("contact", "No Contact");
+					callback.onRetreiveContactResult(ERetreiveContactResult.Success);
+				}
+				else
+				{
+					Log.e("contact", "Unexpected error");
+					callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+				}
 			}
 			else
 			{
@@ -51,25 +61,22 @@ public class RetreiveContactCallback implements Callback<RetreiveContactCallback
 				callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
 			}
 		}
-		else
-		{
-			Log.e("contact", "Unexpected error");
-			callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
-		}
 	}
 
 	@Override
 	public void failure(RetrofitError error) {
-
-		if (error.isNetworkError())
+		if(frag!=null)
 		{
-			Log.e("contact", "Authentication failed : conenction with database problem");
-			callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
-		}
-		else
-		{
-			Log.e("contact", "Unexpected error 2");
-			callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+			if (error.isNetworkError())
+			{
+				Log.e("contact", "Authentication failed : conenction with database problem");
+				callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+			}
+			else
+			{
+				Log.e("contact", "Unexpected error 2");
+				callback.onRetreiveContactResult(ERetreiveContactResult.Failed);
+			}
 		}
 	}
 

@@ -7,6 +7,9 @@ import org.omnidebt.client.controller.RetreiveDebtCallback.RetreiveDebtResponse;
 import org.omnidebt.client.view.main.Debt;
 import org.omnidebt.client.view.main.RetreiveDebtListener;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
@@ -22,14 +25,14 @@ public class DebtProvider {
 		void tryRetreive(@Header("name") String user, @Header("token") String token, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
-	static public void retreiveAll(String token, RetreiveDebtListener callback) {
+	static public void retreiveAll(Fragment frag, String token, RetreiveDebtListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
 			.setServer("http://88.185.252.7")
 			.build();
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);
 
-		service.tryRetreive(UserController.getName(), token, new RetreiveDebtCallback(callback));
+		service.tryRetreive(UserController.getName(), token, new RetreiveDebtCallback(frag, callback));
 	}
 
 	static public List<Debt> getAll() {

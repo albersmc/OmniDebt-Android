@@ -25,6 +25,7 @@ import retrofit.http.POST;
 import retrofit.http.Path;
 
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.squareup.okhttp.OkHttpClient;

@@ -10,62 +10,69 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
+import android.support.v4.app.Fragment;
 import android.util.Log;
 
 public class RemoveContactCallback implements Callback<RemoveContactCallback.RemoveContactResponse> {
 
 	private RemoveContactListener callback = null;
+	private Fragment frag;
 
-	public RemoveContactCallback(RemoveContactListener c) {
+	public RemoveContactCallback(Fragment frag, RemoveContactListener c) {
 		callback = c;
+		this.frag=frag;
 	}
 	
 	@Override
 	public void success(RemoveContactResponse r, Response response) {
-
-		if(response.getStatus() == 200)
+		if(frag!=null)
 		{
-			if(r.status.equals("OK"))
+			if(response.getStatus() == 200)
 			{
-				Log.i("login", "Authentication Succeed");
-				ContactProvider.removeContact();
-				callback.onRemoveContactResult(ERemoveContactResult.Success);
-			}
-			else if(r.status.equals("EXIST"))
-			{
-				Log.i("login", "A Debt Still Exist");
-				callback.onRemoveContactResult(ERemoveContactResult.DebtExist);
-			}
-			else if(r.status.equals("KO"))
-			{
-				Log.i("login", "Unknown Contact");
-				callback.onRemoveContactResult(ERemoveContactResult.UnknownContact);
+				if(r.status.equals("OK"))
+				{
+					Log.i("login", "Authentication Succeed");
+					ContactProvider.removeContact();
+					callback.onRemoveContactResult(ERemoveContactResult.Success);
+				}
+				else if(r.status.equals("EXIST"))
+				{
+					Log.i("login", "A Debt Still Exist");
+					callback.onRemoveContactResult(ERemoveContactResult.DebtExist);
+				}
+				else if(r.status.equals("KO"))
+				{
+					Log.i("login", "Unknown Contact");
+					callback.onRemoveContactResult(ERemoveContactResult.UnknownContact);
+				}
+				else
+				{
+					Log.i("login", "Unkown Error");
+					callback.onRemoveContactResult(ERemoveContactResult.Failure);
+				}
 			}
 			else
 			{
-				Log.i("login", "Unkown Error");
-				callback.onRemoveContactResult(ERemoveContactResult.Failure);
+				Log.e("login", "Unexpected error");
+				callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
 			}
-		}
-		else
-		{
-			Log.e("login", "Unexpected error");
-			callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
 		}
 	}
 
 	@Override
 	public void failure(RetrofitError error) {
-
-		if (error.isNetworkError())
+		if(frag!=null)
 		{
-			Log.e("login", "Authentication failed : conenction with database problem");
-			callback.onRemoveContactResult(ERemoveContactResult.Failure);
-		}
-		else
-		{
-			Log.e("login", "Unexpected error");
-			callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
+			if (error.isNetworkError())
+			{
+				Log.e("login", "Authentication failed : conenction with database problem");
+				callback.onRemoveContactResult(ERemoveContactResult.Failure);
+			}
+			else
+			{
+				Log.e("login", "Unexpected error");
+				callback.onRemoveContactResult(ERemoveContactResult.UnknownError);
+			}
 		}
 	}
 

@@ -3,6 +3,9 @@ package org.omnidebt.client.controller;
 import org.omnidebt.client.view.main.DebtCreateListener;
 import org.omnidebt.client.view.main.dashboard.PaiementListener;
 
+import android.content.Context;
+import android.support.v4.app.Fragment;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.client.Response;
@@ -22,22 +25,22 @@ public class DebtController {
 		void tryPay(@Header("name") String user, @Header("token") String token, @Path("nameContact") String nameContact, @Path("debt") Double debt, Callback<Response> cb);
 	}
 	
-	public static void tryCreate(String token, String nameLender, float debt, DebtCreateListener cb)
+	public static void tryCreate(Fragment frag, String token, String nameLender, float debt, DebtCreateListener cb)
 	{
 		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
-		ds.tryCreate(UserController.getName(), token ,nameLender,debt, new DebtCreateCallback(cb));
+		ds.tryCreate(UserController.getName(), token ,nameLender,debt, new DebtCreateCallback(frag, cb));
 	}
 	
 
-	public static void tryPay(String token, String nameContact, Double debt, PaiementListener cb)
+	public static void tryPay(Fragment frag, String token, String nameContact, Double debt, PaiementListener cb)
 
 	{
 		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
 		DebtServer ds=ra.create(DebtServer.class);
 
-		ds.tryPay(UserController.getName(), token ,nameContact, debt, new DebtPayCallback(cb));
+		ds.tryPay(UserController.getName(), token ,nameContact, debt, new DebtPayCallback(frag, cb));
 
 	}
 	

@@ -36,6 +36,7 @@ public class DashboardFragment extends Fragment {
 	public Button addDebtButton;
 	private LinearLayout		llLayout	= null;
 	private View theView = null;
+	private Fragment frag=this;
 
 	private MainODActivity	faActivity	= null;
 	public String				sUser		= "";
@@ -78,7 +79,7 @@ public class DashboardFragment extends Fragment {
 			{
 				DebtHolder tag=(DebtHolder) v.getTag();
 
-				DebtController.tryPay(faActivity.getPreferences().getString("token", ""), tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
+				DebtController.tryPay(frag, faActivity.getPreferences().getString("token", ""), tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
 
 			}
 		});
@@ -86,8 +87,8 @@ public class DashboardFragment extends Fragment {
 		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		
-		ContactProvider.tryRetreiveContact(faActivity.getPreferences().getString("token", ""), retreiveContactListener);
-		DebtProvider.retreiveAll(faActivity.getPreferences().getString("token", ""), retreiveDebtListener);
+		ContactProvider.tryRetreiveContact(this, faActivity.getPreferences().getString("token", ""), retreiveContactListener);
+		DebtProvider.retreiveAll(this, faActivity.getPreferences().getString("token", ""), retreiveDebtListener);
 
 		return llLayout;
 

@@ -3,10 +3,7 @@ package org.omnidebt.client.view.main;
 import java.util.List;
 
 import org.omnidebt.client.R;
-import org.omnidebt.client.controller.DebtController;
-import org.omnidebt.client.controller.UserController;
 import org.omnidebt.client.view.main.dashboard.DashboardFragment;
-import org.omnidebt.client.view.main.dashboard.PaiementListener;
 
 import android.app.Activity;
 import android.content.Context;
