@@ -60,6 +60,10 @@ public class LoginActivity extends Activity {
 			tvLoginStatus.setText(savedInstanceState.getString("status"));
 		}
 
+		bLogin.setEnabled(true);
+		bCancel.setEnabled(true);
+		bCreateAccount.setEnabled(true);
+
 		tryConnect();
 	}
 
@@ -73,6 +77,11 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
+		bLogin.setEnabled(true);
+		bCancel.setEnabled(true);
+		bCreateAccount.setEnabled(true);
+
+		Log.d("connect", "Test !");
 		tryConnect();
 	}
 
@@ -83,10 +92,13 @@ public class LoginActivity extends Activity {
 			String	strLogin	= etLogin.getText().toString();
 			String	strPassword	= etPassword.getText().toString();
 
-			tvLoginStatus.setText(R.string.login_trying_login);
-			
-			Log.i("login", "Try login");
-			UserController.tryLogin(strLogin, strPassword, loginListener);
+			SharedPreferences.Editor editor = preferences.edit();
+			editor.clear();
+			editor.putString("name", strLogin);
+			editor.putString("pass", strPassword);
+			editor.commit();
+
+			tryConnect();
 		}
 	};
 
@@ -106,10 +118,14 @@ public class LoginActivity extends Activity {
 		Log.d("token", "name  : " + preferences.getString("name", ""));
 		Log.d("token", "pass  : " + preferences.getString("pass", ""));
 		Log.d("token", "token : " + preferences.getString("token", ""));
+
 		if(!preferences.getString("name", "").equals("") &&
 			!preferences.getString("token", "").equals(""))
 		{
 			tvLoginStatus.setText(R.string.login_trying_login);
+			bLogin.setEnabled(false);
+			bCancel.setEnabled(false);
+			bCreateAccount.setEnabled(false);
 			
 			Log.i("login", "Try login");
 			UserController.checkToken(preferences.getString("name", ""), preferences.getString("token", ""), checkTokenListener);
@@ -119,6 +135,9 @@ public class LoginActivity extends Activity {
 			!preferences.getString("pass", "").equals(""))
 		{
 			tvLoginStatus.setText(R.string.login_trying_login);
+			bLogin.setEnabled(false);
+			bCancel.setEnabled(false);
+			bCreateAccount.setEnabled(false);
 			
 			Log.i("login", "Try login");
 			UserController.tryLogin(preferences.getString("name", ""), preferences.getString("pass", ""), loginListener);
@@ -147,6 +166,11 @@ public class LoginActivity extends Activity {
 	private LoginListener loginListener = new LoginListener() {
 		@Override
 		public void onConnectResult(ConnectResult code) {
+
+			bLogin.setEnabled(true);
+			bCancel.setEnabled(true);
+			bCreateAccount.setEnabled(true);
+
 			// Authentication
 			if(code.equals(ConnectResult.Succeed)) {
 				// Clear form and go to MainODActivity
@@ -176,6 +200,7 @@ public class LoginActivity extends Activity {
 		@Override
 		public void onConnectSuccess(String name, String token) {
 			SharedPreferences.Editor editor = preferences.edit();
+			editor.clear();
 			editor.putString("name", name);
 			editor.putString("token", token);
 			editor.commit();
@@ -189,11 +214,14 @@ public class LoginActivity extends Activity {
 				loginListener.onConnectResult(LoginListener.ConnectResult.Succeed);
 			}
 			else {
+				bLogin.setEnabled(true);
+				bCancel.setEnabled(true);
+				bCreateAccount.setEnabled(true);
+
 				tvLoginStatus.setText("");
 				SharedPreferences.Editor editor = preferences.edit();
 				editor.clear();
 				editor.commit();
-
 			}
 		}
 	};

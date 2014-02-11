@@ -21,6 +21,7 @@ public class SignUpActivity extends Activity{
 	EditText etPasswd	= null;
 	EditText etConfirm	= null;
 	TextView tvStatus	= null;
+	boolean	 connecting	= false;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,11 @@ public class SignUpActivity extends Activity{
 					String strPasswd		= etPasswd.getText().toString();
 					String strConfirmPasswd	= etConfirm.getText().toString();
 					
+					Button signUpButton=(Button) findViewById(R.id.SignUpButton);
 					Button cancelButton=(Button) findViewById(R.id.CancelButton);
+					connecting = true;
+					signUpButton.setEnabled(false);
+					cancelButton.setEnabled(false);
 					UserController.trySignUp(strLogin, strEmail, strPasswd, strConfirmPasswd, suListener);
 
 					tvStatus.setText(R.string.login_trying_login);
@@ -108,14 +113,23 @@ public class SignUpActivity extends Activity{
 	
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
-		// The activity is no longer visible (it is now "stopped")
-		overridePendingTransition(R.anim.none, R.anim.top_out);
+		if(!connecting)
+		{
+			super.onBackPressed();
+			// The activity is no longer visible (it is now "stopped")
+			overridePendingTransition(R.anim.none, R.anim.top_out);
+		}
 	}
 	
 	private SignUpListener suListener=new SignUpListener(){
 		@Override
 		public void onConnectResult(SignUpResult code) {
+
+			Button signUpButton=(Button) findViewById(R.id.SignUpButton);
+			Button cancelButton=(Button) findViewById(R.id.CancelButton);
+			signUpButton.setEnabled(true);
+			cancelButton.setEnabled(true);
+
 			if(code.equals(SignUpResult.Succeed))
 			{
 				String name	= etName.getText().toString();
