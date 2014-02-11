@@ -17,6 +17,7 @@ public class DebtCreateCallback implements Callback<Response>{
 
 	public DebtCreateCallback(Fragment frag, DebtCreateListener c) {
 		callback = c;
+		this.frag=frag;
 	}
 	
 	@Override
