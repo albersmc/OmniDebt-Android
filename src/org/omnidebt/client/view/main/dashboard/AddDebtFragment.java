@@ -80,21 +80,7 @@ public class AddDebtFragment extends Fragment{
 				float value=Float.parseFloat(et.getText().toString());
 				if(value!=0)
 				{
-					if(value>0)
-					{
-						nameLender=UserController.getName();
-						nameOwner=sUser;
-						
-						
-					}
-					else if(value <0)
-					{
-						nameLender=sUser;
-						nameOwner=UserController.getName();
-						
-					}
-					value=Math.abs(value);
-					DebtController.tryCreate(frag, faActivity.getPreferences().getString("token", ""), nameLender, value, dcl);
+					DebtController.tryCreate(frag, faActivity.getPreferences().getString("token", ""), sUser, value, dcl);
 					
 				}
 				

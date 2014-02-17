@@ -27,7 +27,7 @@ public class DebtController {
 	
 	public static void tryCreate(Fragment frag, String token, String nameLender, float debt, DebtCreateListener cb)
 	{
-		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
+		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7:80").build();
 		DebtServer ds=ra.create(DebtServer.class);
 		
 		ds.tryCreate(UserController.getName(), token ,nameLender,debt, new DebtCreateCallback(frag, cb));
@@ -37,7 +37,7 @@ public class DebtController {
 	public static void tryPay(Fragment frag, String token, String nameContact, Double debt, PaiementListener cb)
 
 	{
-		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7").build();
+		RestAdapter ra=new RestAdapter.Builder().setServer("http://88.185.252.7:80").build();
 		DebtServer ds=ra.create(DebtServer.class);
 
 		ds.tryPay(UserController.getName(), token ,nameContact, debt, new DebtPayCallback(frag, cb));
