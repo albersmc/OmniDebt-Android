@@ -23,6 +23,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -397,6 +398,7 @@ public class MainODActivity extends FragmentActivity {
 	
 	public void goToPayDebt(String name, double debt)
 	{
+		Log.d("debt", "name is " +name);
 		Bundle arg=new Bundle();
 		arg.putString("User", name);
 		arg.putString("Debt", ""+debt);

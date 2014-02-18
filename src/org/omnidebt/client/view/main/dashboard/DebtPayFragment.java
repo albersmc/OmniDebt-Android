@@ -6,6 +6,7 @@ import org.omnidebt.client.view.main.MainODActivity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,13 +36,15 @@ public class DebtPayFragment extends Fragment{
 		payment=(Button) faActivity.findViewById(R.id.debt_pay_pay);
 		currentDebt=(TextView) faActivity.findViewById(R.id.currentDebt);
 		
-		
-		
+		if(savedInstanceState == null)
+			Log.d("debt", "saved null !");
+		else
+			Log.d("debt", "saved not null !");
 		
 		name=savedInstanceState.getString("User");
 		double debt=Double.parseDouble(savedInstanceState.getString("Debt"));
 		
-		currentDebt.setText(""+debt);
+		
 		
 		cancel.setOnClickListener(new View.OnClickListener() {
 			
