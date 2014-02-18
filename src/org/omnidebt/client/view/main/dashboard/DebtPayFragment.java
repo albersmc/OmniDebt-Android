@@ -31,30 +31,22 @@ public class DebtPayFragment extends Fragment{
 		faActivity	= (MainODActivity)	super.getActivity();
 		llLayout	= (LinearLayout)		inflater.inflate(R.layout.debt_pay_fragment, container, false);
 		
-		value=(EditText) faActivity.findViewById(R.id.debt_pay_value);
-		cancel=(Button) faActivity.findViewById(R.id.debt_pay_cancel);
-		payment=(Button) faActivity.findViewById(R.id.debt_pay_pay);
-		currentDebt=(TextView) faActivity.findViewById(R.id.currentDebt);
+		value=(EditText) llLayout.findViewById(R.id.debt_pay_value);
+		cancel=(Button) llLayout.findViewById(R.id.debt_pay_cancel2);
+		payment=(Button) llLayout.findViewById(R.id.debt_pay_pay);
+		currentDebt=(TextView) llLayout.findViewById(R.id.currentDebt);
 		
-		if(savedInstanceState == null)
-			Log.d("debt", "saved null !");
-		else
-			Log.d("debt", "saved not null !");
+		name=getArguments().getString("User");
+		double debt=Double.parseDouble(getArguments().getString("Debt"));
 		
-		name=savedInstanceState.getString("User");
-		double debt=Double.parseDouble(savedInstanceState.getString("Debt"));
-		
-		
-		
-		cancel.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				((MainODActivity) v.getContext()).goToPreviousFragment();
-			}
-		});
-		
+		if(cancel==null)
+		{
+			Log.d("debt", "NULL! CANCEL!");
+		}
+		if(payment==null)
+		{
+			Log.d("debt", "NULL! PAYMENT!");
+		}
 		payment.setOnClickListener(new View.OnClickListener() {
 			
 			@Override
@@ -75,6 +67,15 @@ public class DebtPayFragment extends Fragment{
 			}
 		});
 		
+		cancel.setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub
+				((MainODActivity) v.getContext()).goToPreviousFragment();
+			}
+		});
+
 		return llLayout;
 	}
 	
