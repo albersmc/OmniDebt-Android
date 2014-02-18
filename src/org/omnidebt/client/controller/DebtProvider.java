@@ -21,13 +21,13 @@ public class DebtProvider {
 	static private List<Debt> ldData = new ArrayList<Debt>();
 
 	public interface ODRetreiveDebtService {
-		@GET("/debt/user/")
+		@GET("/debt/user")
 		void tryRetreive(@Header("name") String user, @Header("token") String token, Callback<RetreiveDebtCallback.RetreiveDebtResponse> cb);
 	}
 
 	static public void retreiveAll(Fragment frag, String token, RetreiveDebtListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODRetreiveDebtService service = restAdapter.create(ODRetreiveDebtService.class);

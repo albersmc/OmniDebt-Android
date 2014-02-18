@@ -53,7 +53,7 @@ public class RetreiveDebtCallback implements Callback<RetreiveDebtCallback.Retre
 			}
 			else
 			{
-				Log.e("debts", "Unkown error retreiving debts");
+				Log.e("debts", "Unkown error retreiving debts (not 200)");
 				callback.onRetreiveDebtResult(ERetreiveDebtResult.UnkownError);
 			}
 		}

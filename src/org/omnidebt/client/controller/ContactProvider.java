@@ -56,7 +56,7 @@ public class ContactProvider {
 
 	static public void tryAddContact(Fragment frag, String token, String name, AddContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODAddContactService service = restAdapter.create(ODAddContactService.class);
@@ -72,7 +72,7 @@ public class ContactProvider {
 
 	static public void tryRemoveContact(Fragment frag, String token, Integer position, RemoveContactListener callback) {
 		RestAdapter restAdapter = new RestAdapter.Builder()
-			.setServer("http://88.185.252.7")
+			.setServer("http://88.185.252.7:80")
 			.build();
 
 		ODRemoveContactService service = restAdapter.create(ODRemoveContactService.class);
