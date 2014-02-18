@@ -27,6 +27,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class DashboardFragment extends Fragment {
 
@@ -57,15 +58,6 @@ public class DashboardFragment extends Fragment {
 		llLayout.addView(theView, 0);
 
 		viewList=(ListView) llLayout.findViewById(R.id.DebtList);
-		
-		viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-			{
-				DebtHolder tag=(DebtHolder) v.getTag();
-				sendRequest(tag.date.getText().toString(), tag.person.getText().toString(), tag.value.getText().toString());
-			}
-		});
-		
 
 		pl=new PaiementListener(){
 			public void onConnectResult(PaiementResult pr)
@@ -160,9 +152,13 @@ public class DashboardFragment extends Fragment {
 			}
 			else if(result.equals(ERetreiveDebtResult.Failed))
 			{
+				Toast toast = Toast.makeText(faActivity, "Failed", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 			else if(result.equals(ERetreiveDebtResult.UnkownError))
 			{
+				Toast toast = Toast.makeText(faActivity, "UnknownError", Toast.LENGTH_SHORT);
+				toast.show();
 			}
 		}
 
