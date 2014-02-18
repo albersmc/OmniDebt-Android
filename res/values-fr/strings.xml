@@ -48,6 +48,7 @@
         <item>Ajouter une Dette</item>
         <item>Infos Contact</item>
         <item>Sélectionner Contact</item>
+        <item>Payer Dette</item>
     </string-array>
 	<string name="title_activity_dashboard">Tableau de bord</string>
 	<string name="dashboard_dashboard">Tableau de bord</string>
