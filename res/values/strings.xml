@@ -48,6 +48,7 @@
         <item>Add Debt</item>
         <item>Contact Infos</item>
         <item>Select Contact</item>
+        <item>Pay Debt</item>
     </string-array>
 	<string name="title_activity_dashboard">Dashboard</string>
 	<string name="dashboard_dashboard">Dashboard</string>
