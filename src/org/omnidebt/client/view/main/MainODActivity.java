@@ -301,7 +301,8 @@ public class MainODActivity extends FragmentActivity {
 		else if(position.equals(EFragments.PayDebt.ordinal()))
 		{
 			fragment=new DebtPayFragment();
-			if(iPosition.equals(EFragments.Dashboard.ordinal()))
+			if(iPosition.equals(EFragments.Dashboard.ordinal()) ||
+				iPosition.equals(EFragments.History.ordinal()))
 			{
 				isGoingDeeper=true;
 			}
