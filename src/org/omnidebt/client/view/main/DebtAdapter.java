@@ -59,11 +59,13 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 		holder.value.setText(String.format("%.2f", debt.value));
 		holder.pay.setOnClickListener(new View.OnClickListener() {
 
+			int savedPos = pos;
+
 			@Override
 			public void onClick(View v) {
 				DashboardFragment db=(DashboardFragment) ((MainODActivity)v.getContext()).currentFragment;
 				
-				((MainODActivity)v.getContext()).goToPayDebt(db.theList.get(pos).name, db.theList.get(pos).value);
+				((MainODActivity)v.getContext()).goToPayDebt(db.theList.get(savedPos).name, db.theList.get(savedPos).value);
 
 			}
 		});

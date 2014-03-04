@@ -40,6 +40,7 @@ public class DebtPayFragment extends Fragment{
 		double debt=Double.parseDouble(getArguments().getString("Debt"));
 		
 		value.setText( ((Double)debt).toString() );
+
 		if(cancel==null)
 		{
 			Log.d("debt", "NULL! CANCEL!");

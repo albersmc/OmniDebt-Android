@@ -302,6 +302,7 @@ public class MainODActivity extends FragmentActivity {
 		{
 			fragment=new DebtPayFragment();
 			if(iPosition.equals(EFragments.Dashboard.ordinal()) ||
+				iPosition.equals(EFragments.ContactInfos.ordinal()) ||
 				iPosition.equals(EFragments.History.ordinal()))
 			{
 				isGoingDeeper=true;
@@ -399,7 +400,7 @@ public class MainODActivity extends FragmentActivity {
 	
 	public void goToPayDebt(String name, double debt)
 	{
-		Log.d("debt", "name is " +name);
+		Log.d("debt", "name is " + name + " debt is " + debt);
 		Bundle arg=new Bundle();
 		arg.putString("User", name);
 		arg.putString("Debt", ""+debt);
