@@ -39,6 +39,7 @@ public class DebtPayFragment extends Fragment{
 		name=getArguments().getString("User");
 		double debt=Double.parseDouble(getArguments().getString("Debt"));
 		
+		value.setText( ((Double)debt).toString() );
 		if(cancel==null)
 		{
 			Log.d("debt", "NULL! CANCEL!");
@@ -57,7 +58,8 @@ public class DebtPayFragment extends Fragment{
 					@Override
 					public void onConnectResult(PaiementResult code) {
 						// TODO Auto-generated method stub
-						
+						if(code.equals(PaiementResult.Succeed))
+							faActivity.goToPreviousFragment();
 					}
 				};
 				Double paymentValue=Double.parseDouble(value.getText().toString());

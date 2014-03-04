@@ -3,12 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <TextView
         android:id="@+id/currentDebt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge" />
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <EditText
         android:id="@+id/debt_pay_value"
@@ -19,23 +27,33 @@
 
         <requestFocus />
     </EditText>
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+        
+        <Button
+            android:id="@+id/debt_pay_pay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/dashboard_payment" />
 
         <Button
             android:id="@+id/debt_pay_cancel2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="@string/button_cancel" />
 
-        <Button
-            android:id="@+id/debt_pay_pay"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/dashboard_payment" />
-
     </LinearLayout>
+    
+    <View android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		android:layout_weight="1" />
 
 </LinearLayout>
