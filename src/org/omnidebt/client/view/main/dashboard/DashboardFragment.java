@@ -66,16 +66,6 @@ public class DashboardFragment extends Fragment {
 			}
 		};
 		
-		viewList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-			public void onItemClick(AdapterView av, View v, int lInt, long leLong)
-			{
-				DebtHolder tag=(DebtHolder) v.getTag();
-
-				DebtController.tryPay(frag, faActivity.getPreferences().getString("token", ""), tag.person.toString(), Double.parseDouble(tag.value.getText().toString()), pl);
-
-			}
-		});
-
 		retreiveContactListener.onRetreiveContactResult(ERetreiveContactResult.Success);
 		retreiveDebtListener.onRetreiveDebtResult(ERetreiveDebtResult.Success);
 		

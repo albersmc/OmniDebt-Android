@@ -31,9 +31,11 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
-		final int pos=position;
-		View row=convertView;
-		DebtHolder holder=null;
+		final int	pos			= position;
+		View		row			= convertView;
+		DebtHolder	holder		= null;
+		Debt 		debt		= data.get(position);
+
 		if(row==null)
 		{
 			LayoutInflater inflater=((Activity) context).getLayoutInflater();
@@ -52,7 +54,6 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 			holder=(DebtHolder) row.getTag();
 		}
 		
-		Debt debt=data.get(position);
 		holder.date.setText(debt.date);
 		holder.person.setText(debt.name);
 		holder.value.setText(String.format("%.2f", debt.value));
@@ -74,10 +75,8 @@ public class DebtAdapter extends ArrayAdapter<Debt>{
 
 		Log.d("debt", debt.name + " " + ( (Boolean) debt.closed ).toString());
 
-		if(debt.closed)
+		if(!debt.owed || debt.closed)
 			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.INVISIBLE);
-		else
-			( (ImageButton) row.findViewById(R.id.DebtPayment) ).setVisibility(View.VISIBLE);
 		
 		return row;
 	}

@@ -40,8 +40,6 @@ public class ContactFragment extends Fragment {
 		lvLayout	= (ListView)		inflater.inflate(R.layout.contact_fragment, container, false);
 		baSelected	= new SparseBooleanArray();
 		
-		ContactProvider.tryRetreiveContact(this, moActivity.getPreferences().getString("token", ""), retreiveContactListener);
-		
 		caAdapter	= new ContactAdapter(moActivity, R.layout.contact_item_fragment, ContactProvider.getList(), baSelected);
 
 		bIsSelectContact = getArguments().getBoolean("isSelectContact");
